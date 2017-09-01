@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RetroGameTest
+namespace BreakOut
 {
     /// <summary>
     /// The main class.

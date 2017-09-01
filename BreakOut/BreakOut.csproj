@@ -6,11 +6,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{207F6DBF-4477-4454-8B17-987E6247F7AB}</ProjectGuid>
+    <ProjectGuid>{A46EB9C4-DC22-4EDE-8269-245A987B8947}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RetroGameTest</RootNamespace>
-    <AssemblyName>RetroGameTest</AssemblyName>
+    <RootNamespace>BreakOut</RootNamespace>
+    <AssemblyName>BreakOut</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>DesktopGL</MonoGamePlatform>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -43,6 +43,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Game1.cs" />
+    <Compile Include="GameScene.cs" />
+    <Compile Include="IntroScene.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
