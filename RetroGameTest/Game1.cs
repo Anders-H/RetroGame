@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RetroGame;
+using RetroGame.Input;
 
 namespace RetroGameTest
 {
@@ -28,15 +29,24 @@ namespace RetroGameTest
 
     public class Scene : IScene
     {
-        private int x = 0;
+        private int X { get; set; } = 200;
+        private int Y { get; set; } = 200;
+        private KeyboardStateChecker Keyboard { get; } = new KeyboardStateChecker();
         public void Update(GameTime gameTime)
         {
-            if (x < 790)
-                x++;
+            Keyboard.UpdateState();
+            if (Keyboard.IsKeyDown(Keys.Left))
+                X--;
+            else if (Keyboard.IsKeyDown(Keys.Right))
+                X++;
+            if (Keyboard.IsKeyDown(Keys.Up))
+                Y--;
+            else if (Keyboard.IsKeyDown(Keys.Down))
+                Y++;
         }
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Game1.HelloTexture, new Vector2(x, 20), Color.White);
+            spriteBatch.Draw(Game1.HelloTexture, new Vector2(X, Y), Color.White);
         }
     }
 }
