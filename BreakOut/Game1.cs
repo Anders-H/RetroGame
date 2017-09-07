@@ -19,16 +19,16 @@ namespace BreakOut
         }
         protected override void LoadContent()
         {
-            var batPixels = new Color[10 * 30];
+            var batPixels = new Color[Bat.Width * Bat.Height];
             for (var i = 0; i < batPixels.Length; i++)
                 batPixels[i] = Color.White;
-            BatTexture = new Texture2D(GraphicsDevice, 10, 30);
+            BatTexture = new Texture2D(GraphicsDevice, Bat.Width, Bat.Height);
             BatTexture.SetData(batPixels);
 
-            var ballPixels = new Color[4 * 4];
+            var ballPixels = new Color[Ball.Width * Ball.Height];
             for (var i = 0; i < ballPixels.Length; i++)
                 ballPixels[i] = Color.White;
-            BallTexture = new Texture2D(GraphicsDevice, 4, 4);
+            BallTexture = new Texture2D(GraphicsDevice, Ball.Width, Ball.Height);
             BallTexture.SetData(ballPixels);
 
             SpriteFont = Content.Load<SpriteFont>("TheFont");

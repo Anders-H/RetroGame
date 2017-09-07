@@ -18,7 +18,10 @@ namespace BreakOut
         {
             Keyboard.UpdateState();
             Bat.Move(Keyboard);
-            Ball.Move(0, 0, 316, 196);
+            Ball.Move(Bat, 0, 0, 316, 196);
+            //Death condition.
+            if (Ball.X <= 4)
+                Parent.CurrentScene = new IntroScene(Parent);
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
@@ -36,6 +39,8 @@ namespace BreakOut
 
     public class Bat : Sprite
     {
+        public const int Width = 10;
+        public const int Height = 30;
         public Bat()
         {
             X = 0;
@@ -61,6 +66,8 @@ namespace BreakOut
 
     public class Ball : Sprite
     {
+        public const int Width = 4;
+        public const int Height = 4;
         public int SpeedX { get; set; }
         public int SpeedY { get; set; }
         public Ball()
@@ -71,10 +78,43 @@ namespace BreakOut
             SpeedY = 1;
         }
 
-        public void Move(int left, int top, int right, int bottom)
+        public void Move(Bat bat, int left, int top, int right, int bottom)
         {
             var nextX = X + SpeedX;
             var nextY = Y + SpeedY;
+            //Check intersection.
+            var nextPosition = new Rectangle(nextX, nextY, Width, Height);
+            var currentBatPosition = new Rectangle(bat.X, bat.Y, Bat.Width, Bat.Height);
+            if (nextPosition.Intersects(currentBatPosition))
+            {
+                var locationOnBat = nextY - bat.Y;
+                if (locationOnBat <= 6)
+                {
+                    SpeedX = 1;
+                    SpeedY = -2;
+                }
+                else if (locationOnBat <= 12)
+                {
+                    SpeedX = 2;
+                    SpeedY = -1;
+                }
+                else if (locationOnBat <= 18)
+                {
+                    SpeedX = 3;
+                    SpeedY = 0;
+                }
+                else if (locationOnBat <= 24)
+                {
+                    SpeedX = 2;
+                    SpeedY = 1;
+                }
+                else
+                {
+                    SpeedX = 1;
+                    SpeedY = 2;
+                }
+            }
+            //Collide with walls.
             if (nextX < left || nextX > right)
             {
                 SpeedX = -SpeedX;
