@@ -5,21 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using RetroGame;
 
 namespace BreakOut
 {
-    public class GameScene : IScene
+    public class GameScene : RetroGame.Scene
     {
-        private IScene ScenePointer { get; set; }
-        public GameScene(IScene scenePointer)
+        private Bat Bat { get; } = new Bat();
+        private Ball Ball { get; } = new Ball();
+        public GameScene(RetroGame.RetroGame retroGame) : base(retroGame)
         {
         }
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
         }
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            Bat.Draw(spriteBatch);
+            Ball.Draw(spriteBatch);
         }
     }
 

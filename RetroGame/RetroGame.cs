@@ -12,7 +12,7 @@ namespace RetroGame
         public int PhysicalHeight { get; }
         private SpriteBatch SpriteBatch { get; set; }
         private RenderTarget2D RenderTarget { get; set; }
-        public IScene CurrentScene { get; set; }
+        public Scene CurrentScene { get; set; }
         public RetroGame(int resolutionWidth, int resolutionHeight, bool fullScreen)
         {
             G = new GraphicsDeviceManager(this);

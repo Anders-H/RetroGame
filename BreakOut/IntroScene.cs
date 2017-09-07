@@ -1,27 +1,25 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.ComponentModel;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using RetroGame;
 using RetroGame.Input;
 
 namespace BreakOut
 {
-    public class IntroScene : IScene
+    public class IntroScene : RetroGame.Scene
     {
-        private IScene ScenePointer { get; set; }
         private KeyboardStateChecker Keyboard { get; } = new KeyboardStateChecker();
 
-        public IntroScene(IScene scenePointer)
+        public IntroScene(RetroGame.RetroGame retroGame) : base(retroGame)
         {
-            ScenePointer = scenePointer;
         }
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             Keyboard.UpdateState();
-            if (Keyboard.IsKeyDown(Keys.LeftControl))
-                ScenePointer = new GameScene(ScenePointer);
+            if (Keyboard.IsKeyPressed(Keys.LeftControl))
+                Parent.CurrentScene = new GameScene(Parent);
         }
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(Game1.SpriteFont, "Press Fire (Left Ctrl) to start!", new Vector2(10, 10), Color.White);
         }

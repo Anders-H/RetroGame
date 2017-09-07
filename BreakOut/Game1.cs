@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace BreakOut
 {
@@ -18,10 +19,20 @@ namespace BreakOut
         }
         protected override void LoadContent()
         {
-            BatTexture = new Texture2D(GraphicsDevice, 10, 30, false, SurfaceFormat.Color);
-            BallTexture = new Texture2D(GraphicsDevice, 4, 4, false, SurfaceFormat.Color);
+            var batPixels = new Color[10 * 30];
+            for (var i = 0; i < batPixels.Length; i++)
+                batPixels[i] = Color.White;
+            BatTexture = new Texture2D(GraphicsDevice, 10, 30);
+            BatTexture.SetData(batPixels);
+
+            var ballPixels = new Color[4 * 4];
+            for (var i = 0; i < ballPixels.Length; i++)
+                ballPixels[i] = Color.White;
+            BallTexture = new Texture2D(GraphicsDevice, 4, 4);
+            BallTexture.SetData(ballPixels);
+
             SpriteFont = Content.Load<SpriteFont>("TheFont");
-            CurrentScene = new IntroScene(CurrentScene);
+            CurrentScene = new IntroScene(this);
             base.LoadContent();
         }
     }
