@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetroGame", "RetroGame\RetroGame.csproj", "{6FE260FB-FE71-4991-A69C-CF60F38DBC75}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BreakOut", "BreakOut\BreakOut.csproj", "{A46EB9C4-DC22-4EDE-8269-245A987B8947}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MouseDemo", "MouseDemo\MouseDemo.csproj", "{DC9F446B-15F6-425A-998D-0169C475D4B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{A46EB9C4-DC22-4EDE-8269-245A987B8947}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A46EB9C4-DC22-4EDE-8269-245A987B8947}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A46EB9C4-DC22-4EDE-8269-245A987B8947}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC9F446B-15F6-425A-998D-0169C475D4B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC9F446B-15F6-425A-998D-0169C475D4B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC9F446B-15F6-425A-998D-0169C475D4B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC9F446B-15F6-425A-998D-0169C475D4B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

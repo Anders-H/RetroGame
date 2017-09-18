@@ -5,6 +5,7 @@ namespace RetroGame
 {
     public class RetroGame : Game
     {
+        public bool Scaling { get; }
         private GraphicsDeviceManager G { get; }
         public int ResolutionWidth { get; }
         public int ResolutionHeight { get; }
@@ -13,47 +14,62 @@ namespace RetroGame
         private SpriteBatch SpriteBatch { get; set; }
         private RenderTarget2D RenderTarget { get; set; }
         public Scene CurrentScene { get; set; }
-        public RetroGame(int resolutionWidth, int resolutionHeight, bool fullScreen)
+        public RetroGame(int resolutionWidth, int resolutionHeight) : this(resolutionWidth, resolutionHeight, false, true) { }
+        public RetroGame(int resolutionWidth, int resolutionHeight, bool fullScreen) : this(resolutionWidth, resolutionHeight, fullScreen, true) { }
+        public RetroGame(int resolutionWidth, int resolutionHeight, bool fullScreen, bool scaling)
         {
+            Scaling = scaling;
             G = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             ResolutionWidth = resolutionWidth;
             ResolutionHeight = resolutionHeight;
-            if (fullScreen)
+            if (Scaling)
             {
-                PhysicalWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-                PhysicalHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-                G.PreferredBackBufferWidth = PhysicalWidth;
-                G.PreferredBackBufferHeight = PhysicalHeight;
-                G.IsFullScreen = true;
-            }
-            else
-            {
-                var w = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-                var h = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-                if (w >= ResolutionWidth * 4 && h >= ResolutionHeight * 4)
+                if (fullScreen)
                 {
-                    PhysicalWidth = ResolutionWidth * 3;
-                    PhysicalHeight = ResolutionHeight * 3;
-                }
-                else if (w >= ResolutionWidth * 3 && h >= ResolutionHeight * 3)
-                {
-                    PhysicalWidth = ResolutionWidth * 2;
-                    PhysicalHeight = ResolutionHeight * 2;
+                    PhysicalWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                    PhysicalHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+                    G.PreferredBackBufferWidth = PhysicalWidth;
+                    G.PreferredBackBufferHeight = PhysicalHeight;
+                    G.IsFullScreen = true;
                 }
                 else
                 {
-                    PhysicalWidth = ResolutionWidth;
-                    PhysicalHeight = ResolutionHeight;
+                    var w = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                    var h = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+                    if (w >= ResolutionWidth * 4 && h >= ResolutionHeight * 4)
+                    {
+                        PhysicalWidth = ResolutionWidth * 3;
+                        PhysicalHeight = ResolutionHeight * 3;
+                    }
+                    else if (w >= ResolutionWidth * 3 && h >= ResolutionHeight * 3)
+                    {
+                        PhysicalWidth = ResolutionWidth * 2;
+                        PhysicalHeight = ResolutionHeight * 2;
+                    }
+                    else
+                    {
+                        PhysicalWidth = ResolutionWidth;
+                        PhysicalHeight = ResolutionHeight;
+                    }
+                    G.PreferredBackBufferWidth = PhysicalWidth;
+                    G.PreferredBackBufferHeight = PhysicalHeight;
+                    G.IsFullScreen = false;
                 }
+            }
+            else
+            {
+                PhysicalWidth = ResolutionWidth;
+                PhysicalHeight = ResolutionHeight;
                 G.PreferredBackBufferWidth = PhysicalWidth;
                 G.PreferredBackBufferHeight = PhysicalHeight;
-                G.IsFullScreen = false;
+                G.IsFullScreen = fullScreen;
             }
         }
         protected override void Initialize()
         {
-            RenderTarget = new RenderTarget2D(GraphicsDevice, ResolutionWidth, ResolutionHeight);
+            if (Scaling)
+                RenderTarget = new RenderTarget2D(GraphicsDevice, ResolutionWidth, ResolutionHeight);
             SpriteBatch = new SpriteBatch(GraphicsDevice);
             base.Initialize();
         }
@@ -66,15 +82,25 @@ namespace RetroGame
         {
             if (CurrentScene != null)
             {
-                G.GraphicsDevice.SetRenderTarget(RenderTarget);
-                G.GraphicsDevice.Clear(Color.Black);
-                SpriteBatch.Begin();
-                CurrentScene.Draw(gameTime, SpriteBatch);
-                SpriteBatch.End();
-                G.GraphicsDevice.SetRenderTarget(null);
-                SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
-                SpriteBatch.Draw(RenderTarget, new Rectangle(0, 0, PhysicalWidth, PhysicalHeight), new Rectangle(0, 0, ResolutionWidth, ResolutionHeight), Color.White);
-                SpriteBatch.End();
+                if (Scaling)
+                {
+                    G.GraphicsDevice.SetRenderTarget(RenderTarget);
+                    G.GraphicsDevice.Clear(Color.Black);
+                    SpriteBatch.Begin();
+                    CurrentScene.Draw(gameTime, SpriteBatch);
+                    SpriteBatch.End();
+                    G.GraphicsDevice.SetRenderTarget(null);
+                    SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
+                    SpriteBatch.Draw(RenderTarget, new Rectangle(0, 0, PhysicalWidth, PhysicalHeight), new Rectangle(0, 0, ResolutionWidth, ResolutionHeight), Color.White);
+                    SpriteBatch.End();
+                }
+                else
+                {
+                    G.GraphicsDevice.Clear(Color.Black);
+                    SpriteBatch.Begin();
+                    CurrentScene.Draw(gameTime, SpriteBatch);
+                    SpriteBatch.End();
+                }
             }
             base.Draw(gameTime);
         }

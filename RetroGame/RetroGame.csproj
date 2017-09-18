@@ -63,6 +63,7 @@
     <Compile Include="Input\GamePadStateChecker.cs" />
     <Compile Include="Input\IInputStateChecker.cs" />
     <Compile Include="Input\KeyboardStateChecker.cs" />
+    <Compile Include="Input\MouseStateChecker.cs" />
     <Compile Include="RetroGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene.cs" />
