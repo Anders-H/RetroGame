@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RetroGame.Input;
+using RetroGame.Sprite;
 
 namespace BreakOut
 {
@@ -30,21 +31,14 @@ namespace BreakOut
         }
     }
 
-    public abstract class Sprite
-    {
-        public int X { get; set; }
-        public int Y { get; set; }
-        public abstract void Draw(SpriteBatch s);
-    }
-
     public class Bat : Sprite
     {
-        public const int Width = 10;
-        public const int Height = 30;
         public Bat()
         {
             X = 0;
             Y = 50;
+            Width = 10;
+            Height = 30;
         }
         public void Move(KeyboardStateChecker keyboard)
         {
@@ -66,8 +60,6 @@ namespace BreakOut
 
     public class Ball : Sprite
     {
-        public const int Width = 4;
-        public const int Height = 4;
         public int SpeedX { get; set; }
         public int SpeedY { get; set; }
         public Ball()
@@ -76,6 +68,8 @@ namespace BreakOut
             Y = 60;
             SpeedX = 2;
             SpeedY = 1;
+            Width = 4;
+            Height = 4;
         }
 
         public void Move(Bat bat, int left, int top, int right, int bottom)
@@ -84,7 +78,7 @@ namespace BreakOut
             var nextY = Y + SpeedY;
             //Check intersection.
             var nextPosition = new Rectangle(nextX, nextY, Width, Height);
-            var currentBatPosition = new Rectangle(bat.X, bat.Y, Bat.Width, Bat.Height);
+            var currentBatPosition = new Rectangle(bat.X, bat.Y, bat.Width, bat.Height);
             if (nextPosition.Intersects(currentBatPosition))
             {
                 var locationOnBat = nextY - bat.Y;
