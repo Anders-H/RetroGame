@@ -3,7 +3,8 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RetroGame.Input;
-using RetroGame.Sprite;
+using RetroGame.Sprites;
+using Texture = RetroGame.Textures.Texture;
 
 namespace MouseDemo
 {
@@ -16,19 +17,9 @@ namespace MouseDemo
         }
         protected override void LoadContent()
         {
-            var pointerPixels = new Color[5*5];
-            for (var i = 0; i < pointerPixels.Length; i++)
-                pointerPixels[i] = Color.White;
-            PointerTexture = new Texture2D(GraphicsDevice, 5, 5);
-            PointerTexture.SetData(pointerPixels);
-
-            var mouseStampPixels = new Color[25*25];
-            for (var i = 0; i < mouseStampPixels.Length; i++)
-                mouseStampPixels[i] = Color.White;
-            MouseStampTexture = new Texture2D(GraphicsDevice, 25, 25);
-            MouseStampTexture.SetData(mouseStampPixels);
+            PointerTexture = Texture.ScaffoldTexture2D(GraphicsDevice, 5, 5, Color.White);
+            MouseStampTexture = Texture.ScaffoldTexture2D(GraphicsDevice, 25, 25, Color.White);
             CurrentScene = new MyScene(this);
-
             base.LoadContent();
         }
     }
@@ -55,7 +46,6 @@ namespace MouseDemo
     {
         private MousePointer MousePointer { get; } = new MousePointer();
         private List<Stamp> MouseStamps { get; } = new List<Stamp>();
-        private List<Stamp> TouchStamps { get; } = new List<Stamp>();
         private MouseStateChecker Mouse { get; } = new MouseStateChecker();
         public MyScene(RetroGame.RetroGame parent) : base(parent)
         {

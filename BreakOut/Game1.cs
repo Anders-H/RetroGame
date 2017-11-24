@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Texture = RetroGame.Textures.Texture;
 
 namespace BreakOut
 {
@@ -19,18 +20,8 @@ namespace BreakOut
         }
         protected override void LoadContent()
         {
-            var batPixels = new Color[10 * 30];
-            for (var i = 0; i < batPixels.Length; i++)
-                batPixels[i] = Color.White;
-            BatTexture = new Texture2D(GraphicsDevice, 10, 30);
-            BatTexture.SetData(batPixels);
-
-            var ballPixels = new Color[4 * 4];
-            for (var i = 0; i < ballPixels.Length; i++)
-                ballPixels[i] = Color.White;
-            BallTexture = new Texture2D(GraphicsDevice, 4, 4);
-            BallTexture.SetData(ballPixels);
-
+            BatTexture = Texture.ScaffoldTexture2D(GraphicsDevice, 10, 30, Color.White);
+            BallTexture = Texture.ScaffoldTexture2D(GraphicsDevice, 4, 4, Color.White);
             SpriteFont = Content.Load<SpriteFont>("TheFont");
             CurrentScene = new IntroScene(this);
             base.LoadContent();

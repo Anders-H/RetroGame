@@ -1,9 +1,8 @@
-﻿using System.Runtime.InteropServices;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RetroGame.Input;
-using RetroGame.Sprite;
+using RetroGame.Sprites;
 
 namespace BreakOut
 {

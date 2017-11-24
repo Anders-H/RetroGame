@@ -70,10 +70,12 @@
     <Compile Include="RetroGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene.cs" />
-    <Compile Include="Sprite\Sprite.cs" />
+    <Compile Include="Sprites\Sprite.cs" />
+    <Compile Include="Textures\Texture.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="programicon.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
