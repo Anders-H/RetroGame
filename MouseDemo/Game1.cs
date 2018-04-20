@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using RetroGame.Input;
 using RetroGame.Sprites;
 using Texture = RetroGame.Textures.Texture;
@@ -44,6 +45,7 @@ namespace MouseDemo
     }
     public class MyScene : RetroGame.Scene
     {
+        private KeyboardStateChecker Keyboard { get; } = new KeyboardStateChecker();
         private MousePointer MousePointer { get; } = new MousePointer();
         private List<Stamp> MouseStamps { get; } = new List<Stamp>();
         private MouseStateChecker Mouse { get; } = new MouseStateChecker();
@@ -52,6 +54,7 @@ namespace MouseDemo
         }
         public override void Update(GameTime gameTime)
         {
+            Keyboard.UpdateState();
             Mouse.UpdateState();
             MousePointer.X = Mouse.Location.X - 2;
             MousePointer.Y = Mouse.Location.Y - 2;
@@ -59,6 +62,8 @@ namespace MouseDemo
                 MouseStamps.Add(new Stamp {X = Mouse.Location.X - 12, Y = Mouse.Location.Y - 12});
             else if (Mouse.RightButtonPressed)
                 MouseStamps.Remove(MouseStamps.FirstOrDefault(x => x.Intersects(Mouse.Location)));
+            if (Keyboard.IsKeyPressed(Keys.Escape))
+                Exit();
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {

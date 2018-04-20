@@ -22,6 +22,9 @@ namespace BreakOut
             //Death condition.
             if (Ball.X <= 4)
                 Parent.CurrentScene = new IntroScene(Parent);
+            //Quit.
+            if (Keyboard.IsKeyPressed(Keys.Escape))
+                Exit();
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
