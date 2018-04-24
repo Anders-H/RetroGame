@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using DisplayMode = RetroGame.DisplayMode;
 using Texture = RetroGame.Textures.Texture;
 
 namespace BreakOut
@@ -15,7 +16,7 @@ namespace BreakOut
         public static Texture2D BatTexture { get; set; }
         public static Texture2D BallTexture { get; set; }
         public static SpriteFont SpriteFont { get; set; }
-        public Game1() : base(320, 200, FullScreen)
+        public Game1() : base(320, 200, DisplayMode.FullscreenWithUpscalingAndBorder)
         {
         }
         protected override void LoadContent()

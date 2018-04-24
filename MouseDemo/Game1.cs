@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RetroGame.Input;
 using RetroGame.Sprites;
+using DisplayMode = RetroGame.DisplayMode;
 using Texture = RetroGame.Textures.Texture;
 
 namespace MouseDemo
@@ -13,7 +14,7 @@ namespace MouseDemo
     {
         public static Texture2D PointerTexture { get; set; }
         public static Texture2D MouseStampTexture { get; set; }
-        public Game1() : base(800, 600, false, false)
+        public Game1() : base(600, 600, DisplayMode.FullscreenWithUpscalingAndBorder)
         {
         }
         protected override void LoadContent()

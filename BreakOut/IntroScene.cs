@@ -17,6 +17,8 @@ namespace BreakOut
             Keyboard.UpdateState();
             if (Keyboard.IsKeyPressed(Keys.LeftControl))
                 Parent.CurrentScene = new GameScene(Parent);
+            if (Keyboard.IsKeyPressed(Keys.Escape))
+                Exit();
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
