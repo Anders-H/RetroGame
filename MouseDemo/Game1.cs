@@ -14,7 +14,7 @@ namespace MouseDemo
     {
         public static Texture2D PointerTexture { get; set; }
         public static Texture2D MouseStampTexture { get; set; }
-        public Game1() : base(600, 600, DisplayMode.FullscreenWithUpscalingAndBorder)
+        public Game1() : base(320, 200, DisplayMode.Windowed)
         {
         }
         protected override void LoadContent()

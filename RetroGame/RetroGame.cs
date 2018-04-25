@@ -31,27 +31,26 @@ namespace RetroGame
             {
                 if (Border)
                 {
-                    PhysicalWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-                    PhysicalHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-                    G.PreferredBackBufferWidth = PhysicalWidth;
-                    G.PreferredBackBufferHeight = PhysicalHeight;
-                    var xdiff = PhysicalWidth - ResolutionWidth;
-                    var ydiff = PhysicalHeight - ResolutionHeight;
-                    var transpose = 1.3;
-                    if (xdiff > ydiff)
+                    var w = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                    var h = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+                    var wborder = w*0.9;
+                    var hborder = h*0.9;
+                    PhysicalWidth = ResolutionWidth;
+                    PhysicalHeight = ResolutionHeight;
+                    var dscale = 10.20;
+                    for (var scale = 50; scale > 1; scale--)
                     {
-                        PhysicalHeight = (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height*0.8);
-                        var factor = ((double)GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height/(double)PhysicalWidth)*transpose;
-                        PhysicalWidth = (int) (GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width*factor);
+                        dscale -= 0.20;
+                        if (wborder < ResolutionWidth * dscale || hborder < ResolutionHeight * dscale)
+                            continue;
+                        PhysicalWidth = (int)(ResolutionWidth*dscale);
+                        PhysicalHeight = (int)(ResolutionHeight*dscale);
+                        break;
                     }
-                    else
-                    {
-                        PhysicalWidth = (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width * 0.8);
-                        var factor = ((double)GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / (double)PhysicalHeight)*transpose;
-                        PhysicalHeight = (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height * factor);
-                    }
-                    BorderOffsetX = ((GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width/2) - (PhysicalWidth/2));
-                    BorderOffsetY = ((GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height/2) - (PhysicalHeight/2));
+                    G.PreferredBackBufferWidth = w;
+                    G.PreferredBackBufferHeight = h;
+                    BorderOffsetX = w/2 - PhysicalWidth/2;
+                    BorderOffsetY = h/2 - PhysicalHeight/2;
                     G.IsFullScreen = true;
                 }
                 else
@@ -67,20 +66,15 @@ namespace RetroGame
             {
                 var w = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
                 var h = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-                if (w >= ResolutionWidth * 4 && h >= ResolutionHeight * 4)
+                PhysicalWidth = ResolutionWidth;
+                PhysicalHeight = ResolutionHeight;
+                for (var scale = 10; scale > 1; scale--)
                 {
-                    PhysicalWidth = ResolutionWidth * 3;
-                    PhysicalHeight = ResolutionHeight * 3;
-                }
-                else if (w >= ResolutionWidth * 3 && h >= ResolutionHeight * 3)
-                {
-                    PhysicalWidth = ResolutionWidth * 2;
-                    PhysicalHeight = ResolutionHeight * 2;
-                }
-                else
-                {
-                    PhysicalWidth = ResolutionWidth;
-                    PhysicalHeight = ResolutionHeight;
+                    if (w < ResolutionWidth*scale || h < ResolutionHeight*scale)
+                        continue;
+                    PhysicalWidth = ResolutionWidth*(scale - 1);
+                    PhysicalHeight = ResolutionHeight*(scale - 1);
+                    break;
                 }
                 G.PreferredBackBufferWidth = PhysicalWidth;
                 G.PreferredBackBufferHeight = PhysicalHeight;
