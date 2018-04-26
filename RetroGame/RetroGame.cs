@@ -18,8 +18,12 @@ namespace RetroGame
         private SpriteBatch SpriteBatch { get; set; }
         private RenderTarget2D RenderTarget { get; set; }
         public Scene CurrentScene { get; set; }
+        public Color BorderColor { get; set; }
+        public Color BackColor { get; set; }
         public RetroGame(int resolutionWidth, int resolutionHeight, DisplayMode displayMode)
         {
+            BorderColor = ColorPaletteHelper.GetColor(ColorPalette.LightBlue);
+            BackColor = ColorPaletteHelper.GetColor(ColorPalette.Blue);
             Upscaling = DisplayModeHelper.Upscaling(displayMode);
             Border = DisplayModeHelper.Border(displayMode);
             Fullscreen = DisplayModeHelper.Fullscreen(displayMode);
@@ -108,13 +112,13 @@ namespace RetroGame
                 if (Border)
                 {
                     G.GraphicsDevice.SetRenderTarget(RenderTarget);
-                    G.GraphicsDevice.Clear(Color.Black);
+                    G.GraphicsDevice.Clear(BackColor);
                     SpriteBatch.Begin();
                     CurrentScene.Draw(gameTime, SpriteBatch);
                     SpriteBatch.End();
                     G.GraphicsDevice.SetRenderTarget(null);
                     SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
-                    G.GraphicsDevice.Clear(Color.LightBlue);
+                    G.GraphicsDevice.Clear(BorderColor);
                     SpriteBatch.Draw(RenderTarget, new Rectangle(BorderOffsetX, BorderOffsetY, PhysicalWidth, PhysicalHeight), new Rectangle(0, 0, ResolutionWidth, ResolutionHeight), Color.White);
                     SpriteBatch.End();
                     G.GraphicsDevice.SetRenderTarget(null);
@@ -122,7 +126,7 @@ namespace RetroGame
                 else if (Upscaling)
                 {
                     G.GraphicsDevice.SetRenderTarget(RenderTarget);
-                    G.GraphicsDevice.Clear(Color.Black);
+                    G.GraphicsDevice.Clear(BackColor);
                     SpriteBatch.Begin();
                     CurrentScene.Draw(gameTime, SpriteBatch);
                     SpriteBatch.End();
@@ -133,7 +137,7 @@ namespace RetroGame
                 }
                 else
                 {
-                    G.GraphicsDevice.Clear(Color.Black);
+                    G.GraphicsDevice.Clear(BackColor);
                     SpriteBatch.Begin();
                     CurrentScene.Draw(gameTime, SpriteBatch);
                     SpriteBatch.End();
