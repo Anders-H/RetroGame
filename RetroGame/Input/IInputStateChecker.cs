@@ -1,4 +1,4 @@
-﻿namespace RetroGame.Input
+﻿namespace RetroGameClasses.Input
 {
     public interface IInputStateChecker
     {

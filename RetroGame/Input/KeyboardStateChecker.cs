@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Input;
 
-namespace RetroGame.Input
+namespace RetroGameClasses.Input
 {
     public class KeyboardStateChecker : IInputStateChecker
     {

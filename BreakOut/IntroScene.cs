@@ -1,15 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using RetroGame.Input;
+using RetroGameClasses;
+using RetroGameClasses.Input;
 
 namespace BreakOut
 {
-    public class IntroScene : RetroGame.Scene
+    public class IntroScene : Scene
     {
         private KeyboardStateChecker Keyboard { get; } = new KeyboardStateChecker();
 
-        public IntroScene(RetroGame.RetroGame retroGame) : base(retroGame)
+        public IntroScene(RetroGame retroGame) : base(retroGame)
         {
         }
         public override void Update(GameTime gameTime)

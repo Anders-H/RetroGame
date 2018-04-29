@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace RetroGame
+namespace RetroGameClasses
 {
     public class RetroGame : Game
     {
@@ -20,7 +20,7 @@ namespace RetroGame
         public Scene CurrentScene { get; set; }
         public Color BorderColor { get; set; }
         public Color BackColor { get; set; }
-        public RetroGame(int resolutionWidth, int resolutionHeight, DisplayMode displayMode)
+        public RetroGame(int resolutionWidth, int resolutionHeight, RetroDisplayMode displayMode)
         {
             BorderColor = ColorPaletteHelper.GetColor(ColorPalette.LightBlue);
             BackColor = ColorPaletteHelper.GetColor(ColorPalette.Blue);

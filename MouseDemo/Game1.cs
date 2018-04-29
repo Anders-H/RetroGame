@@ -3,24 +3,24 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using RetroGame.Input;
-using RetroGame.Sprites;
-using DisplayMode = RetroGame.DisplayMode;
-using Texture = RetroGame.Textures.Texture;
+using RetroGameClasses;
+using RetroGameClasses.Input;
+using RetroGameClasses.Sprites;
+using RetroGameClasses.RetroTextures;
 
 namespace MouseDemo
 {
-    public class Game1 : RetroGame.RetroGame
+    public class Game1 : RetroGame
     {
         public static Texture2D PointerTexture { get; set; }
         public static Texture2D MouseStampTexture { get; set; }
-        public Game1() : base(320, 200, DisplayMode.Windowed)
+        public Game1() : base(320, 200, RetroDisplayMode.Windowed)
         {
         }
         protected override void LoadContent()
         {
-            PointerTexture = Texture.ScaffoldTexture2D(GraphicsDevice, 5, 5, Color.White);
-            MouseStampTexture = Texture.ScaffoldTexture2D(GraphicsDevice, 25, 25, Color.White);
+            PointerTexture = RetroTexture.ScaffoldTexture2D(GraphicsDevice, 5, 5, Color.White);
+            MouseStampTexture = RetroTexture.ScaffoldTexture2D(GraphicsDevice, 25, 25, Color.White);
             CurrentScene = new MyScene(this);
             base.LoadContent();
         }
@@ -44,13 +44,13 @@ namespace MouseDemo
         public override void Draw(SpriteBatch s) => s.Draw(Game1.MouseStampTexture, Location, Color.Blue);
         public bool Intersects(Point p) => new Rectangle(X, Y, Width, Height).Intersects(new Rectangle(p, new Point(1, 1)));
     }
-    public class MyScene : RetroGame.Scene
+    public class MyScene : Scene
     {
         private KeyboardStateChecker Keyboard { get; } = new KeyboardStateChecker();
         private MousePointer MousePointer { get; } = new MousePointer();
         private List<Stamp> MouseStamps { get; } = new List<Stamp>();
         private MouseStateChecker Mouse { get; } = new MouseStateChecker();
-        public MyScene(RetroGame.RetroGame parent) : base(parent)
+        public MyScene(RetroGame parent) : base(parent)
         {
         }
         public override void Update(GameTime gameTime)

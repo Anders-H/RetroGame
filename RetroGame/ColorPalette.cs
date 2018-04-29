@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace RetroGame
+namespace RetroGameClasses
 {
     public enum ColorPalette
     {

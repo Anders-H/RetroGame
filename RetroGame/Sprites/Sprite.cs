@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace RetroGame.Sprites
+namespace RetroGameClasses.Sprites
 {
     public abstract class Sprite
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace RetroGame
+namespace RetroGameClasses
 {
     public abstract class Scene
     {
