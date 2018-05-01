@@ -12,15 +12,15 @@ namespace MouseDemo
 {
     public class Game1 : RetroGame
     {
-        public static Texture2D PointerTexture { get; set; }
-        public static Texture2D MouseStampTexture { get; set; }
+        public static RetroTexture PointerTexture { get; set; }
+        public static RetroTexture MouseStampTexture { get; set; }
         public Game1() : base(320, 200, RetroDisplayMode.Windowed)
         {
         }
         protected override void LoadContent()
         {
-            PointerTexture = RetroTexture.ScaffoldTexture2D(GraphicsDevice, 5, 5, Color.White);
-            MouseStampTexture = RetroTexture.ScaffoldTexture2D(GraphicsDevice, 25, 25, Color.White);
+            PointerTexture = RetroTexture.ScaffoldSimpleTexture(GraphicsDevice, 5, 5, Color.White);
+            MouseStampTexture = RetroTexture.ScaffoldSimpleTexture(GraphicsDevice, 25, 25, Color.White);
             CurrentScene = new MyScene(this);
             base.LoadContent();
         }

@@ -72,6 +72,7 @@
     <Compile Include="Input\MouseStateChecker.cs" />
     <Compile Include="RetroGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RetroTextures\Bitmap.cs" />
     <Compile Include="Scene.cs" />
     <Compile Include="Sprites\Sprite.cs" />
     <Compile Include="RetroTextures\RetroTexture.cs" />

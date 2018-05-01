@@ -12,9 +12,7 @@ namespace BreakOut
         private KeyboardStateChecker Keyboard { get; } = new KeyboardStateChecker();
         private Bat Bat { get; } = new Bat();
         private Ball Ball { get; } = new Ball();
-        public GameScene(RetroGame retroGame) : base(retroGame)
-        {
-        }
+        public GameScene(RetroGame retroGame) : base(retroGame) { }
         public override void Update(GameTime gameTime)
         {
             Keyboard.UpdateState();
