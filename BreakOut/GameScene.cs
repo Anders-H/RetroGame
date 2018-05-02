@@ -27,8 +27,8 @@ namespace BreakOut
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            Bat.Draw(spriteBatch);
-            Ball.Draw(spriteBatch);
+            Bat.Draw(spriteBatch, Game1.BatTexture, 0);
+            Ball.Draw(spriteBatch, Game1.BallTexture, 0);
         }
     }
 
@@ -56,7 +56,6 @@ namespace BreakOut
                     Y = 170;
             }
         }
-        public override void Draw(SpriteBatch s) => s.Draw(Game1.BatTexture, new Vector2(X, Y), Color.White);
     }
 
     public class Ball : Sprite
@@ -123,6 +122,5 @@ namespace BreakOut
             X = nextX;
             Y = nextY;
         }
-        public override void Draw(SpriteBatch s) => s.Draw(Game1.BallTexture, new Vector2(X, Y), Color.White);
     }
 }

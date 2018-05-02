@@ -32,7 +32,6 @@ namespace MouseDemo
             Width = 5;
             Height = 5;
         }
-        public override void Draw(SpriteBatch s) => s.Draw(Game1.PointerTexture, new Vector2(X, Y), Color.Green);
     }
     public class Stamp : Sprite
     {
@@ -41,7 +40,6 @@ namespace MouseDemo
             Width = 25;
             Height = 25;
         }
-        public override void Draw(SpriteBatch s) => s.Draw(Game1.MouseStampTexture, Location, Color.Blue);
         public bool Intersects(Point p) => new Rectangle(X, Y, Width, Height).Intersects(new Rectangle(p, new Point(1, 1)));
     }
     public class MyScene : Scene
@@ -69,7 +67,7 @@ namespace MouseDemo
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             MouseStamps.ForEach(x => spriteBatch.Draw(Game1.MouseStampTexture, new Vector2(x.X, x.Y), Color.Blue));
-            MousePointer.Draw(spriteBatch);
+            MousePointer.Draw(spriteBatch, Game1.PointerTexture, 0);
         }
     }
 }

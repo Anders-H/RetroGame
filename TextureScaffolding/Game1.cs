@@ -21,7 +21,7 @@ namespace TextureScaffolding
         protected override void LoadContent()
         {
             BackColor = ColorPaletteHelper.GetColor(ColorPalette.Blue);
-            Texture = RetroTexture.ScaffoldTexture2DCells(GraphicsDevice, 2, 2, 4, ColorPaletteHelper.GetColor(ColorPalette.Transparent));
+            Texture = RetroTexture.ScaffoldTextureCells(GraphicsDevice, 2, 2, 4, ColorPaletteHelper.GetColor(ColorPalette.Transparent));
 
             var cell = new Bitmap(2, 2, ColorPalette.Transparent);
             cell.SetPixels(
@@ -81,6 +81,7 @@ namespace TextureScaffolding
             if (_frame > 3)
                 _frame = 0;
         }
+
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) =>
             Game1.Texture.Draw(spriteBatch, _frame, _x, 20);
     }

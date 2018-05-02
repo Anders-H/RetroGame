@@ -5,19 +5,27 @@ namespace RetroGameClasses.RetroTextures
 {
     public class RetroTexture : Texture2D
     {
-        public RetroTexture(GraphicsDevice graphicsDevice, int width, int height) : base(graphicsDevice, width, height) { }
-        public static RetroTexture ScaffoldSimpleTexture(GraphicsDevice graphicsDevice, int width, int height, Color color)
+        public int CellWidth { get; }
+        public int CellHeight => Height;
+        public int CellCount { get; }
+        public RetroTexture(GraphicsDevice graphicsDevice, int cellWidth, int cellHeight, int cellCount) : base(graphicsDevice, cellWidth*cellCount, cellHeight)
         {
-            var size = width*height;
+            CellWidth = cellWidth;
+            CellCount = cellCount;
+        }
+
+        public static RetroTexture ScaffoldSimpleTexture(GraphicsDevice graphicsDevice, int width, int height, Color color) =>
+            ScaffoldTextureCells(graphicsDevice, width, height, 1, color);
+        public static RetroTexture ScaffoldTextureCells(GraphicsDevice graphicsDevice, int cellWidth, int cellHeight, int cellCount, Color color)
+        {
+            var size = cellWidth*cellCount*cellHeight;
             var pixels = new Color[size];
             for (var i = 0; i < pixels.Length; i++)
                 pixels[i] = color;
-            var texture = new RetroTexture(graphicsDevice, width, height);
+            var texture = new RetroTexture(graphicsDevice, cellWidth, cellHeight, cellCount);
             texture.SetData(pixels);
             return texture;
         }
-        public static RetroTexture ScaffoldTexture2DCells(GraphicsDevice graphicsDevice, int cellWidth, int cellHeight, int cellCount, Color color) =>
-            ScaffoldSimpleTexture(graphicsDevice, cellWidth * cellCount, cellHeight, color);
         public static void PlotCell(RetroTexture targetTexture, int cellIndex, Bitmap bitmap)
         {
             var targetWidth = targetTexture.Width;
@@ -35,7 +43,9 @@ namespace RetroGameClasses.RetroTextures
                 }
             targetTexture.SetData(targetPixels);
         }
-        public void Draw(SpriteBatch spriteBatch, int frameIndex, int x, int y)
-            => spriteBatch.Draw(this, new Vector2(x, y), new Rectangle(frameIndex*2, 0, 2, 2), Color.White);
+        public void Draw(SpriteBatch spriteBatch, int cellIndex, int x, int y)
+            => spriteBatch.Draw(this, new Vector2(x, y), new Rectangle(cellIndex*CellWidth, 0, CellWidth, CellHeight), Color.White);
+        public void Draw(SpriteBatch spriteBatch, int cellIndex, int x, int y, Color color)
+            => spriteBatch.Draw(this, new Vector2(x, y), new Rectangle(cellIndex* CellWidth, 0, CellWidth, CellHeight), color);
     }
 }
