@@ -77,8 +77,8 @@ namespace BreakOut
             var nextX = X + SpeedX;
             var nextY = Y + SpeedY;
             //Check intersection.
-            var nextPosition = new Rectangle(nextX, nextY, Width, Height);
-            var currentBatPosition = new Rectangle(bat.X, bat.Y, bat.Width, bat.Height);
+            var nextPosition = new Rectangle((int)nextX, (int)nextY, Width, Height);
+            var currentBatPosition = new Rectangle(bat.IntX, bat.IntY, bat.Width, bat.Height);
             if (nextPosition.Intersects(currentBatPosition))
             {
                 var locationOnBat = nextY - bat.Y;

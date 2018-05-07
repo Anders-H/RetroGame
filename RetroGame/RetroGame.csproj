@@ -75,9 +75,10 @@
     <Compile Include="RetroTextures\Bitmap.cs" />
     <Compile Include="Scene.cs" />
     <Compile Include="Sprites\CyclicSprite.cs" />
+    <Compile Include="Sprites\IBatchSprite.cs" />
     <Compile Include="Sprites\Sprite.cs" />
     <Compile Include="RetroTextures\RetroTexture.cs" />
-    <Compile Include="Sprites\SpriteBatch.cs" />
+    <Compile Include="Sprites\Batch.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="programicon.ico" />
