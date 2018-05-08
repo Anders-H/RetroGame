@@ -5,7 +5,7 @@ using RetroGameClasses;
 using RetroGameClasses.RetroTextures;
 using RetroGameClasses.Sprites;
 
-namespace SpriteBatchDemo
+namespace BatchDemo
 {
     public class Game1 : RetroGame
     {
@@ -13,7 +13,7 @@ namespace SpriteBatchDemo
         public Game1() : base(320, 200, RetroDisplayMode.WindowedWithUpscaling) { }
         protected override void LoadContent()
         {
-            RetroTexture.ScaffoldSimpleTexture(GraphicsDevice, 1, 1, Color.White);
+            Star = RetroTexture.ScaffoldSimpleTexture(GraphicsDevice, 1, 1, Color.White);
             CurrentScene = new StarsScene(this);
             base.LoadContent();
         }
@@ -22,29 +22,32 @@ namespace SpriteBatchDemo
     public class BatchSprite : Sprite, IBatchSprite
     {
         private static Random Rnd { get; } = new Random();
-        private float SpeedX { get; set; }
+        private float SpeedX { get; }
         public bool IsAlive => true;
         public BatchSprite()
         {
             Y = Rnd.Next(0, 200);
-            SpeedX = (float)(Rnd.NextDouble()*4);
+            SpeedX = (float)(Rnd.NextDouble() * 4);
         }
         public void Act()
         {
             X -= SpeedX;
             if (X < 0)
+            {
                 X = 320;
+                Y = Rnd.Next(0, 200);
+            }
         }
         public void Draw(SpriteBatch spriteBatch) => Draw(spriteBatch, Game1.Star, 0);
     }
 
     public class StarsScene : Scene
     {
-        private Batch _batch = new Batch();
+        private readonly Batch _batch = new Batch();
         public StarsScene(RetroGame parent) : base(parent) { }
         public override void Update(GameTime gameTime)
         {
-            if (_batch.Count < 100)
+            if (_batch.Count < 1000)
                 _batch.AppendLast(new BatchSprite());
             _batch.Act();
         }

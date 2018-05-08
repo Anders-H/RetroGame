@@ -1,8 +1,7 @@
 ﻿using System;
 
-namespace SpriteBatchDemo
+namespace BatchDemo
 {
-#if WINDOWS || LINUX
     /// <summary>
     /// The main class.
     /// </summary>
@@ -18,5 +17,4 @@ namespace SpriteBatchDemo
                 game.Run();
         }
     }
-#endif
 }
