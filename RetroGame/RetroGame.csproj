@@ -79,10 +79,14 @@
     <Compile Include="Sprites\Sprite.cs" />
     <Compile Include="RetroTextures\RetroTexture.cs" />
     <Compile Include="Sprites\Batch.cs" />
+    <Compile Include="Text\Petscii.cs" />
+    <Compile Include="Text\TextBlock.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="programicon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Content\Content.mgcb" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

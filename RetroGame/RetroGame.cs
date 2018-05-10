@@ -20,6 +20,7 @@ namespace RetroGameClasses
         public Scene CurrentScene { get; set; }
         public Color BorderColor { get; set; }
         public Color BackColor { get; set; }
+        internal static Texture2D Font64 { get; set; }
         public RetroGame(int resolutionWidth, int resolutionHeight, RetroDisplayMode displayMode)
         {
             BorderColor = ColorPaletteHelper.GetColor(ColorPalette.LightBlue);
@@ -92,6 +93,11 @@ namespace RetroGameClasses
                 G.PreferredBackBufferHeight = PhysicalHeight;
                 G.IsFullScreen = false;
             }
+        }
+        protected override void LoadContent()
+        {
+            Font64 = Content.Load<Texture2D>("c64font");
+            base.LoadContent();
         }
         protected override void Initialize()
         {

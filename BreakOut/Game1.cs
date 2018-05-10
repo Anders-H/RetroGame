@@ -16,7 +16,6 @@ namespace BreakOut
 #endif
         public static RetroTexture BatTexture { get; set; }
         public static RetroTexture BallTexture { get; set; }
-        public static SpriteFont SpriteFont { get; set; }
         public Game1() : base(320, 200, RetroDisplayMode.FullscreenWithUpscalingAndBorder)
         {
         }
@@ -24,7 +23,6 @@ namespace BreakOut
         {
             BatTexture = RetroTexture.ScaffoldSimpleTexture(GraphicsDevice, 10, 30, Color.White);
             BallTexture = RetroTexture.ScaffoldSimpleTexture(GraphicsDevice, 4, 4, Color.White);
-            SpriteFont = Content.Load<SpriteFont>("TheFont");
             CurrentScene = new IntroScene(this);
             base.LoadContent();
         }

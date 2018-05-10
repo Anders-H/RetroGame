@@ -3,15 +3,18 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RetroGameClasses;
 using RetroGameClasses.Input;
+using RetroGameClasses.Text;
 
 namespace BreakOut
 {
     public class IntroScene : Scene
     {
         private KeyboardStateChecker Keyboard { get; } = new KeyboardStateChecker();
+        private TextBlock Text { get; } = new TextBlock();
 
         public IntroScene(RetroGame retroGame) : base(retroGame)
         {
+            Text.SetText(1, 1, "press fire (left ctrl) to start!");
         }
         public override void Update(GameTime gameTime)
         {
@@ -23,7 +26,7 @@ namespace BreakOut
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(Game1.SpriteFont, "Press Fire (Left Ctrl) to start!", new Vector2(10, 10), Color.White);
+            Text.Draw(spriteBatch, ColorPalette.White);
         }
     }
 }
