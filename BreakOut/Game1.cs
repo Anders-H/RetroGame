@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using RetroGameClasses;
 using RetroGameClasses.RetroTextures;
 using RetroDisplayMode = RetroGameClasses.RetroDisplayMode;
