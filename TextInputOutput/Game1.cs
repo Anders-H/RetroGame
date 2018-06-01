@@ -21,17 +21,18 @@ namespace TextInputOutput
 	public class TextScene : Scene
 	{
 		private KeyboardStateChecker Keyboard { get; } = new KeyboardStateChecker();
-		private TextBlock Text { get; } = new TextBlock();
+		private TextBlock Text { get; } = new TextBlock(40, 10, CharacterSet.Lowercase);
 		public TextScene(RetroGame parent) : base(parent)
 		{
+			Text.DrawOffsetY = 15*8;
 			AddToAutoUpdate(Keyboard, Text);
 			AddToAutoDraw(Text);
-			Text.SetText(0, 24, "Press Enter.");
+			Text.SetText(0, 9, "Press Enter.");
 		}
 		public override void Update(GameTime gameTime, ulong ticks)
 		{
 			if (Keyboard.IsKeyPressed(Keys.Enter) && Text.IsReady)
-				Text.AppendRows("Detta ar en testtext som kommer att stracka sig over flera rader. Det ar bra, for da far vi se om wordwrapping fungerar.", 2, false);
+				Text.AppendRows("Detta ar en testtext som kommer att stracka sig over flera rader. Det ar bra, for da far vi se om wordwrapping fungerar.", 1, false);
 			else if (Keyboard.IsKeyPressed(Keys.Escape))
 				Exit();
 			base.Update(gameTime, ticks);
