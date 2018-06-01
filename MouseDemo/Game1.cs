@@ -7,6 +7,7 @@ using RetroGameClasses;
 using RetroGameClasses.Input;
 using RetroGameClasses.Sprites;
 using RetroGameClasses.RetroTextures;
+using RetroGameClasses.Scene;
 
 namespace MouseDemo
 {
@@ -50,11 +51,10 @@ namespace MouseDemo
 		private MouseStateChecker Mouse { get; } = new MouseStateChecker();
 		public MyScene(RetroGame parent) : base(parent)
 		{
+			AddToAutoUpdate(Keyboard, Mouse);
 		}
-		public override void Update(GameTime gameTime)
+		public override void Update(GameTime gameTime, ulong ticks)
 		{
-			Keyboard.UpdateState();
-			Mouse.UpdateState();
 			MousePointer.X = Mouse.Location.X - 2;
 			MousePointer.Y = Mouse.Location.Y - 2;
 			if (Mouse.LeftButtonPressed)
@@ -64,7 +64,7 @@ namespace MouseDemo
 			if (Keyboard.IsKeyPressed(Keys.Escape))
 				Exit();
 		}
-		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+		public override void Draw(GameTime gameTime, ulong ticks, SpriteBatch spriteBatch)
 		{
 			MouseStamps.ForEach(x => spriteBatch.Draw(Game1.MouseStampTexture, new Vector2(x.X, x.Y), Color.Blue));
 			MousePointer.Draw(spriteBatch, Game1.PointerTexture, 0);

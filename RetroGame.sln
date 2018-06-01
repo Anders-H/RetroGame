@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextureScaffolding", "Textu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchDemo", "BatchDemo\BatchDemo.csproj", "{E57BEE92-FD1B-4613-91ED-80D329A69C19}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextInputOutput", "TextInputOutput\TextInputOutput.csproj", "{BC2FE292-012D-4D92-96DA-040A6A30A548}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,14 @@ Global
 		{E57BEE92-FD1B-4613-91ED-80D329A69C19}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E57BEE92-FD1B-4613-91ED-80D329A69C19}.Release|x86.ActiveCfg = Release|Any CPU
 		{E57BEE92-FD1B-4613-91ED-80D329A69C19}.Release|x86.Build.0 = Release|Any CPU
+		{BC2FE292-012D-4D92-96DA-040A6A30A548}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC2FE292-012D-4D92-96DA-040A6A30A548}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC2FE292-012D-4D92-96DA-040A6A30A548}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BC2FE292-012D-4D92-96DA-040A6A30A548}.Debug|x86.Build.0 = Debug|Any CPU
+		{BC2FE292-012D-4D92-96DA-040A6A30A548}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC2FE292-012D-4D92-96DA-040A6A30A548}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC2FE292-012D-4D92-96DA-040A6A30A548}.Release|x86.ActiveCfg = Release|Any CPU
+		{BC2FE292-012D-4D92-96DA-040A6A30A548}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

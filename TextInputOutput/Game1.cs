@@ -1,0 +1,40 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using RetroGameClasses;
+using RetroGameClasses.Input;
+using RetroGameClasses.Scene;
+using RetroGameClasses.Text;
+
+namespace TextInputOutput
+{
+	public class Game1 : RetroGame
+	{
+		public Game1() : base(320, 200, RetroDisplayMode.FullscreenWithUpscalingAndBorder)
+		{
+		}
+		protected override void LoadContent()
+		{
+			CurrentScene = new TextScene(this);
+			base.LoadContent();
+		}
+	}
+	public class TextScene : Scene
+	{
+		private KeyboardStateChecker Keyboard { get; } = new KeyboardStateChecker();
+		private TextBlock Text { get; } = new TextBlock();
+		public TextScene(RetroGame parent) : base(parent)
+		{
+			AddToAutoUpdate(Keyboard, Text);
+			AddToAutoDraw(Text);
+			Text.SetText(0, 24, "Press Enter.");
+		}
+		public override void Update(GameTime gameTime, ulong ticks)
+		{
+			if (Keyboard.IsKeyPressed(Keys.Enter) && Text.IsReady)
+				Text.AppendRows("Detta ar en testtext som kommer att stracka sig over flera rader. Det ar bra, for da far vi se om wordwrapping fungerar.", 3);
+			else if (Keyboard.IsKeyPressed(Keys.Escape))
+				Exit();
+			base.Update(gameTime, ticks);
+		}
+	}
+}

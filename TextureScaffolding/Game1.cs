@@ -4,15 +4,13 @@ using Microsoft.Xna.Framework.Input;
 using RetroGameClasses;
 using RetroGameClasses.Input;
 using RetroGameClasses.RetroTextures;
+using RetroGameClasses.Scene;
 using RetroGameClasses.Sprites;
 using RetroDisplayMode = RetroGameClasses.RetroDisplayMode;
 
 
 namespace TextureScaffolding
 {
-	/// <summary>
-	/// This is the main type for your game.
-	/// </summary>
 	public class Game1 : RetroGame
 	{
 		public static RetroTexture Texture;
@@ -60,10 +58,12 @@ namespace TextureScaffolding
 		private int _x;
 		private int _xspeed = 1;
 		private KeyboardStateChecker Keyboard { get; } = new KeyboardStateChecker();
-		public AnimationTextureScene(RetroGame retroGame) : base(retroGame) { }
-		public override void Update(GameTime gameTime)
+		public AnimationTextureScene(RetroGame retroGame) : base(retroGame)
 		{
-			Keyboard.UpdateState();
+			AddToAutoUpdate(Keyboard);
+		}
+		public override void Update(GameTime gameTime, ulong ticks)
+		{
 			//Quit.
 			if (Keyboard.IsKeyPressed(Keys.Escape))
 				Exit();
@@ -83,9 +83,9 @@ namespace TextureScaffolding
 			_frame++;
 			if (_frame > 3)
 				_frame = 0;
+			base.Update(gameTime, ticks);
 		}
-
-		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) =>
+		public override void Draw(GameTime gameTime, ulong ticks, SpriteBatch spriteBatch) =>
 			Game1.Texture.Draw(spriteBatch, _frame, _x, 20);
 	}
 
@@ -93,14 +93,15 @@ namespace TextureScaffolding
 	{
 		private float _xspeed = 0.3f;
 		private CyclicSprite CyclicSprite { get; }
+		private KeyboardStateChecker Keyboard { get; } = new KeyboardStateChecker();
 		public CyclicSpriteScene(RetroGame retroGame) : base(retroGame)
 		{
 			CyclicSprite = new CyclicSprite();
 			CyclicSprite.ConfigureCycle(Game1.Texture, 5, 0, 1, 2, 3);
 			CyclicSprite.Y = 20;
+			AddToAutoUpdate(Keyboard);
 		}
-		private KeyboardStateChecker Keyboard { get; } = new KeyboardStateChecker();
-		public override void Update(GameTime gameTime)
+		public override void Update(GameTime gameTime, ulong ticks)
 		{
 			//Quit.
 			if (Keyboard.IsKeyPressed(Keys.Escape))
@@ -114,8 +115,9 @@ namespace TextureScaffolding
 				_xspeed = 0.3f;
 			CyclicSprite.X += _xspeed;
 			CyclicSprite.Act();
+			base.Update(gameTime, ticks);
 		}
-		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+		public override void Draw(GameTime gameTime, ulong ticks, SpriteBatch spriteBatch)
 		{
 			CyclicSprite.Draw(spriteBatch);
 		}

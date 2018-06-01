@@ -1,11 +1,9 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using RetroGameClasses.Scene;
 
 namespace RetroGameClasses.Sprites
 {
-    public interface IBatchSprite
-    {
-        bool IsAlive { get; }
-        void Act();
-        void Draw(SpriteBatch spriteBatch);
-    }
+	public interface IBatchSprite : ISceneActor
+	{
+		bool IsAlive { get; }
+	}
 }

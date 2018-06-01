@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Graphics;
+using RetroGameClasses.Scene;
 
 namespace RetroGameClasses.Sprites
 {
-	public class Batch
+	public class Batch : ISceneActor
 	{
 		private List<IBatchSprite> Sprites { get; } = new List<IBatchSprite>();
 		public void InsertFirst(IBatchSprite sprite) => Sprites.Insert(0, sprite);
@@ -12,23 +13,23 @@ namespace RetroGameClasses.Sprites
 		public void RemoveFirst() => Sprites.RemoveAt(0);
 		public void RemoveLast() => Sprites.RemoveAt(Sprites.Count - 1);
 		public int Count => Sprites.Count;
-		public void Act()
+		public void Act(ulong ticks)
 		{
 			IBatchSprite deadSprite = null;
 			foreach (var batchSprite in Sprites)
 			{
 				if (batchSprite.IsAlive)
-					batchSprite.Act();
+					batchSprite.Act(ticks);
 				else if (deadSprite == null)
 					deadSprite = batchSprite;
 			}
 			if (deadSprite != null)
 				Sprites.Remove(deadSprite);
 		}
-		public void Draw(SpriteBatch spriteBatch)
+		public void Draw(SpriteBatch spriteBatch, ulong ticks)
 		{
 			foreach (var batchSprite in Sprites.Where(x => x.IsAlive))
-				batchSprite.Draw(spriteBatch);
+				batchSprite.Draw(spriteBatch, ticks);
 		}
 	}
 }
