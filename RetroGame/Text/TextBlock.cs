@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RetroGameClasses.Scene;
@@ -45,11 +45,21 @@ namespace RetroGameClasses.Text
 					return;
 			}
 		}
-		public void AppendRows(string text, int tickDelay)
+		public void AppendRows(string text, int tickDelay, bool appendLinebreak)
 		{
 			if (text == null || text.Length <= 0)
 				return;
 			_pendingAppendingCharacters = WordWrapper.WordWrap(Columns, text).Replace("\r\n", "|");
+			if (appendLinebreak)
+			{
+				if (_pendingAppendingCharacters.Length > 1 && _pendingAppendingCharacters.Last() != '|')
+					_pendingAppendingCharacters += '|';
+			}
+			else
+			{
+				if (_pendingAppendingCharacters.Length > 1 && _pendingAppendingCharacters.Last() == '|')
+					_pendingAppendingCharacters = _pendingAppendingCharacters.Substring(0, _pendingAppendingCharacters.Length - 1);
+			}
 			_pendingAppendingCharactersPointer = -1;
 			_pendingAppendingCharactersTickDelay = tickDelay;
 			_pendingAppendingCharactersX = 0;
