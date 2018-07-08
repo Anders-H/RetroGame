@@ -17,6 +17,8 @@ namespace RetroGameClasses.Text
 		public bool IsReady => _pendingAppendingCharacters == null;
 		public int Columns => Characters.GetLength(0);
 		public int Rows => Characters.GetLength(1);
+        public int DrawOffsetX { get; set; }
+        public int DrawOffsetY { get; set; }
 		public TextBlock() : this(40, 25, CharacterSet.Lowercase) { }
 		public TextBlock(CharacterSet characterSet) : this(40, 25, characterSet) { }
 		public TextBlock(int columns, int rows, CharacterSet characterSet)
@@ -110,7 +112,8 @@ namespace RetroGameClasses.Text
 						continue;
 					var sourceX = (int)CharacterSet * 64 + (int)c / 16 * 8;
 					var sourceY = (int)c % 16 * 8;
-					spriteBatch.Draw(RetroGame.Font64, new Vector2(x * 8, y * 8), new Rectangle(sourceX, sourceY, 8, 8), color);
+				    var pos = new Vector2(x * 8 + DrawOffsetX, y * 8 + DrawOffsetY);
+                    spriteBatch.Draw(RetroGame.Font64, pos, new Rectangle(sourceX, sourceY, 8, 8), color);
 				}
 			}
 		}
@@ -125,7 +128,8 @@ namespace RetroGameClasses.Text
 						continue;
 					var sourceX = (int)CharacterSet * 64 + (int)c / 16 * 8;
 					var sourceY = (int)c % 16 * 8;
-					spriteBatch.Draw(RetroGame.Font64, new Vector2(x * 8, y * 8), new Rectangle(sourceX, sourceY, 8, 8), ColorPaletteHelper.GetColor(ColorMap[x, y]));
+				    var pos = new Vector2(x * 8 + DrawOffsetX, y * 8 + DrawOffsetY);
+                    spriteBatch.Draw(RetroGame.Font64, pos, new Rectangle(sourceX, sourceY, 8, 8), ColorPaletteHelper.GetColor(ColorMap[x, y]));
 				}
 			}
 		}

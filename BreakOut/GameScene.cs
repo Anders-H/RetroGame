@@ -41,7 +41,7 @@ namespace BreakOut
 			Width = 10;
 			Height = 30;
 		}
-		public void Draw(SpriteBatch spriteBatch, ulong ticks) => Draw(spriteBatch, Game1.BallTexture, 0);
+		public void Draw(SpriteBatch spriteBatch, ulong ticks) => Draw(spriteBatch, Game1.BatTexture, 0);
 		public void Move(KeyboardStateChecker keyboard)
 		{
 			if (keyboard.IsKeyDown(Keys.Up))
@@ -72,7 +72,7 @@ namespace BreakOut
 			Width = 4;
 			Height = 4;
 		}
-		public void Draw(SpriteBatch spriteBatch, ulong ticks) => Draw(spriteBatch, Game1.BatTexture, 0);
+		public void Draw(SpriteBatch spriteBatch, ulong ticks) => Draw(spriteBatch, Game1.BallTexture, 0);
 		public void Move(Bat bat, int left, int top, int right, int bottom)
 		{
 			var nextX = X + SpeedX;

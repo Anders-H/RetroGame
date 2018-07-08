@@ -9,7 +9,7 @@ namespace BreakOut
     {
         public static RetroTexture BatTexture { get; set; }
         public static RetroTexture BallTexture { get; set; }
-        public Game1() : base(320, 200, RetroDisplayMode.FullscreenWithUpscalingAndBorder)
+        public Game1() : base(320, 200, RetroDisplayMode.WindowedWithUpscaling)
         {
         }
         protected override void LoadContent()
