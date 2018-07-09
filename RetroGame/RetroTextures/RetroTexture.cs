@@ -8,14 +8,14 @@ namespace RetroGameClasses.RetroTextures
 		public int CellWidth { get; }
 		public int CellHeight => Height;
 		public int CellCount { get; }
-		public RetroTexture(GraphicsDevice graphicsDevice, int cellWidth, int cellHeight, int cellCount) : base(graphicsDevice, cellWidth*cellCount, cellHeight)
+	    public RetroTexture(GraphicsDevice graphicsDevice, Point cellSize, int cellCount) : this(graphicsDevice, cellSize.X, cellSize.Y, cellCount) { }
+	    public RetroTexture(GraphicsDevice graphicsDevice, int cellWidth, int cellHeight, int cellCount) : base(graphicsDevice, cellWidth*cellCount, cellHeight)
 		{
 			CellWidth = cellWidth;
 			CellCount = cellCount;
 		}
-
 		public static RetroTexture ScaffoldSimpleTexture(GraphicsDevice graphicsDevice, int width, int height, Color color) =>
-			ScaffoldTextureCells(graphicsDevice, width, height, 1, color);
+		    ScaffoldTextureCells(graphicsDevice, width, height, 1, color);
 		public static RetroTexture ScaffoldTextureCells(GraphicsDevice graphicsDevice, int cellWidth, int cellHeight, int cellCount, Color color)
 		{
 			var size = cellWidth*cellCount*cellHeight;

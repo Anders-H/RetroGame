@@ -84,6 +84,7 @@
     <Compile Include="Text\Petscii.cs" />
     <Compile Include="Text\TextBlock.cs" />
     <Compile Include="Text\WordWrapper.cs" />
+    <Compile Include="Tilemaps\Tilemap.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="programicon.ico" />

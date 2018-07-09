@@ -6,10 +6,13 @@ namespace RetroGameClasses.RetroTextures
     public class Bitmap
     {
         private readonly Color[,] _pixels;
-        public Bitmap(int width, int height, ColorPalette color)
+        public Bitmap(Point size, ColorPalette color) : this(size.X, size.Y, ColorPaletteHelper.GetColor(color)) { }
+        public Bitmap(int width, int height, ColorPalette color) : this(width, height, ColorPaletteHelper.GetColor(color)) { }
+        public Bitmap(Point size, Color color) : this(size.X, size.Y, color) { }
+        public Bitmap(int width, int height, Color color)
         {
             _pixels = new Color[width, height];
-            var c = ColorPaletteHelper.GetColor(color);
+            var c = color;
             for (var y = 0; y < Height; y++)
                 for (var x = 0; x < Width; x++)
                     _pixels[x, y] = c;
