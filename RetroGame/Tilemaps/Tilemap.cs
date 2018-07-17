@@ -8,7 +8,7 @@ namespace RetroGameClasses.Tilemaps
 {
     public class Tilemap : ISceneActor
     {
-        private int?[,] _tiles;
+        private readonly int?[,] _tiles;
         public RetroTexture CurrentTexture { get; }
         public Point GridSize { get; }
         public Point TileSize { get; }
@@ -22,6 +22,7 @@ namespace RetroGameClasses.Tilemaps
         public int SpeedY { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
+        public bool Repeat { get; set; }
         public Tilemap(RetroTexture texture, Point gridSize, Point tileSize, Point displaySize)
         {
             if (gridSize.X <= 0 || gridSize.Y <= 0)
@@ -38,10 +39,30 @@ namespace RetroGameClasses.Tilemaps
             if (Delay > 0 && ticks%(ulong)Delay != 0)
                 return;
             PixelOffsetX += SpeedX;
-            if (PixelOffsetX >= TileSize.X)
+            if (Math.Abs(PixelOffsetX) >= TileSize.X)
             {
                 PixelOffsetX = 0;
                 TileOffsetX += 1;
+                if (Math.Abs(TileOffsetX) >= GridSize.X)
+                {
+                    if (TileOffsetX >= 0)
+                        TileOffsetX -= GridSize.X;
+                    else
+                        TileOffsetX += GridSize.X;
+                }
+            }
+            PixelOffsetY += SpeedY;
+            if (Math.Abs(PixelOffsetY) >= TileSize.Y)
+            {
+                PixelOffsetY = 0;
+                TileOffsetY += 1;
+                if (Math.Abs(TileOffsetY) >= GridSize.Y)
+                {
+                    if (TileOffsetY >= 0)
+                        TileOffsetY -= GridSize.Y;
+                    else
+                        TileOffsetY += GridSize.Y;
+                }
             }
         }
         public void Draw(SpriteBatch spriteBatch, ulong ticks)
@@ -52,7 +73,16 @@ namespace RetroGameClasses.Tilemaps
             {
                 for (var col = 0; col < DisplaySize.X; col++)
                 {
-                    var tile = GetValue(col + TileOffsetX, row + TileOffsetY);
+                    var tileX = col + TileOffsetX;
+                    var tileY = row + TileOffsetY;
+                    if (Repeat)
+                    {
+                        if (tileX >= GridSize.X)
+                            tileX -= GridSize.X;
+                        if (tileY >= GridSize.Y)
+                            tileY -= GridSize.Y;
+                    }
+                    var tile = GetValue(tileX, tileY);
                     if (tile == null)
                         continue;
                     var targetPos = new Vector2(x + TileSize.X * col, y + TileSize.Y * row);
