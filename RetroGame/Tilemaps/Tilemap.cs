@@ -95,7 +95,7 @@ namespace RetroGameClasses.Tilemaps
         {
             if (x < 0 || x >= GridSize.X)
                 throw new ArgumentOutOfRangeException(nameof(x));
-            if (y < 0 || y >= GridSize.X)
+            if (y < 0 || y >= GridSize.Y)
                 throw new ArgumentOutOfRangeException(nameof(y));
             _tiles[x, y] = value;
         }
@@ -103,7 +103,7 @@ namespace RetroGameClasses.Tilemaps
         {
             if (x < 0 || x >= GridSize.X)
                 throw new ArgumentOutOfRangeException(nameof(x));
-            if (y < 0 || y >= GridSize.X)
+            if (y < 0 || y >= GridSize.Y)
                 throw new ArgumentOutOfRangeException(nameof(y));
             var ret = _tiles[x, y];
             if (ret == null)
@@ -114,7 +114,7 @@ namespace RetroGameClasses.Tilemaps
         {
             if (x < 0 || x >= GridSize.X)
                 return null;
-            if (y < 0 || y >= GridSize.X)
+            if (y < 0 || y >= GridSize.Y)
                 return null;
             return _tiles[x, y];
         }
@@ -122,7 +122,7 @@ namespace RetroGameClasses.Tilemaps
         {
             if (x < 0 || x >= GridSize.X)
                 return false;
-            if (y < 0 || y >= GridSize.X)
+            if (y < 0 || y >= GridSize.Y)
                 return false;
             return _tiles[x, y].HasValue;
         }
