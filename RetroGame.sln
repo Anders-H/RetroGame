@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextInputOutput", "TextInpu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TilesDemo", "TilesDemo\TilesDemo.csproj", "{12645829-2BE6-4AD2-9FA4-E40B607EA484}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TilemapEditor", "TilemapEditor\TilemapEditor.csproj", "{C1241DD2-6BF5-4BC5-BDAD-E746BB2FCCFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,14 @@ Global
 		{12645829-2BE6-4AD2-9FA4-E40B607EA484}.Release|Any CPU.Build.0 = Release|Any CPU
 		{12645829-2BE6-4AD2-9FA4-E40B607EA484}.Release|x86.ActiveCfg = Release|Any CPU
 		{12645829-2BE6-4AD2-9FA4-E40B607EA484}.Release|x86.Build.0 = Release|Any CPU
+		{C1241DD2-6BF5-4BC5-BDAD-E746BB2FCCFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1241DD2-6BF5-4BC5-BDAD-E746BB2FCCFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1241DD2-6BF5-4BC5-BDAD-E746BB2FCCFF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C1241DD2-6BF5-4BC5-BDAD-E746BB2FCCFF}.Debug|x86.Build.0 = Debug|Any CPU
+		{C1241DD2-6BF5-4BC5-BDAD-E746BB2FCCFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1241DD2-6BF5-4BC5-BDAD-E746BB2FCCFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1241DD2-6BF5-4BC5-BDAD-E746BB2FCCFF}.Release|x86.ActiveCfg = Release|Any CPU
+		{C1241DD2-6BF5-4BC5-BDAD-E746BB2FCCFF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -13,7 +13,7 @@ namespace TilesDemo
     public class Game1 : RetroGame
     {
         internal static RetroTexture TilesTexture { get; set; }
-        public Game1() : base(320, 200, RetroDisplayMode.WindowedWithUpscaling)
+        public Game1() : base(320, 200, RetroDisplayMode.FullscreenWithUpscalingAndBorder)
         {
         }
         protected override void LoadContent()
