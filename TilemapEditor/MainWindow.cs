@@ -65,37 +65,61 @@ namespace TilemapEditor
         private void p_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.Clear(Color.Green);
-            if (Texture == null || Tilemap == null)
+            if (Texture == null)
                 return;
-            var visibleX = Width / Texture.TileSizeX;
-            var visibleY = Height / Texture.TileSizeY;
-            for (var y = 0; y <= visibleY; y++)
+            var zx = Texture.TileSizeX;
+            var zy = Texture.TileSizeY;
+            if (Tilemap != null)
             {
-                for (var x = 0; x <= visibleX; x++)
+                var visibleX = Width / zx;
+                var visibleY = Height / zy;
+                for (var y = 0; y <= visibleY; y++)
                 {
-                    var tileX = x + _viewOffsetX;
-                    var tileY = y + _viewOffsetY;
-                    var pixelX = x * Texture.TileSizeX;
-                    var pixelY = y * Texture.TileSizeY;
-                    if (tileX < 0 || tileX >= Tilemap.GridSizeX || tileY < 0 || tileY >= Tilemap.GridSizeY)
+                    for (var x = 0; x <= visibleX; x++)
                     {
-                        e.Graphics.DrawRectangle(Pens.Black, pixelX, pixelY, Texture.TileSizeX, Texture.TileSizeY);
-                        e.Graphics.FillRectangle(Brushes.Black, pixelX + 2, pixelY + 2, Texture.TileSizeX - 3, Texture.TileSizeY - 3);
-                    }
-                    else
-                    {
-                        var tile = Tilemap.GetValue(tileX, tileY);
-                        if (tile == null)
-                            e.Graphics.DrawRectangle(Pens.Blue, x * Texture.TileSizeX, y * Texture.TileSizeY, Texture.TileSizeX, Texture.TileSizeY);
+                        var tileX = x + _viewOffsetX;
+                        var tileY = y + _viewOffsetY;
+                        var pixelX = x * zx;
+                        var pixelY = y * zy;
+                        if (tileX < 0 || tileX >= Tilemap.GridSizeX || tileY < 0 || tileY >= Tilemap.GridSizeY)
+                        {
+                            e.Graphics.DrawRectangle(Pens.Black, pixelX, pixelY, zx, zy);
+                            e.Graphics.FillRectangle(Brushes.Black, pixelX + 2, pixelY + 2, zy - 3, zy - 3);
+                        }
                         else
                         {
-                            var source = new Rectangle(Texture.TileSizeX * tile.Value, 0, Texture.TileSizeX, Texture.TileSizeY);
-                            var destination = new Rectangle(x * Texture.TileSizeX, y * Texture.TileSizeY, Texture.TileSizeX, Texture.TileSizeY);
-                            e.Graphics.DrawImage(Texture.Bitmap, destination, source, GraphicsUnit.Pixel);
-                            e.Graphics.DrawRectangle(Pens.Black, x * Texture.TileSizeX, y * Texture.TileSizeY, Texture.TileSizeX, Texture.TileSizeY);
+                            var tile = Tilemap.GetValue(tileX, tileY);
+                            if (tile == null)
+                                e.Graphics.DrawRectangle(Pens.Blue, x * zx, y * zy, zx, zy);
+                            else
+                            {
+                                var source = new Rectangle(zx * tile.Value, 0, zx, zy);
+                                var destination = new Rectangle(x * zx, y * zy, zx, zy);
+                                e.Graphics.DrawImage(Texture.Bitmap, destination, source, GraphicsUnit.Pixel);
+                                e.Graphics.DrawRectangle(Pens.Black, x * zx, y * zy, zx, zy);
+                            }
                         }
                     }
                 }
+            }
+            var xp = 5;
+            var yp = 5;
+            for (var i = 0; i < Texture.Count; i++)
+            {
+                var source = new Rectangle(i * zx, 0, zx, zy);
+                var destination = new Rectangle(xp, yp, zx, zy);
+                e.Graphics.DrawImage(Texture.Bitmap, destination, source, GraphicsUnit.Pixel);
+                e.Graphics.DrawRectangle(Pens.Black, xp, yp, zx - 2, zy - 2);
+                if (i == CurrentTexture)
+                {
+                    e.Graphics.DrawRectangle(Pens.White, xp - 1, yp - 1, zx, zy);
+                    e.Graphics.DrawRectangle(Pens.Black, xp - 2, yp - 2, zx + 2, zy + 2);
+                }
+                yp += zy + 5;
+                if (yp < p.Height - 10)
+                    continue;
+                xp += zx + 5;
+                yp = 5;
             }
         }
 
@@ -116,10 +140,8 @@ namespace TilemapEditor
                 lblStatus.Text = "";
         }
 
-        private void p_Resize(object sender, EventArgs e)
-        {
-            Invalidate();
-        }
+        private void p_Resize(object sender, EventArgs e) =>
+            Refresh();
 
         private void p_MouseClick(object sender, MouseEventArgs e)
         {

@@ -7,6 +7,7 @@ namespace TilemapEditor
         public Bitmap Bitmap { get;}
         public int TileSizeX { get; }
         public int TileSizeY { get; }
+        public int Count { get; }
 
         public Texture(int tileSizeX, int tileSizeY)
         {
@@ -19,6 +20,7 @@ namespace TilemapEditor
                 for (var x = 0; x < 3; x++)
                     g.FillRectangle(colors[x], x * TileSizeX, 0, TileSizeX - 1, TileSizeY - 1);
             }
+            Count = 3;
         }
 
         public Texture(int tileSizeX, int tileSizeY, Bitmap bitmap)
@@ -26,6 +28,7 @@ namespace TilemapEditor
             TileSizeX = tileSizeX;
             TileSizeY = tileSizeY;
             Bitmap = bitmap;
+
         }
     }
 }
