@@ -5,9 +5,11 @@ namespace TilemapEditor
     public class EditableTilemap
     {
         private readonly int?[,] _tiles;
-        public EditableTilemap()
+        public EditableTilemap(int gridSizeX, int gridSizeY)
         {
-
+            GridSizeX = gridSizeX;
+            GridSizeY = gridSizeY;
+            _tiles = new int?[gridSizeX, gridSizeY];
         }
         public int GridSizeX { get; }
         public int GridSizeY { get; }

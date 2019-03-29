@@ -44,7 +44,7 @@ namespace TilemapEditor
         }
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            Tilemap = new EditableTilemap();
+            Tilemap = new EditableTilemap(3, 3);
             CheckFilename();
         }
         private void quitToolStripMenuItem_Click(object sender, EventArgs e) => Close();

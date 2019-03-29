@@ -57,6 +57,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Texture.cs" />
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -84,12 +85,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="if_Invader_1_367629.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RetroGame\RetroGame.csproj">
-      <Project>{6fe260fb-fe71-4991-a69c-cf60f38dbc75}</Project>
-      <Name>RetroGame</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
