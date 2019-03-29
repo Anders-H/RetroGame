@@ -116,7 +116,7 @@ namespace TilemapEditor
                     e.Graphics.DrawRectangle(Pens.Black, xp - 2, yp - 2, zx + 2, zy + 2);
                 }
                 yp += zy + 5;
-                if (yp < p.Height - 10)
+                if (yp < p.Height - zy)
                     continue;
                 xp += zx + 5;
                 yp = 5;
@@ -147,8 +147,29 @@ namespace TilemapEditor
         {
             if (Texture == null || Tilemap == null)
                 return;
+            var zx = Texture.TileSizeX;
+            var zy = Texture.TileSizeY;
+            //Click on tile palette?
+            var xp = 5;
+            var yp = 5;
+            for (var i = 0; i < Texture.Count; i++)
+            {
+                var destination = new Rectangle(xp, yp, zx, zy);
+                if (destination.IntersectsWith(new Rectangle(e.X, e.Y, 1, 1)))
+                {
+                    CurrentTexture = i;
+                    p.Invalidate();
+                    return;
+                }
+                yp += zy + 5;
+                if (yp < p.Height - zy)
+                    continue;
+                xp += zx + 5;
+                yp = 5;
+            }
+            //Click on tile?
             var x = (int)(e.X / (double)Texture.TileSizeX);
-            var y = (int)(e.Y / (double)Texture.TileSizeX);
+            var y = (int)(e.Y / (double)Texture.TileSizeY);
             x += _viewOffsetX;
             y += _viewOffsetY;
             if (x < 0 || y < 0 || x >= Tilemap.GridSizeX || y >= Tilemap.GridSizeY)
