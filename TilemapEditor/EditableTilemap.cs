@@ -5,14 +5,16 @@ namespace TilemapEditor
     public class EditableTilemap
     {
         private readonly int?[,] _tiles;
+        public int GridSizeX { get; }
+        public int GridSizeY { get; }
+
         public EditableTilemap(int gridSizeX, int gridSizeY)
         {
             GridSizeX = gridSizeX;
             GridSizeY = gridSizeY;
             _tiles = new int?[gridSizeX, gridSizeY];
         }
-        public int GridSizeX { get; }
-        public int GridSizeY { get; }
+
         public void SetValue(int x, int y, int? value)
         {
             if (x < 0 || x >= GridSizeX)
@@ -21,6 +23,7 @@ namespace TilemapEditor
                 throw new ArgumentOutOfRangeException(nameof(y));
             _tiles[x, y] = value;
         }
+
         public int GetExistingValue(int x, int y)
         {
             if (x < 0 || x >= GridSizeX)
@@ -32,6 +35,7 @@ namespace TilemapEditor
                 throw new SystemException("Value not set.");
             return ret.Value;
         }
+
         public int? GetValue(int x, int y)
         {
             if (x < 0 || x >= GridSizeX)
@@ -40,6 +44,7 @@ namespace TilemapEditor
                 return null;
             return _tiles[x, y];
         }
+
         public bool HasValue(int x, int y)
         {
             if (x < 0 || x >= GridSizeX)
