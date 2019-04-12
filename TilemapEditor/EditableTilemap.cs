@@ -5,14 +5,31 @@ namespace TilemapEditor
     public class EditableTilemap
     {
         private readonly int?[,] _tiles;
-        public int GridSizeX { get; }
-        public int GridSizeY { get; }
+        public int GridSizeX { get; private set; }
+        public int GridSizeY { get; private set; }
 
         public EditableTilemap(int gridSizeX, int gridSizeY)
         {
             GridSizeX = gridSizeX;
             GridSizeY = gridSizeY;
             _tiles = new int?[gridSizeX, gridSizeY];
+        }
+
+        public void ResizeGrid(int width, int height)
+        {
+            if (width < 1 || width > 5000)
+                throw new ArgumentException(nameof(width));
+            if (height <1 || height > 5000)
+                throw new ArgumentException(nameof(height));
+            var tiles = new int?[width, height];
+            var w = width > GridSizeX ? width : GridSizeX;
+            var h = height > GridSizeY ? height : GridSizeY;
+            for (var y = 0; y < h; y++)
+                for (var x = 0; x < w; x++)
+                    if (x < w && x < GridSizeX && y < h && y < GridSizeY)
+                        tiles[x, y] = _tiles[x, y];
+            GridSizeX = width;
+            GridSizeY = height;
         }
 
         public void SetValue(int x, int y, int? value)

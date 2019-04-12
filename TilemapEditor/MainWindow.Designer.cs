@@ -36,8 +36,10 @@
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.p = new System.Windows.Forms.PictureBox();
             this.lblView = new System.Windows.Forms.ToolStripStatusLabel();
+            this.p = new System.Windows.Forms.PictureBox();
+            this.tileGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.p)).BeginInit();
@@ -45,11 +47,14 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.tileGridToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(851, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(12, 4, 0, 4);
+            this.menuStrip1.Size = new System.Drawing.Size(1702, 46);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -60,50 +65,59 @@
             this.toolStripMenuItem1,
             this.quitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(64, 38);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // selectTextureToolStripMenuItem
             // 
             this.selectTextureToolStripMenuItem.Name = "selectTextureToolStripMenuItem";
-            this.selectTextureToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.selectTextureToolStripMenuItem.Size = new System.Drawing.Size(275, 38);
             this.selectTextureToolStripMenuItem.Text = "Select texture...";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(150, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(272, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(275, 38);
             this.quitToolStripMenuItem.Text = "Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblStatus,
             this.lblView});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 496);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 959);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(851, 22);
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(2, 0, 28, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(1702, 37);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // lblStatus
             // 
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(16, 17);
+            this.lblStatus.Size = new System.Drawing.Size(36, 32);
             this.lblStatus.Text = "   ";
+            // 
+            // lblView
+            // 
+            this.lblView.Name = "lblView";
+            this.lblView.Size = new System.Drawing.Size(152, 32);
+            this.lblView.Text = "(View at 0, 0)";
             // 
             // p
             // 
             this.p.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.p.Location = new System.Drawing.Point(0, 24);
+            this.p.Location = new System.Drawing.Point(0, 46);
+            this.p.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.p.Name = "p";
-            this.p.Size = new System.Drawing.Size(851, 472);
+            this.p.Size = new System.Drawing.Size(1702, 913);
             this.p.TabIndex = 2;
             this.p.TabStop = false;
             this.p.Paint += new System.Windows.Forms.PaintEventHandler(this.p_Paint);
@@ -111,23 +125,33 @@
             this.p.MouseMove += new System.Windows.Forms.MouseEventHandler(this.p_MouseMove);
             this.p.Resize += new System.EventHandler(this.p_Resize);
             // 
-            // lblView
+            // tileGridToolStripMenuItem
             // 
-            this.lblView.Name = "lblView";
-            this.lblView.Size = new System.Drawing.Size(74, 17);
-            this.lblView.Text = "(View at 0, 0)";
+            this.tileGridToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.resizeToolStripMenuItem});
+            this.tileGridToolStripMenuItem.Name = "tileGridToolStripMenuItem";
+            this.tileGridToolStripMenuItem.Size = new System.Drawing.Size(114, 38);
+            this.tileGridToolStripMenuItem.Text = "Tile grid";
+            // 
+            // resizeToolStripMenuItem
+            // 
+            this.resizeToolStripMenuItem.Name = "resizeToolStripMenuItem";
+            this.resizeToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.resizeToolStripMenuItem.Text = "Resize...";
+            this.resizeToolStripMenuItem.Click += new System.EventHandler(this.resizeToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(851, 518);
+            this.ClientSize = new System.Drawing.Size(1702, 996);
             this.Controls.Add(this.p);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "MainWindow";
             this.Text = "RetroGame Tile editor";
             this.Load += new System.EventHandler(this.MainWindow_Load);
@@ -153,6 +177,8 @@
         private System.Windows.Forms.ToolStripMenuItem selectTextureToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripStatusLabel lblView;
+        private System.Windows.Forms.ToolStripMenuItem tileGridToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem resizeToolStripMenuItem;
     }
 }
 

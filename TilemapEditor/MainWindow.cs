@@ -209,5 +209,15 @@ namespace TilemapEditor
                     break;
             }
         }
+
+        private void resizeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var x = new SizeGridDialog())
+                if (x.ShowDialog(this) == DialogResult.OK)
+                {
+                    Tilemap.ResizeGrid(x.Width, x.Height);
+                    Invalidate();
+                }
+        }
     }
 }
