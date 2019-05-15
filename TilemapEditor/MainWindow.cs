@@ -213,11 +213,17 @@ namespace TilemapEditor
         private void resizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var x = new SizeGridDialog())
+            {
+                x.CurrentGridSizeX = Tilemap.GridSizeX;
+                x.CurrentGridSizeY = Tilemap.GridSizeY;
                 if (x.ShowDialog(this) == DialogResult.OK)
                 {
-                    Tilemap.ResizeGrid(x.Width, x.Height);
+                    _viewOffsetX = 0;
+                    _viewOffsetY = 0;
+                    Tilemap.ResizeGrid(x.NewGridSizeX, x.NewGridSizeY);
                     Invalidate();
                 }
+            }
         }
     }
 }
