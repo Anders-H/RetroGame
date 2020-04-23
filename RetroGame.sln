@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.15
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetroGame", "RetroGame\RetroGame.csproj", "{6FE260FB-FE71-4991-A69C-CF60F38DBC75}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TilesDemo", "TilesDemo\TilesDemo.csproj", "{12645829-2BE6-4AD2-9FA4-E40B607EA484}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TilemapEditor", "TilemapEditor\TilemapEditor.csproj", "{C1241DD2-6BF5-4BC5-BDAD-E746BB2FCCFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollisionDetection", "CollisionDetection\CollisionDetection.csproj", "{048EA4CA-8C58-481C-8CF3-C9F16EB5FB1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +93,14 @@ Global
 		{C1241DD2-6BF5-4BC5-BDAD-E746BB2FCCFF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C1241DD2-6BF5-4BC5-BDAD-E746BB2FCCFF}.Release|x86.ActiveCfg = Release|Any CPU
 		{C1241DD2-6BF5-4BC5-BDAD-E746BB2FCCFF}.Release|x86.Build.0 = Release|Any CPU
+		{048EA4CA-8C58-481C-8CF3-C9F16EB5FB1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{048EA4CA-8C58-481C-8CF3-C9F16EB5FB1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{048EA4CA-8C58-481C-8CF3-C9F16EB5FB1F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{048EA4CA-8C58-481C-8CF3-C9F16EB5FB1F}.Debug|x86.Build.0 = Debug|Any CPU
+		{048EA4CA-8C58-481C-8CF3-C9F16EB5FB1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{048EA4CA-8C58-481C-8CF3-C9F16EB5FB1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{048EA4CA-8C58-481C-8CF3-C9F16EB5FB1F}.Release|x86.ActiveCfg = Release|Any CPU
+		{048EA4CA-8C58-481C-8CF3-C9F16EB5FB1F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

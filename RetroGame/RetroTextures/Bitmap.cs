@@ -6,9 +6,20 @@ namespace RetroGameClasses.RetroTextures
     public class Bitmap
     {
         private readonly Color[,] _pixels;
-        public Bitmap(Point size, ColorPalette color) : this(size.X, size.Y, ColorPaletteHelper.GetColor(color)) { }
-        public Bitmap(int width, int height, ColorPalette color) : this(width, height, ColorPaletteHelper.GetColor(color)) { }
-        public Bitmap(Point size, Color color) : this(size.X, size.Y, color) { }
+
+        public Bitmap(Point size, ColorPalette color) : this(size.X, size.Y, ColorPaletteHelper.GetColor(color))
+        {
+        }
+
+        public Bitmap(int width, int height, ColorPalette color) 
+            : this(width, height, ColorPaletteHelper.GetColor(color))
+        {
+        }
+
+        public Bitmap(Point size, Color color) : this(size.X, size.Y, color)
+        {
+        }
+        
         public Bitmap(int width, int height, Color color)
         {
             _pixels = new Color[width, height];
@@ -17,14 +28,24 @@ namespace RetroGameClasses.RetroTextures
                 for (var x = 0; x < Width; x++)
                     _pixels[x, y] = c;
         }
-        public int Width => _pixels.GetLength(0);
-        public int Height => _pixels.GetLength(1);
-        public Color GetPixel(int x, int y) => _pixels[x, y];
-        public void SetPixel(int x, int y, Color color) => _pixels[x, y] = color;
+        
+        public int Width =>
+            _pixels.GetLength(0);
+        
+        public int Height =>
+            _pixels.GetLength(1);
+        
+        public Color GetPixel(int x, int y) =>
+            _pixels[x, y];
+        
+        public void SetPixel(int x, int y, Color color) =>
+            _pixels[x, y] = color;
+        
         public void SetPixels(string pixelData)
         {
             var index = 0;
             for (var y = 0; y < Height; y++)
+            {
                 for (var x = 0; x < Width; x++)
                 {
                     switch (pixelData[index])
@@ -85,8 +106,10 @@ namespace RetroGameClasses.RetroTextures
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
+
                     index++;
                 }
+            }
         }
     }
 }

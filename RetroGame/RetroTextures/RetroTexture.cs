@@ -8,14 +8,21 @@ namespace RetroGameClasses.RetroTextures
         public int CellWidth { get; }
         public int CellHeight => Height;
         public int CellCount { get; }
-        public RetroTexture(GraphicsDevice graphicsDevice, Point cellSize, int cellCount) : this(graphicsDevice, cellSize.X, cellSize.Y, cellCount) { }
+
+        public RetroTexture(GraphicsDevice graphicsDevice, Point cellSize, int cellCount)
+            : this(graphicsDevice, cellSize.X, cellSize.Y, cellCount)
+        {
+        }
+        
         public RetroTexture(GraphicsDevice graphicsDevice, int cellWidth, int cellHeight, int cellCount) : base(graphicsDevice, cellWidth*cellCount, cellHeight)
         {
             CellWidth = cellWidth;
             CellCount = cellCount;
         }
+        
         public static RetroTexture ScaffoldSimpleTexture(GraphicsDevice graphicsDevice, int width, int height, Color color) =>
             ScaffoldTextureCells(graphicsDevice, width, height, 1, color);
+        
         public static RetroTexture ScaffoldTextureCells(GraphicsDevice graphicsDevice, int cellWidth, int cellHeight, int cellCount, Color color)
         {
             var size = cellWidth*cellCount*cellHeight;
@@ -26,34 +33,50 @@ namespace RetroGameClasses.RetroTextures
             texture.SetData(pixels);
             return texture;
         }
+        
         public static void PlotCell(RetroTexture targetTexture, int cellIndex, Bitmap bitmap)
         {
             var targetWidth = targetTexture.Width;
             var targetStart = bitmap.Width*cellIndex;
             var index = 0;
             var targetPixels = new Color[targetTexture.Width*targetTexture.Height];
+            
             targetTexture.GetData(targetPixels);
+
             for (var y = 0; y < bitmap.Height; y++)
+            {
                 for (var x = 0; x < targetWidth; x++)
                 {
                     if (x >= targetStart && x < targetStart + bitmap.Width)
                         if (bitmap.GetPixel(x - targetStart, y).A > 0)
                             targetPixels[index] = bitmap.GetPixel(x - targetStart, y);
+                    
                     index++;
                 }
+            }
+
             targetTexture.SetData(targetPixels);
         }
+        
         public void SetData(Texture2D source)
         {
             var data = new Color[source.Width * source.Height];
             source.GetData(data);
             SetData(data);
         }
-        public void Draw(SpriteBatch spriteBatch, int cellIndex, int x, int y)
-            => spriteBatch.Draw(this, new Vector2(x, y), new Rectangle(cellIndex*CellWidth, 0, CellWidth, CellHeight), Color.White);
-        public void Draw(SpriteBatch spriteBatch, int cellIndex, int x, int y, Color color)
-            => spriteBatch.Draw(this, new Vector2(x, y), new Rectangle(cellIndex* CellWidth, 0, CellWidth, CellHeight), color);
-        public void Draw(SpriteBatch spriteBatch, int cellIndex, int x, int y, ColorPalette color)
-            => spriteBatch.Draw(this, new Vector2(x, y), new Rectangle(cellIndex * CellWidth, 0, CellWidth, CellHeight), ColorPaletteHelper.GetColor(color));
+        
+        public void Draw(SpriteBatch spriteBatch, int cellIndex, int x, int y) =>
+            spriteBatch.Draw(this, new Vector2(x, y), new Rectangle(cellIndex*CellWidth, 0, CellWidth, CellHeight), Color.White);
+        
+        public void Draw(SpriteBatch spriteBatch, int cellIndex, int x, int y, Color color) =>
+            spriteBatch.Draw(this, new Vector2(x, y), new Rectangle(cellIndex* CellWidth, 0, CellWidth, CellHeight), color);
+            
+        public void Draw(SpriteBatch spriteBatch, int cellIndex, int x, int y, ColorPalette color) =>
+            spriteBatch.Draw(
+                this,
+                new Vector2(x, y),
+                new Rectangle(cellIndex * CellWidth, 0, CellWidth, CellHeight),
+                ColorPaletteHelper.GetColor(color)
+            );
     }
 }

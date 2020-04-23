@@ -9,7 +9,7 @@ using RetroGameClasses.Sprites;
 using RetroDisplayMode = RetroGameClasses.RetroDisplayMode;
 
 
-namespace TextureScaffolding
+namespace CollisionDetection
 {
 	public class Game1 : RetroGame
 	{
@@ -20,7 +20,13 @@ namespace TextureScaffolding
 		protected override void LoadContent()
 		{
 			BackColor = ColorPaletteHelper.GetColor(ColorPalette.Blue);
-			Texture = RetroTexture.ScaffoldTextureCells(GraphicsDevice, 2, 2, 4, ColorPaletteHelper.GetColor(ColorPalette.Transparent));
+			
+			Texture = RetroTexture.ScaffoldTextureCells(
+				GraphicsDevice,
+				2,
+				2,
+				4,
+				ColorPaletteHelper.GetColor(ColorPalette.Transparent));
 
 			var cell = new Bitmap(2, 2, ColorPalette.Transparent);
 			cell.SetPixels(

@@ -72,6 +72,7 @@
     <Compile Include="RetroGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RetroTextures\Bitmap.cs" />
+    <Compile Include="RetroTextures\CollisionTexture.cs" />
     <Compile Include="Scene\IRetroActor.cs" />
     <Compile Include="Scene\IRetroDrawable.cs" />
     <Compile Include="Scene\ISceneActor.cs" />
