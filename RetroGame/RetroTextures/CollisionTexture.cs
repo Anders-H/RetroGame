@@ -29,5 +29,17 @@ namespace RetroGameClasses.RetroTextures
                 where collisionZone.Intersects(rectangle)
                 select collisionZone
             ).Any();
+        
+        public bool Intersects(CollisionTexture texture) =>
+        (
+            from collisionZone in CollisionZones
+            from rectangle in texture.CollisionZones
+            where collisionZone.Intersects(rectangle)
+            select collisionZone
+        ).Any();
+
+        public bool Intersects(PlatformGameCharacterCollisionTexture texture) =>
+            Intersects(texture.BodyZone)
+            || Intersects(texture.FeetZone);
     }
 }
