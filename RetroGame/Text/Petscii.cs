@@ -164,6 +164,7 @@ namespace RetroGameClasses.Text
 				case 'n': return Petscii.N;
 				case 'o': return Petscii.O;
 				case 'p': return Petscii.P;
+				case 'q': return Petscii.Q;
 				case 'r': return Petscii.R;
 				case 's': return Petscii.S;
 				case 't': return Petscii.T;
@@ -171,6 +172,7 @@ namespace RetroGameClasses.Text
 				case 'v': return Petscii.V;
 				case 'w': return Petscii.W;
 				case 'x': return Petscii.X;
+				case 'y': return Petscii.Y;
 				case ':': return Petscii.Colon;
 				case ',': return Petscii.Comma;
 				case '-': return Petscii.Minus;

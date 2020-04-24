@@ -51,6 +51,7 @@ namespace RetroGameClasses.RetroTextures
                     switch (pixelData[index])
                     {
                         case ' ':
+                        case '.':
                             break;
                         case '1':
                             SetPixel(x, y, ColorPaletteHelper.GetColor(ColorPalette.Black));

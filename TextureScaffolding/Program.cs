@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CollisionDetection
+namespace TextureScaffolding
 {
     /// <summary>
     /// The main class.

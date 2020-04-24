@@ -9,14 +9,16 @@ using RetroGameClasses.Sprites;
 using RetroDisplayMode = RetroGameClasses.RetroDisplayMode;
 
 
-namespace CollisionDetection
+namespace TextureScaffolding
 {
 	public class Game1 : RetroGame
 	{
 		public static RetroTexture Texture;
+		
 		public Game1() : base(128, 128, RetroDisplayMode.WindowedWithUpscaling)
 		{
 		}
+		
 		protected override void LoadContent()
 		{
 			BackColor = ColorPaletteHelper.GetColor(ColorPalette.Blue);
