@@ -104,11 +104,13 @@ namespace TextureScaffolding
 		private KeyboardStateChecker Keyboard { get; } = new KeyboardStateChecker();
 		public CyclicSpriteScene(RetroGame retroGame) : base(retroGame)
 		{
-			CyclicSprite = new CyclicSprite();
-			CyclicSprite.ConfigureCycle(Game1.Texture, 5, 0, 1, 2, 3);
-			CyclicSprite.Y = 20;
+			CyclicSprite = new CyclicSprite(Game1.Texture, 5, 0, 1, 2, 3)
+			{
+				Y = 20
+			};
 			AddToAutoUpdate(Keyboard);
 		}
+		
 		public override void Update(GameTime gameTime, ulong ticks)
 		{
 			//Quit.
@@ -125,6 +127,7 @@ namespace TextureScaffolding
 			CyclicSprite.Act();
 			base.Update(gameTime, ticks);
 		}
+		
 		public override void Draw(GameTime gameTime, ulong ticks, SpriteBatch spriteBatch)
 		{
 			CyclicSprite.Draw(spriteBatch);

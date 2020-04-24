@@ -28,11 +28,6 @@ namespace RetroGameClasses.RetroTextures
                 rectangle => BodyZone.Intersects(rectangle) || FeetZone.Intersects(rectangle)
             );
         
-        public bool Intersects(CollisionTexture texture) =>
-            texture.CollisionZones.Any(
-                rectangle => BodyZone.Intersects(rectangle) || FeetZone.Intersects(rectangle)
-            );
-
         public bool Intersects(PlatformGameCharacterCollisionTexture texture) =>
             Intersects(texture.BodyZone)
             || Intersects(texture.FeetZone);
@@ -45,11 +40,6 @@ namespace RetroGameClasses.RetroTextures
                 rectangle => BodyZone.Intersects(rectangle)
             );
         
-        public bool BodyIntersects(CollisionTexture texture) =>
-            texture.CollisionZones.Any(
-                rectangle => BodyZone.Intersects(rectangle)
-            );
-
         public bool BodyIntersects(PlatformGameCharacterCollisionTexture texture) =>
             BodyZone.Intersects(texture.BodyZone)
             || BodyZone.Intersects(texture.FeetZone);
@@ -59,11 +49,6 @@ namespace RetroGameClasses.RetroTextures
 
         public bool FeetIntersects(IEnumerable<Rectangle> rectangles) =>
             rectangles.Any(
-                rectangle => FeetZone.Intersects(rectangle)
-            );
-        
-        public bool FeetIntersects(CollisionTexture texture) =>
-            texture.CollisionZones.Any(
                 rectangle => FeetZone.Intersects(rectangle)
             );
 

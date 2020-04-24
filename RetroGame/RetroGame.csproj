@@ -78,6 +78,7 @@
     <Compile Include="Scene\IRetroDrawable.cs" />
     <Compile Include="Scene\ISceneActor.cs" />
     <Compile Include="Scene\Scene.cs" />
+    <Compile Include="Sprites\CollisionSprite.cs" />
     <Compile Include="Sprites\CyclicSprite.cs" />
     <Compile Include="Sprites\IBatchSprite.cs" />
     <Compile Include="Sprites\Sprite.cs" />

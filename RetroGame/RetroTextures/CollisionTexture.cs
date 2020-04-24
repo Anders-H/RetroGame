@@ -7,39 +7,29 @@ namespace RetroGameClasses.RetroTextures
 {
     public class CollisionTexture : RetroTexture
     {
-        public List<Rectangle> CollisionZones { get; }
+        public List<Rectangle>[] CollisionZones { get; }
         
-        public CollisionTexture(GraphicsDevice graphicsDevice, Point cellSize, int cellCount) : base(graphicsDevice, cellSize, cellCount)
+        public CollisionTexture(GraphicsDevice graphicsDevice, Point cellSize, int cellCount) : this(graphicsDevice, cellSize.X, cellSize.Y, cellCount)
         {
-            CollisionZones = new List<Rectangle>();
         }
 
         public CollisionTexture(GraphicsDevice graphicsDevice, int cellWidth, int cellHeight, int cellCount) : base(graphicsDevice, cellWidth, cellHeight, cellCount)
         {
-            CollisionZones = new List<Rectangle>();
+            CollisionZones = new List<Rectangle>[cellCount];
+            
+            for(var i = 0; i < cellCount; i++)
+                CollisionZones[i] = new List<Rectangle>();
         }
 
-        public bool Intersects(Rectangle rectangle) =>
-            CollisionZones.Any(collisionZone => collisionZone.Intersects(rectangle));
+        public bool Intersects(int cellIndex, Rectangle rectangle) =>
+            CollisionZones[cellIndex].Any(collisionZone => collisionZone.Intersects(rectangle));
 
-        public bool Intersects(IEnumerable<Rectangle> rectangles) =>
+        public bool Intersects(int cellIndex, IEnumerable<Rectangle> rectangles) =>
             (
                 from collisionZone in CollisionZones
                 from rectangle in rectangles
-                where collisionZone.Intersects(rectangle)
+                where collisionZone[cellIndex].Intersects(rectangle)
                 select collisionZone
             ).Any();
-        
-        public bool Intersects(CollisionTexture texture) =>
-        (
-            from collisionZone in CollisionZones
-            from rectangle in texture.CollisionZones
-            where collisionZone.Intersects(rectangle)
-            select collisionZone
-        ).Any();
-
-        public bool Intersects(PlatformGameCharacterCollisionTexture texture) =>
-            Intersects(texture.BodyZone)
-            || Intersects(texture.FeetZone);
     }
 }
