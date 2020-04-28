@@ -21,15 +21,48 @@ namespace RetroGameClasses.RetroTextures
                 CollisionZones[i] = new List<Rectangle>();
         }
 
-        public bool Intersects(int cellIndex, Rectangle rectangle) =>
-            CollisionZones[cellIndex].Any(collisionZone => collisionZone.Intersects(rectangle));
+        public new static CollisionTexture ScaffoldTextureCells(GraphicsDevice graphicsDevice, int cellWidth, int cellHeight, int cellCount, Color color)
+        {
+            var size = cellWidth*cellCount*cellHeight;
+            var pixels = new Color[size];
+            for (var i = 0; i < pixels.Length; i++)
+                pixels[i] = color;
+            var texture = new CollisionTexture(graphicsDevice, cellWidth, cellHeight, cellCount);
+            texture.SetData(pixels);
+            return texture;
+        }
 
-        public bool Intersects(int cellIndex, IEnumerable<Rectangle> rectangles) =>
-            (
-                from collisionZone in CollisionZones
-                from rectangle in rectangles
-                where collisionZone[cellIndex].Intersects(rectangle)
-                select collisionZone
-            ).Any();
+        public void AddCollision(int cellIndex, Rectangle zone) =>
+            CollisionZones[cellIndex].Add(zone);
+
+        public void AddCollision(int cellIndex, int x, int y, int width, int height) =>
+            CollisionZones[cellIndex].Add(new Rectangle(x, y, width, height));
+
+        public bool Intersects(int cellIndex, Point myLocation, Rectangle rectangle, Point rectangleLocation)
+        {
+            var myRectangles = new Rectangle[CollisionZones[cellIndex].Count];
+            for (var i = 0; i < CollisionZones[cellIndex].Count; i++)
+            {
+                var r = CollisionZones[cellIndex][i];
+                myRectangles[i] = new Rectangle(
+                    r.X + myLocation.X,
+                    r.Y + myLocation.Y,
+                    r.Width,
+                    r.Height
+                );
+            }
+
+            var otherRectangle = new Rectangle(
+                rectangle.X + rectangleLocation.X,
+                rectangle.Y + rectangleLocation.Y,
+                rectangle.Width,
+                rectangle.Height
+            );
+            
+            return myRectangles.Any(z => z.Intersects(otherRectangle));
+        }
+
+        public bool Intersects(int cellIndex, Point myLocation, IEnumerable<Rectangle> rectangles, Point rectangleLocation) =>
+            rectangles.Any(otherRectangle => Intersects(cellIndex, myLocation, otherRectangle, rectangleLocation));
     }
 }

@@ -20,6 +20,9 @@ namespace RetroGameClasses.Sprites
         
         public Vector2 Location =>
             new Vector2(X, Y);
+
+        public Point Point =>
+            new Point((int)X, (int)Y);
         
         public Point Size =>
             new Point(Width, Height);

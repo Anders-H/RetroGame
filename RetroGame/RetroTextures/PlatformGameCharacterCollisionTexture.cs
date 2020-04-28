@@ -19,6 +19,8 @@ namespace RetroGameClasses.RetroTextures
         {
         }
 
+        //TODO: Location!
+        
         public bool Intersects(Rectangle rectangle) =>
             BodyZone.Intersects(rectangle)
             || FeetZone.Intersects(rectangle);

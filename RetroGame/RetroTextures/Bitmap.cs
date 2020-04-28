@@ -53,55 +53,54 @@ namespace RetroGameClasses.RetroTextures
                         case ' ':
                         case '.':
                             break;
-                        case '1':
+                        case '0':
                             SetPixel(x, y, ColorPaletteHelper.GetColor(ColorPalette.Black));
                             break;
-                        case '2':
+                        case '1':
                             SetPixel(x, y, ColorPaletteHelper.GetColor(ColorPalette.White));
                             break;
-                        case '3':
+                        case '2':
                             SetPixel(x, y, ColorPaletteHelper.GetColor(ColorPalette.Red));
                             break;
-                        case '4':
+                        case '3':
                             SetPixel(x, y, ColorPaletteHelper.GetColor(ColorPalette.Cyan));
                             break;
-                        case '5':
+                        case '4':
                             SetPixel(x, y, ColorPaletteHelper.GetColor(ColorPalette.Purple));
                             break;
-                        case '6':
+                        case '5':
                             SetPixel(x, y, ColorPaletteHelper.GetColor(ColorPalette.Green));
                             break;
-                        case '7':
+                        case '6':
                             SetPixel(x, y, ColorPaletteHelper.GetColor(ColorPalette.Yellow));
                             break;
-                        case '8':
+                        case '7':
                             SetPixel(x, y, ColorPaletteHelper.GetColor(ColorPalette.Orange));
                             break;
-                        case '9':
+                        case '8':
                             SetPixel(x, y, ColorPaletteHelper.GetColor(ColorPalette.Brown));
+                            break;
+                        case '9':
+                            SetPixel(x, y, ColorPaletteHelper.GetColor(ColorPalette.LightRed));
                             break;
                         case 'a':
                         case 'A':
-                            SetPixel(x, y, ColorPaletteHelper.GetColor(ColorPalette.LightRed));
+                            SetPixel(x, y, ColorPaletteHelper.GetColor(ColorPalette.DarkGrey));
                             break;
                         case 'b':
                         case 'B':
-                            SetPixel(x, y, ColorPaletteHelper.GetColor(ColorPalette.DarkGrey));
+                            SetPixel(x, y, ColorPaletteHelper.GetColor(ColorPalette.Grey));
                             break;
                         case 'c':
                         case 'C':
-                            SetPixel(x, y, ColorPaletteHelper.GetColor(ColorPalette.Grey));
+                            SetPixel(x, y, ColorPaletteHelper.GetColor(ColorPalette.LightGreen));
                             break;
                         case 'd':
                         case 'D':
-                            SetPixel(x, y, ColorPaletteHelper.GetColor(ColorPalette.LightGreen));
+                            SetPixel(x, y, ColorPaletteHelper.GetColor(ColorPalette.LightBlue));
                             break;
                         case 'e':
                         case 'E':
-                            SetPixel(x, y, ColorPaletteHelper.GetColor(ColorPalette.LightBlue));
-                            break;
-                        case 'f':
-                        case 'F':
                             SetPixel(x, y, ColorPaletteHelper.GetColor(ColorPalette.LightGrey));
                             break;
                         default:

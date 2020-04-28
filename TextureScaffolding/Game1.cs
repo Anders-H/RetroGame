@@ -28,7 +28,8 @@ namespace TextureScaffolding
 				2,
 				2,
 				4,
-				ColorPaletteHelper.GetColor(ColorPalette.Transparent));
+				ColorPaletteHelper.GetColor(ColorPalette.Transparent)
+			);
 
 			var cell = new Bitmap(2, 2, ColorPalette.Transparent);
 			cell.SetPixels(
@@ -66,10 +67,12 @@ namespace TextureScaffolding
 		private int _x;
 		private int _xspeed = 1;
 		private KeyboardStateChecker Keyboard { get; } = new KeyboardStateChecker();
+		
 		public AnimationTextureScene(RetroGame retroGame) : base(retroGame)
 		{
 			AddToAutoUpdate(Keyboard);
 		}
+		
 		public override void Update(GameTime gameTime, ulong ticks)
 		{
 			//Quit.
@@ -93,6 +96,7 @@ namespace TextureScaffolding
 				_frame = 0;
 			base.Update(gameTime, ticks);
 		}
+		
 		public override void Draw(GameTime gameTime, ulong ticks, SpriteBatch spriteBatch) =>
 			Game1.Texture.Draw(spriteBatch, _frame, _x, 20);
 	}
@@ -102,6 +106,7 @@ namespace TextureScaffolding
 		private float _xspeed = 0.3f;
 		private CyclicSprite CyclicSprite { get; }
 		private KeyboardStateChecker Keyboard { get; } = new KeyboardStateChecker();
+		
 		public CyclicSpriteScene(RetroGame retroGame) : base(retroGame)
 		{
 			CyclicSprite = new CyclicSprite(Game1.Texture, 5, 0, 1, 2, 3)

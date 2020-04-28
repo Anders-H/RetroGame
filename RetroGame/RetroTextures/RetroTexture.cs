@@ -33,6 +33,13 @@ namespace RetroGameClasses.RetroTextures
             texture.SetData(pixels);
             return texture;
         }
+
+        public void PlotCell(RetroTexture targetTexture, int cellIndex, ColorPalette background, string pixelData)
+        {
+            var bitmap = new Bitmap(CellWidth, CellHeight, background);
+            bitmap.SetPixels(pixelData);
+            PlotCell(targetTexture, cellIndex, bitmap);
+        }
         
         public static void PlotCell(RetroTexture targetTexture, int cellIndex, Bitmap bitmap)
         {

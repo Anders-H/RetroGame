@@ -23,7 +23,13 @@ namespace RetroGameClasses.Sprites
         
         public void Draw(SpriteBatch spriteBatch) =>
             Draw(spriteBatch, CurrentTexture, CurrentCell);
-        
-        //TODO: API for intersection check.
+
+        public bool Intersects(CollisionSprite sprite) =>
+            CurrentTexture.Intersects(
+                CurrentCellPointer,
+                Point,
+                sprite.CurrentTexture.CollisionZones[sprite.CurrentCellPointer],
+                sprite.Point
+            );
     }
 }
