@@ -2,7 +2,10 @@
 {
     public enum RetroDisplayMode
     {
-        Windowed, WindowedWithUpscaling, FullscreenWithUpscaling, FullscreenWithUpscalingAndBorder
+        Windowed,
+        WindowedWithUpscaling,
+        FullscreenWithUpscaling,
+        FullscreenWithUpscalingAndBorder
     }
 
     internal static class DisplayModeHelper

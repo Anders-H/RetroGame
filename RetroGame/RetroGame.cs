@@ -68,21 +68,25 @@ namespace RetroGameClasses
 				}
 			}
 			else if (Upscaling)
-			{
-				var w = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-				var h = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            {
+                var w = Window.ClientBounds.Width;
+                var h = Window.ClientBounds.Height;
 				PhysicalWidth = ResolutionWidth;
 				PhysicalHeight = ResolutionHeight;
-				for (var scale = 10; scale > 1; scale--)
-				{
-					if (w < ResolutionWidth * scale || h < ResolutionHeight * scale)
-						continue;
-					PhysicalWidth = ResolutionWidth * (scale - 1);
-					PhysicalHeight = ResolutionHeight * (scale - 1);
-					break;
-				}
+                var dscale = 10.20;
+                for (var scale = 50; scale > 1; scale--)
+                {
+                    dscale -= 0.20;
+                    if (w < ResolutionWidth * dscale || h < ResolutionHeight * dscale)
+                        continue;
+                    PhysicalWidth = (int)(ResolutionWidth * dscale);
+                    PhysicalHeight = (int)(ResolutionHeight * dscale);
+                    break;
+                }
 				G.PreferredBackBufferWidth = PhysicalWidth;
 				G.PreferredBackBufferHeight = PhysicalHeight;
+                BorderOffsetX = w / 2 - PhysicalWidth / 2;
+                BorderOffsetY = h / 2 - PhysicalHeight / 2;
 				G.IsFullScreen = false;
 			}
 			else
@@ -119,7 +123,7 @@ namespace RetroGameClasses
 		{
 			if (CurrentScene != null)
 			{
-				if (Border)
+				if (Border || !Fullscreen)
 				{
 					G.GraphicsDevice.SetRenderTarget(RenderTarget);
 					G.GraphicsDevice.Clear(BackColor);
