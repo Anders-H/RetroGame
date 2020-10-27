@@ -13,9 +13,11 @@ namespace TilesDemo
     public class Game1 : RetroGame
     {
         internal static RetroTexture TilesTexture { get; set; }
-        public Game1() : base(320, 200, RetroDisplayMode.FullscreenWithUpscalingAndBorder)
+
+        public Game1() : base(320, 200, RetroDisplayMode.Fullscreen)
         {
         }
+
         protected override void LoadContent()
         {
             TilesTexture = new RetroTexture(GraphicsDevice, 32, 32, 10);
@@ -32,6 +34,7 @@ namespace TilesDemo
         private Tilemap TilesLayer1 { get; }
         private Tilemap TilesLayer2 { get; }
         private Tilemap TilesLayer3 { get; }
+
         public TextureDemoScene(RetroGame parent) : base(parent)
         {
             var rnd = new Random();

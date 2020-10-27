@@ -18,7 +18,7 @@ namespace CollisionDetection
 		public static CollisionSpriteWithMovement Sprite2;
 		public static CollisionSpriteWithMovement Sprite3;
 		
-		public Game1() : base(128, 128, RetroDisplayMode.WindowedWithUpscaling)
+		public Game1() : base(128, 128, RetroDisplayMode.Windowed)
 		{
 		}
 		

@@ -11,7 +11,7 @@ namespace BreakOut
         
         public static RetroTexture BallTexture { get; set; }
         
-        public Game1() : base(320, 200, RetroDisplayMode.WindowedWithUpscaling)
+        public Game1() : base(320, 200, RetroDisplayMode.Windowed)
         {
         }
         

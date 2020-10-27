@@ -15,7 +15,7 @@ namespace TextureScaffolding
 	{
 		public static RetroTexture Texture;
 		
-		public Game1() : base(128, 128, RetroDisplayMode.WindowedWithUpscaling)
+		public Game1() : base(128, 128, RetroDisplayMode.Windowed)
 		{
 		}
 		

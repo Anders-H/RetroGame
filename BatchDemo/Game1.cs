@@ -8,7 +8,7 @@ namespace BatchDemo
 	{
 		public static RetroTexture Star { get; set; }
 
-		public Game1() : base(320, 200, RetroDisplayMode.FullscreenWithUpscalingAndBorder)
+		public Game1() : base(320, 200, RetroDisplayMode.Windowed)
 		{
 		}
 		

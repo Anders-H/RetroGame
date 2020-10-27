@@ -9,7 +9,7 @@ namespace TextInputOutput
 {
 	public class Game1 : RetroGame
 	{
-		public Game1() : base(320, 200, RetroDisplayMode.WindowedWithUpscaling)
+		public Game1() : base(320, 200, RetroDisplayMode.Windowed)
 		{
 		}
 		protected override void LoadContent()
