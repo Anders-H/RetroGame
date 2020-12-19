@@ -13,6 +13,7 @@ namespace TilesDemo
     public class Game1 : RetroGame
     {
         internal static RetroTexture TilesTexture { get; set; }
+        public static RetroTexture ResolutionReference { get; set; }
 
         public Game1() : base(320, 200, RetroDisplayMode.Fullscreen)
         {
@@ -22,6 +23,8 @@ namespace TilesDemo
         {
             TilesTexture = new RetroTexture(GraphicsDevice, 32, 32, 10);
             TilesTexture.SetData(Content.Load<Texture2D>("test_tiles"));
+            ResolutionReference = new RetroTexture(GraphicsDevice, 320, 200, 1);
+            ResolutionReference.SetData(Content.Load<Texture2D>("resolution_reference"));
             BorderColor = ColorPaletteHelper.GetColor(ColorPalette.LightGreen);
             BackColor = ColorPaletteHelper.GetColor(ColorPalette.DarkGrey);
             CurrentScene = new TextureDemoScene(this);
@@ -78,6 +81,12 @@ namespace TilesDemo
             
             AddToAutoUpdate(Keyboard, TilesLayer1, TilesLayer2);
             AddToAutoDraw(TilesLayer1, TilesLayer2, TilesLayer3);
+        }
+
+        public override void Draw(GameTime gameTime, ulong ticks, SpriteBatch spriteBatch)
+        {
+            base.Draw(gameTime, ticks, spriteBatch);
+            Game1.ResolutionReference.Draw(spriteBatch, 0, 0, 0);
         }
 
         public override void Update(GameTime gameTime, ulong ticks)

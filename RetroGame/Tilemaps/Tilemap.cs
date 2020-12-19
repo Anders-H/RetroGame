@@ -23,6 +23,7 @@ namespace RetroGameClasses.Tilemaps
         public int X { get; set; }
         public int Y { get; set; }
         public bool Repeat { get; set; }
+
         public Tilemap(RetroTexture texture, Point gridSize, Point tileSize, Point displaySize)
         {
             if (gridSize.X <= 0 || gridSize.Y <= 0)
@@ -33,7 +34,13 @@ namespace RetroGameClasses.Tilemaps
             DisplaySize = displaySize;
             _tiles = new int?[GridSize.X, GridSize.Y];
         }
-        public Tilemap(RetroTexture texture, int gridSizeX, int gridSizeY, int tileSizeX, int tileSizeY, int displaySizeX, int displaySizeY) : this(texture, new Point(gridSizeX, gridSizeY), new Point(tileSizeX, tileSizeY), new Point(displaySizeX, displaySizeY)) { }
+
+        public Tilemap(
+            RetroTexture texture, int gridSizeX, int gridSizeY, int tileSizeX, int tileSizeY, int displaySizeX, int displaySizeY)
+            : this(texture, new Point(gridSizeX, gridSizeY), new Point(tileSizeX, tileSizeY), new Point(displaySizeX, displaySizeY))
+        {
+        }
+
         public void Act(ulong ticks)
         {
             if (Delay > 0 && ticks%(ulong)Delay != 0)
@@ -65,6 +72,7 @@ namespace RetroGameClasses.Tilemaps
                 }
             }
         }
+
         public void Draw(SpriteBatch spriteBatch, ulong ticks)
         {
             var x = X + PixelOffsetX;
@@ -91,6 +99,7 @@ namespace RetroGameClasses.Tilemaps
                 }
             }
         }
+
         public void SetValue(int x, int y, int? value)
         {
             if (x < 0 || x >= GridSize.X)

@@ -28,9 +28,9 @@ namespace RetroGameClasses
 			BackColor = ColorPaletteHelper.GetColor(ColorPalette.Blue);
             Fullscreen = displayMode == RetroDisplayMode.Fullscreen;
 			G = new GraphicsDeviceManager(this);
-			Content.RootDirectory = "Content";
-			ResolutionWidth = resolutionWidth;
-			ResolutionHeight = resolutionHeight;
+            Content.RootDirectory = "Content";
+			ResolutionWidth = resolutionWidth*2;
+			ResolutionHeight = resolutionHeight*2;
 
             var targetWidth = Fullscreen
                 ? GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width
@@ -42,17 +42,23 @@ namespace RetroGameClasses
 
             var ratioX = targetWidth/(double)ResolutionWidth;
             var ratioY = targetHeight/(double)ResolutionHeight;
-            var ratio = ratioX < ratioY ? ratioX : ratioY;
+            var ratio = ratioX > ratioY ? ratioX : ratioY;
             PhysicalWidth = (int)(ResolutionWidth*ratio);
-            PhysicalHeight = (int)(ResolutionWidth*ratio);
+            PhysicalHeight = (int)(ResolutionHeight*ratio);
 
-            OffsetX = targetWidth/2 - PhysicalWidth/2;
-            OffsetY = targetHeight/2 - PhysicalHeight/2;
+            OffsetX = Fullscreen
+                ? 0
+                : targetWidth/2 - PhysicalWidth/2;
+
+            OffsetY = Fullscreen
+                ? 0
+                : targetHeight/2 - PhysicalHeight/2;
 
 			G.IsFullScreen = Fullscreen;
+            G.ApplyChanges();
 		}
-		
-        protected override void LoadContent()
+
+		protected override void LoadContent()
 		{
 			Font64 = Content.Load<Texture2D>("c64font");
 			base.LoadContent();
