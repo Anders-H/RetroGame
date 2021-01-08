@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace RetroGameClasses
@@ -29,8 +28,8 @@ namespace RetroGameClasses
             Fullscreen = displayMode == RetroDisplayMode.Fullscreen;
 			G = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-			ResolutionWidth = resolutionWidth*2;
-			ResolutionHeight = resolutionHeight*2;
+			ResolutionWidth = resolutionWidth;
+			ResolutionHeight = resolutionHeight;
 
             var targetWidth = Fullscreen
                 ? GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width
@@ -54,7 +53,13 @@ namespace RetroGameClasses
                 ? 0
                 : targetHeight/2 - PhysicalHeight/2;
 
+            G.PreferredBackBufferWidth = ResolutionWidth;
+            G.PreferredBackBufferHeight = ResolutionHeight;
+
 			G.IsFullScreen = Fullscreen;
+            if (Fullscreen)
+                G.HardwareModeSwitch = false;
+
             G.ApplyChanges();
 		}
 
