@@ -6,6 +6,7 @@ namespace RetroGameClasses
 	public class RetroGame : Game
 	{
 		public bool Fullscreen { get; }
+		public bool Border { get; set; }
 		private GraphicsDeviceManager G { get; }
 		public int ResolutionWidth { get; }
 		public int ResolutionHeight { get; }
@@ -20,38 +21,45 @@ namespace RetroGameClasses
 		private int OffsetX { get; }
 		private int OffsetY { get; }
 
+        public RetroGame(int resolutionWidth, int resolutionHeight, RetroDisplayMode displayMode) : this(resolutionWidth, resolutionHeight, displayMode, false)
+        {
+        }
 
-		public RetroGame(int resolutionWidth, int resolutionHeight, RetroDisplayMode displayMode)
-		{
+		public RetroGame(int resolutionWidth, int resolutionHeight, RetroDisplayMode displayMode, bool border)
+        {
+            Border = border;
 			BorderColor = ColorPaletteHelper.GetColor(ColorPalette.LightBlue);
 			BackColor = ColorPaletteHelper.GetColor(ColorPalette.Blue);
+
             Fullscreen = displayMode == RetroDisplayMode.Fullscreen;
+
 			G = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 			ResolutionWidth = resolutionWidth;
 			ResolutionHeight = resolutionHeight;
 
-            var targetWidth = Fullscreen
+            var actualWidth = Fullscreen
                 ? GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width
                 : Window.ClientBounds.Width;
 
-            var targetHeight = Fullscreen
+            var actualHeight = Fullscreen
                 ? GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height
                 : Window.ClientBounds.Height;
 
-            var ratioX = targetWidth/(double)ResolutionWidth;
-            var ratioY = targetHeight/(double)ResolutionHeight;
-            var ratio = ratioX > ratioY ? ratioX : ratioY;
+            var ratioX = actualWidth/(double)ResolutionWidth;
+            var ratioY = actualHeight/(double)ResolutionHeight;
+            var ratio = ratioX < ratioY ? ratioX : ratioY;
             PhysicalWidth = (int)(ResolutionWidth*ratio);
             PhysicalHeight = (int)(ResolutionHeight*ratio);
 
-            OffsetX = Fullscreen
-                ? 0
-                : targetWidth/2 - PhysicalWidth/2;
+            if (Border)
+            {
+                PhysicalWidth -= (int)(PhysicalHeight * 0.12);
+                PhysicalHeight -= (int)(PhysicalHeight * 0.12);
+			}
 
-            OffsetY = Fullscreen
-                ? 0
-                : targetHeight/2 - PhysicalHeight/2;
+			OffsetX = actualWidth/2 - PhysicalWidth/2;
+            OffsetY = actualHeight/2 - PhysicalHeight/2;
 
             G.PreferredBackBufferWidth = ResolutionWidth;
             G.PreferredBackBufferHeight = ResolutionHeight;

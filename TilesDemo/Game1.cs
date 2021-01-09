@@ -15,7 +15,7 @@ namespace TilesDemo
         internal static RetroTexture TilesTexture { get; set; }
         public static RetroTexture ResolutionReference { get; set; }
 
-        public Game1() : base(320, 200, RetroDisplayMode.Fullscreen)
+        public Game1() : base(320, 200, RetroDisplayMode.Fullscreen, true)
         {
         }
 
