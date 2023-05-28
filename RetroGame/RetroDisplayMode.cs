@@ -1,8 +1,7 @@
-﻿namespace RetroGameClasses
+﻿namespace RetroGame;
+
+public enum RetroDisplayMode
 {
-    public enum RetroDisplayMode
-    {
-        Windowed,
-        Fullscreen
-    }
+    Windowed,
+    Fullscreen
 }

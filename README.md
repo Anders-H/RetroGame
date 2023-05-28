@@ -1,12 +1,12 @@
 # RetroGame
 Support classes for creating retro games using MonoGame.
 
-Use project template: MonoGame Cross Platform Desktop Project.
+Use project template: MonoGame Windows Desktop Application (MonoGame Team).
 
 ## Getting started
-1. Make sure you have [MonoGame extension for Visual Studio 2019](https://docs.monogame.net/articles/getting_started/1_setting_up_your_development_environment_windows.html) installed, and the correct tools
+1. Make sure you have [MonoGame extension for Visual Studio 2022](https://www.monogame.net/downloads/) installed, version 3.8 or higher.
 
-2. Create a MonoGame project of type "MonoGame Cross-Platform Desktop Application (OpenGL)". Target framework should be 4.8 or higher.
+2. Create a MonoGame project of type "MonoGame Windows Desktop Application". Target framework should be .NET 6.0.
 
 3. Add a reference to RetroGame. (Nuget package not yet available.)
 

@@ -1,6 +1,5 @@
-﻿namespace RetroGameClasses.Scene
+﻿namespace RetroGame.Scene;
+
+public interface ISceneActor : IRetroActor, IRetroDrawable
 {
-	public interface ISceneActor : IRetroActor, IRetroDrawable
-	{
-	}
 }

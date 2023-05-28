@@ -1,7 +1,6 @@
-﻿namespace RetroGameClasses.Scene
+﻿namespace RetroGame.Scene;
+
+public interface IRetroActor
 {
-	public interface IRetroActor
-	{
-		void Act(ulong ticks);
-	}
+    void Act(ulong ticks);
 }

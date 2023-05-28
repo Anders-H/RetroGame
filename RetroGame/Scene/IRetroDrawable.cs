@@ -1,9 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-namespace RetroGameClasses.Scene
+namespace RetroGame.Scene;
+
+public interface IRetroDrawable
 {
-	public interface IRetroDrawable
-	{
-		void Draw(SpriteBatch spriteBatch, ulong ticks);
-	}
+    void Draw(SpriteBatch spriteBatch, ulong ticks);
 }

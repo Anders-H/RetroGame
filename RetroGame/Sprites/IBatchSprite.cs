@@ -1,9 +1,8 @@
-﻿using RetroGameClasses.Scene;
+﻿using RetroGame.Scene;
 
-namespace RetroGameClasses.Sprites
+namespace RetroGame.Sprites;
+
+public interface IBatchSprite : ISceneActor
 {
-	public interface IBatchSprite : ISceneActor
-	{
-		bool IsAlive { get; }
-	}
+    bool IsAlive { get; }
 }
