@@ -4,9 +4,11 @@ using Microsoft.Xna.Framework.Input;
 using RetroGame.Input;
 using RetroGame.Scene;
 using RetroGame.Sprites;
+using System.Runtime.Versioning;
 
 namespace BreakOut;
 
+[SupportedOSPlatform("windows")]
 public class GameScene : Scene
 {
     private KeyboardStateChecker Keyboard { get; } = new();
@@ -19,6 +21,7 @@ public class GameScene : Scene
         AddToAutoDraw(Bat, Ball);
     }
 
+    [SupportedOSPlatform("windows")]
     public override void Update(GameTime gameTime, ulong ticks)
     {
         Bat.Move(Keyboard);
@@ -36,6 +39,7 @@ public class GameScene : Scene
     }
 }
 
+[SupportedOSPlatform("windows")]
 public class Bat : Sprite, IRetroDrawable
 {
     public Bat()

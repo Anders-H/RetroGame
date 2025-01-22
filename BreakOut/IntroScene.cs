@@ -5,9 +5,11 @@ using RetroGame;
 using RetroGame.Input;
 using RetroGame.Scene;
 using RetroGame.Text;
+using System.Runtime.Versioning;
 
 namespace BreakOut;
 
+[SupportedOSPlatform("windows")]
 public class IntroScene : Scene
 {
     private KeyboardStateChecker Keyboard { get; } = new();
