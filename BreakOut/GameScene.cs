@@ -72,6 +72,7 @@ public class Bat : Sprite, IRetroDrawable
     }
 }
 
+[SupportedOSPlatform("windows")]
 public class Ball : Sprite, IRetroDrawable
 {
     public int SpeedX { get; set; }

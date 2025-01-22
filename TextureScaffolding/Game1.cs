@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Runtime.Versioning;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RetroGame;
@@ -9,6 +11,7 @@ using RetroGame.Sprites;
 
 namespace TextureScaffolding;
 
+[SupportedOSPlatform("windows")]
 public class Game1 : RetroGame.RetroGame
 {
     public static RetroTexture Texture;
@@ -19,6 +22,9 @@ public class Game1 : RetroGame.RetroGame
         
     protected override void LoadContent()
     {
+        if (GraphicsDevice == null)
+            throw new SystemException();
+
         BackColor = ColorPaletteHelper.GetColor(ColorPalette.Blue);
             
         Texture = RetroTexture.ScaffoldTextureCells(
@@ -58,6 +64,7 @@ public class Game1 : RetroGame.RetroGame
     }
 }
 
+[SupportedOSPlatform("windows")]
 public class AnimationTextureScene : Scene
 {
     private int _dly;
@@ -105,9 +112,10 @@ public class AnimationTextureScene : Scene
         Game1.Texture.Draw(spriteBatch, _frame, _x, 20);
 }
 
+[SupportedOSPlatform("windows")]
 public class CyclicSpriteScene : Scene
 {
-    private float _xspeed = 0.3f;
+    private float _xSpeed = 0.3f;
     private CyclicSprite CyclicSprite { get; }
     private KeyboardStateChecker Keyboard { get; } = new();
         
@@ -131,11 +139,11 @@ public class CyclicSpriteScene : Scene
 
         //Logic.
         if (CyclicSprite.X >= 126)
-            _xspeed = -0.3f;
+            _xSpeed = -0.3f;
         else if (CyclicSprite.X < 0)
-            _xspeed = 0.3f;
+            _xSpeed = 0.3f;
 
-        CyclicSprite.X += _xspeed;
+        CyclicSprite.X += _xSpeed;
         CyclicSprite.Act();
         base.Update(gameTime, ticks);
     }

@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Runtime.Versioning;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RetroGame;
@@ -19,9 +21,13 @@ public class Game1 : RetroGame.RetroGame
     public Game1() : base(128, 128, RetroDisplayMode.Fullscreen)
     {
     }
-        
+
+    [SupportedOSPlatform("windows")]
     protected override void LoadContent()
     {
+        if (GraphicsDevice == null)
+            throw new SystemException();
+
         BackColor = ColorPaletteHelper.GetColor(ColorPalette.Blue);
 
         Texture = CollisionTexture.ScaffoldTextureCells(
@@ -84,7 +90,8 @@ public class CollisionSpriteWithMovement : CollisionSprite, IRetroActor
             SpeedY = -SpeedY;
     }
 }
-    
+
+[SupportedOSPlatform("windows")]
 public class CollisionScene : Scene
 {
     private KeyboardStateChecker Keyboard { get; } = new();
