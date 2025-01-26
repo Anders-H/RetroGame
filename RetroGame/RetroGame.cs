@@ -30,9 +30,7 @@ public class RetroGame : Game
         Border = border;
         BorderColor = ColorPaletteHelper.GetColor(ColorPalette.LightBlue);
         BackColor = ColorPaletteHelper.GetColor(ColorPalette.Blue);
-
         Fullscreen = displayMode == RetroDisplayMode.Fullscreen;
-
         G = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         ResolutionWidth = resolutionWidth;
@@ -46,25 +44,16 @@ public class RetroGame : Game
             ? GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height
             : Window.ClientBounds.Height;
 
-        var ratioX = actualWidth/(double)ResolutionWidth;
-        var ratioY = actualHeight/(double)ResolutionHeight;
-        var ratio = ratioX < ratioY ? ratioX : ratioY;
-        PhysicalWidth = (int)(ResolutionWidth*ratio);
-        PhysicalHeight = (int)(ResolutionHeight*ratio);
 
-        if (Border)
-        {
-            PhysicalWidth -= (int)(PhysicalHeight * 0.12);
-            PhysicalHeight -= (int)(PhysicalHeight * 0.12);
-        }
-
-        OffsetX = actualWidth/2 - PhysicalWidth/2;
-        OffsetY = actualHeight/2 - PhysicalHeight/2;
-
+        Window.AllowUserResizing = false;
+        PhysicalWidth = resolutionWidth;
+        PhysicalHeight = resolutionHeight;
         G.PreferredBackBufferWidth = ResolutionWidth;
         G.PreferredBackBufferHeight = ResolutionHeight;
-
         G.IsFullScreen = Fullscreen;
+        OffsetX = 0;
+        OffsetY = 0;
+
         if (Fullscreen)
             G.HardwareModeSwitch = false;
 

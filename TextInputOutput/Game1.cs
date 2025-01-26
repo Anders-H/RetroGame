@@ -4,9 +4,11 @@ using RetroGame;
 using RetroGame.Input;
 using RetroGame.Scene;
 using RetroGame.Text;
+using System.Runtime.Versioning;
 
 namespace TextInputOutput;
 
+[SupportedOSPlatform("windows")]
 public class Game1 : RetroGame.RetroGame
 {
     public Game1() : base(320, 200, RetroDisplayMode.Windowed)
@@ -20,6 +22,7 @@ public class Game1 : RetroGame.RetroGame
     }
 }
 
+[SupportedOSPlatform("windows")]
 public class TextScene : Scene
 {
     private KeyboardStateChecker Keyboard { get; } = new();
@@ -27,7 +30,6 @@ public class TextScene : Scene
     
     public TextScene(RetroGame.RetroGame parent) : base(parent)
     {
-        Text.DrawOffsetY = 15*8;
         AddToAutoUpdate(Keyboard, Text);
         AddToAutoDraw(Text);
         Text.SetText(0, 9, "Press Enter.");
