@@ -46,8 +46,8 @@ public class RetroGame : Game
 
 
         Window.AllowUserResizing = false;
-        PhysicalWidth = resolutionWidth;
-        PhysicalHeight = resolutionHeight;
+        PhysicalWidth = actualWidth;
+        PhysicalHeight = actualHeight;
         G.PreferredBackBufferWidth = ResolutionWidth;
         G.PreferredBackBufferHeight = ResolutionHeight;
         G.IsFullScreen = Fullscreen;

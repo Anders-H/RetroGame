@@ -8,7 +8,7 @@ public class Game1 : RetroGame.RetroGame
 {
     public static RetroTexture Star { get; set; }
 
-    public Game1() : base(320, 200, RetroDisplayMode.Windowed)
+    public Game1() : base(320, 200, RetroDisplayMode.Fullscreen)
     {
     }
         
