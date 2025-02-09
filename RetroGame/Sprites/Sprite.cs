@@ -22,7 +22,7 @@ public abstract class Sprite
         new Vector2(X, Y);
 
     public Point Point =>
-        new Point((int)X, (int)Y);
+        new Point(IntX, IntY);
         
     public Point Size =>
         new Point(Width, Height);

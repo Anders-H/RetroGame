@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using RetroGame;
 using RetroGame.RetroTextures;
+using System.Runtime.Versioning;
 
 namespace BatchDemo;
 
+[SupportedOSPlatform("windows")]
 public class Game1 : RetroGame.RetroGame
 {
     public static RetroTexture Star { get; set; }

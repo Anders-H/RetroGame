@@ -129,6 +129,8 @@ public class Ball : Sprite, IRetroDrawable
                 SpeedX = 1;
                 SpeedY = 2;
             }
+
+            Game1.SoundEffect.Play();
         }
 
         //Collide with walls.
@@ -136,12 +138,14 @@ public class Ball : Sprite, IRetroDrawable
         {
             SpeedX = -SpeedX;
             nextX = X + SpeedX;
+            Game1.SoundEffect.Play();
         }
 
         if (nextY < top || nextY > bottom)
         {
             SpeedY = -SpeedY;
             nextY = Y + SpeedY;
+            Game1.SoundEffect.Play();
         }
 
         X = nextX;

@@ -20,7 +20,7 @@ public class KeyboardStateChecker : IRetroActor
     }
     
     public bool IsFirePressed() =>
-        KeyboardState.IsKeyDown(Keys.LeftControl) || KeyboardState.IsKeyDown(Keys.RightControl);
+        IsKeyPressed(Keys.LeftControl) || IsKeyPressed(Keys.RightControl);
 
     public bool IsKeyUp(Keys key) =>
         KeyboardState.IsKeyUp(key);

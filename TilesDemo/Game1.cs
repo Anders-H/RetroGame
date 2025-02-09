@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Versioning;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -10,11 +11,12 @@ using RetroGame.Tilemaps;
 
 namespace TilesDemo;
 
+[SupportedOSPlatform("windows")]
 public class Game1 : RetroGame.RetroGame
 {
     internal static RetroTexture TilesTexture { get; set; }
     public static RetroTexture ResolutionReference { get; set; }
-
+    
     public Game1() : base(320, 200, RetroDisplayMode.Fullscreen, true)
     {
     }
@@ -31,6 +33,7 @@ public class Game1 : RetroGame.RetroGame
     }
 }
 
+[SupportedOSPlatform("windows")]
 public class TextureDemoScene: Scene
 {
     private KeyboardStateChecker Keyboard { get; } = new KeyboardStateChecker();

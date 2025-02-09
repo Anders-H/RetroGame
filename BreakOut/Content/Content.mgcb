@@ -25,3 +25,9 @@
 /processorParam:TextureFormat=Color
 /build:c64font.png
 
+#begin sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound.wav
+
