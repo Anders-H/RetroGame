@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace RetroGame.RetroTextures;
 
-public class RetroTexture : Texture2D
+public class RetroTexture : Texture2D, IRetroTexture
 {
     public int CellWidth { get; }
     public int CellHeight => Height;
@@ -48,7 +48,6 @@ public class RetroTexture : Texture2D
         var targetStart = bitmap.Width*cellIndex;
         var index = 0;
         var targetPixels = new Color[targetTexture.Width*targetTexture.Height];
-            
         targetTexture.GetData(targetPixels);
 
         for (var y = 0; y < bitmap.Height; y++)
