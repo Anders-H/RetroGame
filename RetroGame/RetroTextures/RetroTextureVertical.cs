@@ -86,5 +86,4 @@ public class RetroTextureVertical : Texture2D
             new Rectangle(0, cellIndex * CellHeight, CellWidth, CellHeight),
             ColorPaletteHelper.GetColor(color)
         );
-
 }
