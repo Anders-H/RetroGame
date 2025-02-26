@@ -5,28 +5,35 @@ namespace RetroGame;
 
 public class RetroGame : Game
 {
+    private GraphicsDeviceManager G { get; }
+    private SpriteBatch SpriteBatch { get; set; }
+    private RenderTarget2D RenderTarget { get; set; }
+    private int OffsetX { get; }
+    private int OffsetY { get; }
     public bool Fullscreen { get; }
     public bool Border { get; set; }
-    private GraphicsDeviceManager G { get; }
     public int ResolutionWidth { get; }
     public int ResolutionHeight { get; }
     public int PhysicalWidth { get; }
     public int PhysicalHeight { get; }
-    private SpriteBatch SpriteBatch { get; set; }
-    private RenderTarget2D RenderTarget { get; set; }
     public Scene.Scene CurrentScene { get; set; }
     public Color BorderColor { get; set; }
     public Color BackColor { get; set; }
+    private bool _crt;
     internal static Texture2D Font64 { get; set; }
-    private int OffsetX { get; }
-    private int OffsetY { get; }
+    internal static Texture2D Crt { get; set; }
 
-    public RetroGame(int resolutionWidth, int resolutionHeight, RetroDisplayMode displayMode) : this(resolutionWidth, resolutionHeight, displayMode, false)
+    public RetroGame(int resolutionWidth, int resolutionHeight, RetroDisplayMode displayMode) : this(resolutionWidth, resolutionHeight, displayMode, false, false)
     {
     }
 
-    public RetroGame(int resolutionWidth, int resolutionHeight, RetroDisplayMode displayMode, bool border)
+    public RetroGame(int resolutionWidth, int resolutionHeight, RetroDisplayMode displayMode, bool crt) : this(resolutionWidth, resolutionHeight, displayMode, crt, false)
     {
+    }
+
+    public RetroGame(int resolutionWidth, int resolutionHeight, RetroDisplayMode displayMode, bool crt, bool border)
+    {
+        _crt = crt;
         Border = border;
         BorderColor = ColorPaletteHelper.GetColor(ColorPalette.LightBlue);
         BackColor = ColorPaletteHelper.GetColor(ColorPalette.Blue);
@@ -63,6 +70,7 @@ public class RetroGame : Game
     protected override void LoadContent()
     {
         Font64 = Content.Load<Texture2D>("c64font");
+        Crt = Content.Load<Texture2D>("crt");
         base.LoadContent();
     }
         
@@ -99,6 +107,8 @@ public class RetroGame : Game
         var dest = new Rectangle(OffsetX, OffsetY, PhysicalWidth, PhysicalHeight);
         var source = new Rectangle(0, 0, ResolutionWidth, ResolutionHeight);
         SpriteBatch.Draw(RenderTarget, dest, source, Color.White);
+        SpriteBatch.Draw(Crt, dest, null, Color.White);
+
 
         SpriteBatch.End();
         base.Draw(gameTime);
