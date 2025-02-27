@@ -70,7 +70,10 @@ public class RetroGame : Game
     protected override void LoadContent()
     {
         Font64 = Content.Load<Texture2D>("c64font");
-        Crt = Content.Load<Texture2D>("crt");
+
+        if (_crt)
+            Crt = Content.Load<Texture2D>("crt");
+        
         base.LoadContent();
     }
         
@@ -107,8 +110,9 @@ public class RetroGame : Game
         var dest = new Rectangle(OffsetX, OffsetY, PhysicalWidth, PhysicalHeight);
         var source = new Rectangle(0, 0, ResolutionWidth, ResolutionHeight);
         SpriteBatch.Draw(RenderTarget, dest, source, Color.White);
-        SpriteBatch.Draw(Crt, dest, null, Color.White);
 
+        if (_crt)
+            SpriteBatch.Draw(Crt, dest, null, Color.White);
 
         SpriteBatch.End();
         base.Draw(gameTime);

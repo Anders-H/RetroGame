@@ -14,7 +14,7 @@ public class Game1 : RetroGame.RetroGame
     public static RetroTexture BallTexture { get; set; }
     public static SoundEffect SoundEffect { get; set; }
 
-    public Game1() : base(320, 200, RetroDisplayMode.Fullscreen)
+    public Game1() : base(320, 200, RetroDisplayMode.Fullscreen, true)
     {
     }
 
