@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Versioning;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RetroGame;
@@ -6,6 +7,7 @@ using RetroGame.Sprites;
 
 namespace BatchDemo;
 
+[SupportedOSPlatform("windows")]
 public class BatchSprite : Sprite, IBatchSprite
 {
     private static Random Rnd { get; } = new();

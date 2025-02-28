@@ -6,26 +6,21 @@ using RetroGame.Input;
 using RetroGame.Scene;
 using RetroGame.Text;
 
-namespace TextOnStartScreen
+namespace TextOnStartScreen;
+
+public class Game1 : RetroGame.RetroGame
 {
-    public class Game1 : RetroGame.RetroGame
-    {
-#if DEBUG
     private const RetroDisplayMode DisplayMode = RetroDisplayMode.Windowed;
-#else
-        private const RetroDisplayMode DisplayMode = RetroDisplayMode.Fullscreen;
-#endif
 
-        public Game1() : base(640, 360, DisplayMode)
-        {
-        }
+    public Game1() : base(640, 360, DisplayMode)
+    {
+    }
 
-        protected override void LoadContent()
-        {
-            BackColor = Color.Black;
-            CurrentScene = new StartScene(this);
-            base.LoadContent();
-        }
+    protected override void LoadContent()
+    {
+        BackColor = Color.Black;
+        CurrentScene = new StartScene(this);
+        base.LoadContent();
     }
 }
 
@@ -35,10 +30,14 @@ public class StartScene : Scene
     private readonly TextBlock _logoTextBlock;
     private KeyboardStateChecker Keyboard { get; }
 
+    private const string UppercaseText = "mats j. larsson";
+    private readonly TextBlock _uppercaseTextBlock;
+
     public StartScene(RetroGame.RetroGame parent) : base(parent)
     {
         Keyboard = new KeyboardStateChecker();
         _logoTextBlock = new TextBlock(CharacterSet.Lowercase);
+        _uppercaseTextBlock = new TextBlock(CharacterSet.Uppercase);
         AddToAutoUpdate(Keyboard);
     }
 
@@ -52,6 +51,7 @@ public class StartScene : Scene
     public override void Draw(GameTime gameTime, ulong ticks, SpriteBatch spriteBatch)
     {
         _logoTextBlock.DirectDraw(spriteBatch, 2, 2, LogoText, ColorPalette.White);
+        _uppercaseTextBlock.DirectDraw(spriteBatch, 2, 10, UppercaseText, ColorPalette.White);
         base.Draw(gameTime, ticks, spriteBatch);
     }
 }

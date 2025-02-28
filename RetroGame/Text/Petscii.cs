@@ -144,61 +144,76 @@ public enum CharacterSet
 
 internal static class PetsciiHelper
 {
-    internal static Petscii GetCharacter(char c)
-    {
-        switch (c)
+    internal static Petscii GetCharacter(char c) =>
+        c switch
         {
-            case '@': return Petscii.At;
-            case 'a': return Petscii.A;
-            case 'b': return Petscii.B;
-            case 'c': return Petscii.C;
-            case 'd': return Petscii.D;
-            case 'e': return Petscii.E;
-            case 'f': return Petscii.F;
-            case 'g': return Petscii.G;
-            case 'h': return Petscii.H;
-            case 'i': return Petscii.I;
-            case 'k': return Petscii.K;
-            case 'l': return Petscii.L;
-            case 'm': return Petscii.M;
-            case 'n': return Petscii.N;
-            case 'o': return Petscii.O;
-            case 'p': return Petscii.P;
-            case 'q': return Petscii.Q;
-            case 'r': return Petscii.R;
-            case 's': return Petscii.S;
-            case 't': return Petscii.T;
-            case 'u': return Petscii.U;
-            case 'v': return Petscii.V;
-            case 'w': return Petscii.W;
-            case 'x': return Petscii.X;
-            case 'y': return Petscii.Y;
-            case ':': return Petscii.Colon;
-            case ',': return Petscii.Comma;
-            case '-': return Petscii.Minus;
-            case '.': return Petscii.FullStop;
-            case '0': return Petscii.Num0;
-            case '1': return Petscii.Num1;
-            case '2': return Petscii.Num2;
-            case '3': return Petscii.Num3;
-            case '4': return Petscii.Num4;
-            case '5': return Petscii.Num5;
-            case '6': return Petscii.Num6;
-            case '7': return Petscii.Num7;
-            case '8': return Petscii.Num8;
-            case '9': return Petscii.Num9;
-            case ' ': return Petscii.Space;
-            case '!': return Petscii.Exclamation;
-            case '(': return Petscii.LeftParentheses;
-            case ')': return Petscii.RightParentheses;
-            case 'A': return Petscii.ShiftA;
-            case 'B': return Petscii.ShiftB;
-            case 'C': return Petscii.ShiftC;
-            case 'D': return Petscii.ShiftD;
-            case 'E': return Petscii.ShiftE;
-            case 'P': return Petscii.ShiftP;
-            case 'W': return Petscii.ShiftW;
-            default: throw new ArgumentOutOfRangeException(c.ToString());
-        }
-    }
+            '@' => Petscii.At,
+            'a' => Petscii.A,
+            'b' => Petscii.B,
+            'c' => Petscii.C,
+            'd' => Petscii.D,
+            'e' => Petscii.E,
+            'f' => Petscii.F,
+            'g' => Petscii.G,
+            'h' => Petscii.H,
+            'i' => Petscii.I,
+            'j' => Petscii.J,
+            'k' => Petscii.K,
+            'l' => Petscii.L,
+            'm' => Petscii.M,
+            'n' => Petscii.N,
+            'o' => Petscii.O,
+            'p' => Petscii.P,
+            'q' => Petscii.Q,
+            'r' => Petscii.R,
+            's' => Petscii.S,
+            't' => Petscii.T,
+            'u' => Petscii.U,
+            'v' => Petscii.V,
+            'w' => Petscii.W,
+            'x' => Petscii.X,
+            'y' => Petscii.Y,
+            ':' => Petscii.Colon,
+            ',' => Petscii.Comma,
+            '-' => Petscii.Minus,
+            '.' => Petscii.FullStop,
+            '0' => Petscii.Num0,
+            '1' => Petscii.Num1,
+            '2' => Petscii.Num2,
+            '3' => Petscii.Num3,
+            '4' => Petscii.Num4,
+            '5' => Petscii.Num5,
+            '6' => Petscii.Num6,
+            '7' => Petscii.Num7,
+            '8' => Petscii.Num8,
+            '9' => Petscii.Num9,
+            ' ' => Petscii.Space,
+            '!' => Petscii.Exclamation,
+            '(' => Petscii.LeftParentheses,
+            ')' => Petscii.RightParentheses,
+            'A' => Petscii.ShiftA,
+            'B' => Petscii.ShiftB,
+            'C' => Petscii.ShiftC,
+            'D' => Petscii.ShiftD,
+            'E' => Petscii.ShiftE,
+            'F' => Petscii.ShiftF,
+            'G' => Petscii.ShiftG,
+            'H' => Petscii.ShiftH,
+            'I' => Petscii.ShiftI,
+            'J' => Petscii.ShiftJ,
+            'K' => Petscii.ShiftK,
+            'L' => Petscii.ShiftL,
+            'M' => Petscii.ShiftM,
+            'N' => Petscii.ShiftN,
+            'O' => Petscii.ShiftO,
+            'P' => Petscii.ShiftP,
+            'Q' => Petscii.ShiftQ,
+            'R' => Petscii.ShiftR,
+            'S' => Petscii.ShiftS,
+            'T' => Petscii.ShiftT,
+            'U' => Petscii.ShiftU,
+            'V' => Petscii.ShiftV,
+            'W' => Petscii.ShiftW,
+            _ => throw new ArgumentOutOfRangeException(c.ToString())
+        };
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Versioning;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -11,6 +12,7 @@ using RetroGame.Sprites;
 
 namespace MouseDemo;
 
+[SupportedOSPlatform("windows")]
 public class Game1 : RetroGame.RetroGame
 {
     public static RetroTexture PointerTexture { get; set; }
@@ -38,6 +40,7 @@ public class MousePointer : Sprite
     }
 }
 
+[SupportedOSPlatform("windows")]
 public class Stamp : Sprite
 {
     public Stamp()
@@ -50,11 +53,12 @@ public class Stamp : Sprite
         new Rectangle(IntX, IntY, Width, Height).Intersects(new Rectangle(p, new Point(1, 1)));
 }
 
+[SupportedOSPlatform("windows")]
 public class MyScene : Scene
 {
     private KeyboardStateChecker Keyboard { get; } = new();
     private MousePointer MousePointer { get; } = new();
-    private List<Stamp> MouseStamps { get; } = new();
+    private List<Stamp> MouseStamps { get; } = [];
     private MouseStateChecker Mouse { get; } = new();
 
     public MyScene(RetroGame.RetroGame parent) : base(parent)

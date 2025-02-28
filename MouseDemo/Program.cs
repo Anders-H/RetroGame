@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Runtime.Versioning;
 
 namespace MouseDemo;
 
+[SupportedOSPlatform("windows")]
 public static class Program
 {
     [STAThread]

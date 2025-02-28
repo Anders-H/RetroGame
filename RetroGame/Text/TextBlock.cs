@@ -76,7 +76,7 @@ public class TextBlock : ISceneActor
         else
         {
             if (_pendingAppendingCharacters.Length > 1 && _pendingAppendingCharacters.Last() == '|')
-                _pendingAppendingCharacters = _pendingAppendingCharacters.Substring(0, _pendingAppendingCharacters.Length - 1);
+                _pendingAppendingCharacters = _pendingAppendingCharacters[..^1];
         }
 
         _pendingAppendingCharactersPointer = -1;

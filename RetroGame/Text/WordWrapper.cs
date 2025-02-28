@@ -7,22 +7,6 @@ internal static class WordWrapper
 {
     public static string WordWrap(int columnCount, string text)
     {
-        int Break(string breakText, int breakPos, int max)
-        {
-            var position = max;
-
-            while (position >= 0 && !char.IsWhiteSpace(breakText[breakPos + position]))
-                position--;
-
-            if (position < 0)
-                return max;
-
-            while (position >= 0 && char.IsWhiteSpace(breakText[breakPos + position]))
-                position--;
-
-            return position + 1;
-        }
-
         int wordBreak;
         var s = new StringBuilder();
 
@@ -33,6 +17,7 @@ internal static class WordWrapper
             if (endOfLine < 0)
                 endOfLine = text.Length;
 
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
             wordBreak = endOfLine < 0 ? text.Length : endOfLine + 2;
 
             if (endOfLine > charPointer)
@@ -60,5 +45,21 @@ internal static class WordWrapper
         }
 
         return s.ToString();
+
+        static int Break(string breakText, int breakPos, int max)
+        {
+            var position = max;
+
+            while (position >= 0 && !char.IsWhiteSpace(breakText[breakPos + position]))
+                position--;
+
+            if (position < 0)
+                return max;
+
+            while (position >= 0 && char.IsWhiteSpace(breakText[breakPos + position]))
+                position--;
+
+            return position + 1;
+        }
     }
 }
