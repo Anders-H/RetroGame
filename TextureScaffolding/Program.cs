@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Runtime.Versioning;
 
 namespace TextureScaffolding;
 
+[SupportedOSPlatform("windows")]
 public static class Program
 {
     [STAThread]
