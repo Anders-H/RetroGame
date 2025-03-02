@@ -214,6 +214,7 @@ internal static class PetsciiHelper
             'U' => Petscii.ShiftU,
             'V' => Petscii.ShiftV,
             'W' => Petscii.ShiftW,
+            '*' => Petscii.Asterisk,
             _ => throw new ArgumentOutOfRangeException(c.ToString())
         };
 }

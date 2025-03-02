@@ -14,11 +14,12 @@ public class Game1 : RetroGame.RetroGame
 
     static Game1()
     {
-        HighScoreList = new HighScoreList();
+        HighScoreList = new HighScoreList(320, 200);
     }
 
     public Game1() : base(320, 200, RetroDisplayMode.Fullscreen, false)
     {
+        BackColor = Color.Black;
     }
 
     protected override void LoadContent()
@@ -42,8 +43,8 @@ public class DisplayHighScoreScene : Scene
     {
         if (Keyboard.IsKeyPressed(Keys.Escape))
             Exit();
-        else if (Keyboard.IsKeyPressed(Keys.Enter))
-            Parent.CurrentScene = new EditHighScoreScene(Parent);
+        else if (Keyboard.IsFirePressed())
+            Parent.CurrentScene = new EditHighScoreScene(Parent, 565);
 
         base.Update(gameTime, ticks);
     }
@@ -59,9 +60,15 @@ public class EditHighScoreScene : Scene
 {
     private KeyboardStateChecker Keyboard { get; }
 
-    public EditHighScoreScene(RetroGame.RetroGame parent) : base(parent)
+    public EditHighScoreScene(RetroGame.RetroGame parent, int newHighScore) : base(parent)
     {
         Keyboard = new KeyboardStateChecker();
+
+        if (Game1.HighScoreList.Qualify(newHighScore))
+        {
+            Game1.HighScoreList.BeginEdit(newHighScore);
+        }
+        
         AddToAutoUpdate(Keyboard);
     }
 
@@ -70,6 +77,15 @@ public class EditHighScoreScene : Scene
         if (Keyboard.IsKeyPressed(Keys.Escape))
             Parent.CurrentScene = new DisplayHighScoreScene(Parent);
 
+        if (Game1.HighScoreList.StillEditing)
+            Game1.HighScoreList.Edit(Keyboard);
+
         base.Update(gameTime, ticks);
+    }
+
+    public override void Draw(GameTime gameTime, ulong ticks, SpriteBatch spriteBatch)
+    {
+        Game1.HighScoreList.Draw(spriteBatch, ticks);
+        base.Draw(gameTime, ticks, spriteBatch);
     }
 }
