@@ -23,7 +23,15 @@ public class KeyboardStateChecker : IRetroActor
         OldGamePadState = GamePadState;
         GamePadState = GamePad.GetState(PlayerIndex.One);
     }
-    
+
+    public void ClearState()
+    {
+        OldKeyboardState = new KeyboardState();
+        KeyboardState = new KeyboardState();
+        OldGamePadState = new GamePadState();
+        GamePadState = new GamePadState();
+    }
+
     public bool IsFirePressed() =>
         IsKeyPressed(Keys.LeftControl) || IsKeyPressed(Keys.RightControl) || IsPadButtonPressed(Buttons.A);
 
@@ -46,6 +54,26 @@ public class KeyboardStateChecker : IRetroActor
         KeyboardState.IsKeyDown(Keys.Right)
         || GamePadState.IsButtonDown(Buttons.DPadRight)
         || GamePadState.IsButtonDown(Buttons.LeftThumbstickRight);
+
+    public bool PressUp() =>
+        IsKeyPressed(Keys.Up)
+        || IsPadButtonPressed(Buttons.DPadUp)
+        || IsPadButtonPressed(Buttons.LeftThumbstickUp);
+
+    public bool PressDown() =>
+        IsKeyPressed(Keys.Down)
+        || IsPadButtonPressed(Buttons.DPadDown)
+        || IsPadButtonPressed(Buttons.LeftThumbstickDown);
+
+    public bool PressLeft() =>
+        IsKeyPressed(Keys.Left)
+        || IsPadButtonPressed(Buttons.DPadLeft)
+        || IsPadButtonPressed(Buttons.LeftThumbstickLeft);
+
+    public bool PressRight() =>
+        IsKeyPressed(Keys.Right)
+        || IsPadButtonPressed(Buttons.DPadRight)
+        || IsPadButtonPressed(Buttons.LeftThumbstickRight);
 
     public bool IsKeyUp(Keys key) =>
         KeyboardState.IsKeyUp(key);

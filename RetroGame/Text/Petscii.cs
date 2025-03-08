@@ -173,6 +173,7 @@ internal static class PetsciiHelper
             'w' => Petscii.W,
             'x' => Petscii.X,
             'y' => Petscii.Y,
+            'z' => Petscii.Z,
             ':' => Petscii.Colon,
             ',' => Petscii.Comma,
             '-' => Petscii.Minus,
@@ -214,6 +215,9 @@ internal static class PetsciiHelper
             'U' => Petscii.ShiftU,
             'V' => Petscii.ShiftV,
             'W' => Petscii.ShiftW,
+            'X' => Petscii.ShiftX,
+            'Y' => Petscii.ShiftY,
+            'Z' => Petscii.ShiftZ,
             '*' => Petscii.Asterisk,
             _ => throw new ArgumentOutOfRangeException(c.ToString())
         };

@@ -74,6 +74,12 @@ public class EditHighScoreScene : Scene
 
     public override void Update(GameTime gameTime, ulong ticks)
     {
+        if (ticks < 10)
+        {
+            Keyboard.ClearState();
+            return;
+        }
+
         if (Keyboard.IsKeyPressed(Keys.Escape))
             Parent.CurrentScene = new DisplayHighScoreScene(Parent);
 

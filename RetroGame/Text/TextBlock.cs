@@ -182,7 +182,7 @@ public class TextBlock : ISceneActor
             var pet = PetsciiHelper.GetCharacter(c);
             var sourceX = (int)CharacterSet * 64 + (int)pet / 16 * 8;
             var sourceY = (int)pet % 16 * 8;
-            spriteBatch.Draw(global::RetroGame.RetroGame.Font64, new Vector2(x + i * 8, y), new Rectangle(sourceX, sourceY, 8, 8), color);
+            spriteBatch.Draw(RetroGame.Font64, new Vector2(x + i * 8, y), new Rectangle(sourceX, sourceY, 8, 8), color);
         }
     }
 }
