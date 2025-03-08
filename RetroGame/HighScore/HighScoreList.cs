@@ -16,7 +16,7 @@ public class HighScoreList
     private readonly TextBlock _textBlock;
     private int _charactersLeftToEdit;
     private int _editingIndex;
-    private ColorPalette[] _blink;
+    private readonly ColorPalette[] _blink;
     private int _blinkIndex;
     private const string TypableCharacters = "abcdefghijklmnopqrstuvwxyz";
     private int _typableCharactersIndex;
