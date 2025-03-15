@@ -85,4 +85,16 @@ public class RetroTexture : Texture2D, IRetroTexture
             new Rectangle(cellIndex * CellWidth, 0, CellWidth, CellHeight),
             ColorPaletteHelper.GetColor(color)
         );
+
+    public void DrawPart(SpriteBatch spriteBatch, int sourceX, int sourceY, int sourceWidth, int sourceHeight, int destinationX, int destinationY)
+    {
+        if (sourceWidth > 0 && sourceHeight > 0)
+            spriteBatch.Draw(this, new Vector2(destinationX, destinationY), new Rectangle(sourceX, sourceY, sourceWidth, sourceHeight), Color.White);
+    }
+
+    public void DrawPart(SpriteBatch spriteBatch, Rectangle source, Vector2 destination)
+    {
+        if (source.Width > 0 && source.Height > 0)
+            spriteBatch.Draw(this, destination, source, Color.White);
+    }
 }
