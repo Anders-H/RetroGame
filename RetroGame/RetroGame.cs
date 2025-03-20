@@ -73,17 +73,17 @@ public class RetroGame : Game
 
         if (_crt)
             Crt = Content.Load<Texture2D>("crt");
-        
+
         base.LoadContent();
     }
-        
+
     protected override void Initialize()
     {
         RenderTarget = new RenderTarget2D(GraphicsDevice, ResolutionWidth, ResolutionHeight);
         SpriteBatch = new SpriteBatch(GraphicsDevice);
         base.Initialize();
     }
-        
+
     protected sealed override void Update(GameTime gameTime)
     {
         if (CurrentScene != null)

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace RetroGame.RetroTextures;
@@ -71,7 +72,14 @@ public class RetroTexture : Texture2D, IRetroTexture
         source.GetData(data);
         SetData(data);
     }
-        
+
+    public static RetroTexture LoadContent(GraphicsDevice graphicsDevice, ContentManager content, int cellWidth, int cellHeight, int cellCount, string resourceName)
+    {
+        var result = new RetroTexture(graphicsDevice, cellWidth, cellHeight, cellCount);
+        result.SetData(content.Load<Texture2D>(resourceName));
+        return result;
+    }
+
     public void Draw(SpriteBatch spriteBatch, int cellIndex, int x, int y) =>
         spriteBatch.Draw(this, new Vector2(x, y), new Rectangle(cellIndex*CellWidth, 0, CellWidth, CellHeight), Color.White);
         
