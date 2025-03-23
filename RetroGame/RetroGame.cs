@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.IO;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace RetroGame;
@@ -10,6 +11,9 @@ public class RetroGame : Game
     private RenderTarget2D RenderTarget { get; set; }
     private int OffsetX { get; }
     private int OffsetY { get; }
+    private bool _crt;
+    internal static Texture2D Font64 { get; set; }
+    internal static Texture2D Crt { get; set; }
     public bool Fullscreen { get; }
     public bool Border { get; set; }
     public int ResolutionWidth { get; }
@@ -19,9 +23,7 @@ public class RetroGame : Game
     public Scene.Scene CurrentScene { get; set; }
     public Color BorderColor { get; set; }
     public Color BackColor { get; set; }
-    private bool _crt;
-    internal static Texture2D Font64 { get; set; }
-    internal static Texture2D Crt { get; set; }
+    public bool CheatFileAvailable { get; private set; }
 
     public RetroGame(int resolutionWidth, int resolutionHeight, RetroDisplayMode displayMode) : this(resolutionWidth, resolutionHeight, displayMode, false, false)
     {
@@ -33,6 +35,7 @@ public class RetroGame : Game
 
     public RetroGame(int resolutionWidth, int resolutionHeight, RetroDisplayMode displayMode, bool crt, bool border)
     {
+        CheatFileAvailable = false;
         _crt = crt;
         Border = border;
         BorderColor = ColorPaletteHelper.GetColor(ColorPalette.LightBlue);
@@ -69,6 +72,7 @@ public class RetroGame : Game
 
     protected override void LoadContent()
     {
+        CheckCheatFile();
         Font64 = Content.Load<Texture2D>("c64font");
 
         if (_crt)
@@ -97,7 +101,10 @@ public class RetroGame : Game
     protected sealed override void Draw(GameTime gameTime)
     {
         if (CurrentScene == null)
+        {
+            G.GraphicsDevice.Clear(Color.Black);
             return;
+        }
 
         G.GraphicsDevice.SetRenderTarget(RenderTarget);
         G.GraphicsDevice.Clear(BackColor);
@@ -116,5 +123,13 @@ public class RetroGame : Game
 
         SpriteBatch.End();
         base.Draw(gameTime);
+    }
+
+    private void CheckCheatFile()
+    {
+        var location = System.Reflection.Assembly.GetEntryAssembly()!.Location;
+        var dir = new FileInfo(location).Directory;
+        var cheatFilePath = Path.Combine(dir!.FullName, "cheat.dat");
+        CheatFileAvailable = File.Exists(cheatFilePath);
     }
 }
