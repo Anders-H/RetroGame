@@ -10,7 +10,9 @@ namespace RetroGame.HighScore;
 public class HighScoreList
 {
     private readonly int _listX;
-    private readonly int _listY;
+    private int _listY;
+    private readonly int _targetY;
+    private readonly bool _shadow;
     private const int MaxItems = 15;
     private readonly List<HighScoreListItem> _items;
     private readonly TextBlock _textBlock;
@@ -21,23 +23,31 @@ public class HighScoreList
     private const string TypableCharacters = "abcdefghijklmnopqrstuvwxyz";
     private int _typableCharactersIndex;
 
-    public HighScoreList(int resolutionWidth, int resolutionHeight)
+    public HighScoreList(int resolutionWidth, int resolutionHeight, bool scrollIn, bool shadow, int y)
     {
         _items = [];
         _blink = [ColorPalette.Black, ColorPalette.DarkGrey, ColorPalette.Grey, ColorPalette.LightGrey, ColorPalette.White, ColorPalette.LightGrey, ColorPalette.Grey, ColorPalette.DarkGrey];
         _blinkIndex = 0;
 
         for (var i = 0; i < MaxItems; i++)
-        {
             _items.Add(new HighScoreListItem((i + 1) * 100, "aaa"));
-        }
 
         Sort();
         _textBlock = new TextBlock(CharacterSet.Uppercase);
         _listX = (resolutionWidth / 2) - 60;
-        _listY = (resolutionHeight / 2) - 60;
+        _targetY = y;
         _charactersLeftToEdit = 0;
         _editingIndex = -1;
+        _shadow = shadow;
+
+        if (scrollIn)
+            _listY = resolutionHeight;
+        else
+            _listY = _targetY;
+    }
+
+    public HighScoreList(int resolutionWidth, int resolutionHeight, bool scrollIn, bool shadow) : this(resolutionWidth, resolutionHeight, scrollIn, shadow, (resolutionHeight / 2) - 60)
+    {
     }
 
     public void BeginEdit(int newHighScore)
@@ -218,6 +228,9 @@ public class HighScoreList
 
     public void Draw(SpriteBatch spriteBatch, ulong ticks)
     {
+        if (_listY > _targetY)
+            _listY--;
+
         var strings = GetStrings();
         var y = _listY;
 
@@ -235,12 +248,21 @@ public class HighScoreList
                             _blinkIndex = 0;
                     }
 
-                    _textBlock.DirectDraw(spriteBatch, _listX, y, strings[i], ColorPalette.Grey);
+                    if (_shadow)
+                    {
+                        _textBlock.DirectDraw(spriteBatch, _listX + 1, y + 1, strings[i], ColorPalette.Black);
+                        _textBlock.DirectDraw(spriteBatch, _listX + ((3 - _charactersLeftToEdit) * 8) + 1, y + 1, TypableCharacters[_typableCharactersIndex].ToString(), ColorPalette.Black);
+                    }
+
+                    _textBlock.DirectDraw(spriteBatch, _listX, y, strings[i], ColorPalette.LightGrey);
                     _textBlock.DirectDraw(spriteBatch, _listX + ((3 - _charactersLeftToEdit) * 8), y, TypableCharacters[_typableCharactersIndex].ToString(), _blink[_blinkIndex]);
                 }
                 else
                 {
-                    _textBlock.DirectDraw(spriteBatch, _listX, y, strings[i], ColorPalette.DarkGrey);
+                    if (_shadow)
+                        _textBlock.DirectDraw(spriteBatch, _listX + 1, y + 1, strings[i], ColorPalette.Black);
+
+                    _textBlock.DirectDraw(spriteBatch, _listX, y, strings[i], ColorPalette.Grey);
                 }
 
                 y += 8;
@@ -250,6 +272,9 @@ public class HighScoreList
         {
             foreach (var t in strings)
             {
+                if (_shadow)
+                    _textBlock.DirectDraw(spriteBatch, _listX + 1, y + 1, t, ColorPalette.Black);
+
                 _textBlock.DirectDraw(spriteBatch, _listX, y, t, ColorPalette.White);
                 y += 8;
             }

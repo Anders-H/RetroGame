@@ -14,12 +14,12 @@ public class Game1 : RetroGame.RetroGame
 
     static Game1()
     {
-        HighScoreList = new HighScoreList(320, 200);
+        HighScoreList = new HighScoreList(320, 200, true, true);
     }
 
     public Game1() : base(320, 200, RetroDisplayMode.Fullscreen, false)
     {
-        BackColor = Color.Black;
+        BackColor = Color.Blue;
     }
 
     protected override void LoadContent()
