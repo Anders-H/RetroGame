@@ -9,6 +9,7 @@ namespace RetroGame.HighScore;
 
 public class HighScoreList
 {
+    private readonly bool _scrollIn;
     private readonly int _listX;
     private int _listY;
     private readonly int _targetY;
@@ -22,9 +23,12 @@ public class HighScoreList
     private int _blinkIndex;
     private const string TypableCharacters = "abcdefghijklmnopqrstuvwxyz";
     private int _typableCharactersIndex;
+    private readonly int _resolutionHeight;
 
     public HighScoreList(int resolutionWidth, int resolutionHeight, bool scrollIn, bool shadow, int y)
     {
+        _resolutionHeight = resolutionHeight;
+        _scrollIn = scrollIn;
         _items = [];
         _blink = [ColorPalette.Black, ColorPalette.DarkGrey, ColorPalette.Grey, ColorPalette.LightGrey, ColorPalette.White, ColorPalette.LightGrey, ColorPalette.Grey, ColorPalette.DarkGrey];
         _blinkIndex = 0;
@@ -39,11 +43,7 @@ public class HighScoreList
         _charactersLeftToEdit = 0;
         _editingIndex = -1;
         _shadow = shadow;
-
-        if (scrollIn)
-            _listY = resolutionHeight;
-        else
-            _listY = _targetY;
+        ResetVisuals();
     }
 
     public HighScoreList(int resolutionWidth, int resolutionHeight, bool scrollIn, bool shadow) : this(resolutionWidth, resolutionHeight, scrollIn, shadow, (resolutionHeight / 2) - 60)
@@ -59,6 +59,14 @@ public class HighScoreList
 
     public bool StillEditing =>
         _charactersLeftToEdit > 0;
+
+    public void ResetVisuals()
+    {
+        if (_scrollIn)
+            _listY = _resolutionHeight;
+        else
+            _listY = _targetY;
+    }
 
     private void Sort()
     {
