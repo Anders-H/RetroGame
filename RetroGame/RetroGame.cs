@@ -23,7 +23,7 @@ public class RetroGame : Game
     public Scene.Scene CurrentScene { get; set; }
     public Color BorderColor { get; set; }
     public Color BackColor { get; set; }
-    public bool CheatFileAvailable { get; private set; }
+    public static bool CheatFileAvailable { get; private set; }
 
     public RetroGame(int resolutionWidth, int resolutionHeight, RetroDisplayMode displayMode) : this(resolutionWidth, resolutionHeight, displayMode, false, false)
     {
@@ -125,7 +125,7 @@ public class RetroGame : Game
         base.Draw(gameTime);
     }
 
-    private void CheckCheatFile()
+    private static void CheckCheatFile()
     {
         var location = System.Reflection.Assembly.GetEntryAssembly()!.Location;
         var dir = new FileInfo(location).Directory;

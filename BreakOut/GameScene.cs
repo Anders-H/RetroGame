@@ -17,8 +17,11 @@ public class GameScene : Scene
 
     public GameScene(RetroGame.RetroGame retroGame) : base(retroGame)
     {
-        AddToAutoUpdate(Keyboard);
-        AddToAutoDraw(Bat, Ball);
+        AddToAutoUpdate(Keyboard, Game1.TypeWriter);
+        AddToAutoDraw(Bat, Ball, Game1.TypeWriter);
+        Game1.TypeWriter.SetText("apples and pears", "apes and snakes");
+        Game1.TypeWriter.SetText("staffan och bengt", "klas och charles");
+        Game1.TypeWriter.SetText("again apples and pears", "again apes and snakes");
     }
 
     [SupportedOSPlatform("windows")]
