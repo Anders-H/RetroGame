@@ -28,7 +28,7 @@ public class Game1 : RetroGame.RetroGame
         SoundEffect = Content.Load<SoundEffect>("sound");
         BatTexture = RetroTexture.ScaffoldSimpleTexture(GraphicsDevice, 10, 30, Color.White);
         BallTexture = RetroTexture.ScaffoldSimpleTexture(GraphicsDevice, 4, 4, Color.White);
-        TypeWriter = new TypeWriter(8, 8, 38, 3);
+        TypeWriter = new TypeWriter(8, 8, 6, ColorPalette.LightGreen);
         CurrentScene = new IntroScene(this);
         base.LoadContent();
     }

@@ -1,4 +1,5 @@
-﻿namespace TilemapEditor;
+﻿#pragma warning disable CA1416
+namespace TilemapEditor;
 
 public partial class MainWindow : Form
 {
@@ -43,6 +44,7 @@ public partial class MainWindow : Form
     {
         if (!string.IsNullOrWhiteSpace(_filename))
             return;
+
         _filename = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "newmap.tilemap");
         Text = $@"RetroGame Tile editor - {_filename}{(_changed ? "*" : "")}";
     }
