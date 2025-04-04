@@ -1,15 +1,15 @@
-﻿#pragma warning disable CA1416
-namespace TilemapEditor;
+﻿namespace TilemapEditor;
 
+[System.Runtime.Versioning.SupportedOSPlatform("windows")]
 public partial class MainWindow : Form
 {
-    private string _filename;
+    private string? _filename;
     private bool _changed;
     private int _viewOffsetX;
     private int _viewOffsetY;
     private int CurrentTexture { get; set; }
-    public EditableTilemap Tilemap { get; set; }
-    public Texture Texture { get; set; }
+    public EditableTilemap? Tilemap { get; set; }
+    public Texture? Texture { get; set; }
 
     public MainWindow()
     {
@@ -21,7 +21,7 @@ public partial class MainWindow : Form
         get
         {
             CheckFilename();
-            return _filename;
+            return _filename ?? "";
         }
         set
         {
@@ -230,17 +230,19 @@ public partial class MainWindow : Form
 
     private void resizeToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        using (var x = new SizeGridDialog())
-        {
-            x.CurrentGridSizeX = Tilemap.GridSizeX;
-            x.CurrentGridSizeY = Tilemap.GridSizeY;
-            if (x.ShowDialog(this) == DialogResult.OK)
-            {
-                _viewOffsetX = 0;
-                _viewOffsetY = 0;
-                Tilemap.ResizeGrid(x.NewGridSizeX, x.NewGridSizeY);
-                Invalidate();
-            }
-        }
+        if (Tilemap == null)
+            return;
+
+        using var x = new SizeGridDialog();
+        x.CurrentGridSizeX = Tilemap.GridSizeX;
+        x.CurrentGridSizeY = Tilemap.GridSizeY;
+
+        if (x.ShowDialog(this) != DialogResult.OK)
+            return;
+
+        _viewOffsetX = 0;
+        _viewOffsetY = 0;
+        Tilemap.ResizeGrid(x.NewGridSizeX, x.NewGridSizeY);
+        Invalidate();
     }
 }

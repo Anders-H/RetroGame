@@ -1,5 +1,6 @@
 ﻿namespace TilemapEditor;
 
+[System.Runtime.Versioning.SupportedOSPlatform("windows")]
 public class Texture
 {
     public Bitmap Bitmap { get;}
