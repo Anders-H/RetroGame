@@ -55,6 +55,30 @@ public class KeyboardStateChecker : IRetroActor
         || GamePadState.IsButtonDown(Buttons.DPadRight)
         || GamePadState.IsButtonDown(Buttons.LeftThumbstickRight);
 
+    public bool MoveUpWasd() =>
+        KeyboardState.IsKeyDown(Keys.Up)
+        || KeyboardState.IsKeyDown(Keys.W)
+        || GamePadState.IsButtonDown(Buttons.DPadUp)
+        || GamePadState.IsButtonDown(Buttons.LeftThumbstickUp);
+
+    public bool MoveDownWasd() =>
+        KeyboardState.IsKeyDown(Keys.Down)
+        || KeyboardState.IsKeyDown(Keys.S)
+        || GamePadState.IsButtonDown(Buttons.DPadDown)
+        || GamePadState.IsButtonDown(Buttons.LeftThumbstickDown);
+
+    public bool MoveLeftWasd() =>
+        KeyboardState.IsKeyDown(Keys.Left)
+        || KeyboardState.IsKeyDown(Keys.A)
+        || GamePadState.IsButtonDown(Buttons.DPadLeft)
+        || GamePadState.IsButtonDown(Buttons.LeftThumbstickLeft);
+
+    public bool MoveRightWasd() =>
+        KeyboardState.IsKeyDown(Keys.Right)
+        || KeyboardState.IsKeyDown(Keys.D)
+        || GamePadState.IsButtonDown(Buttons.DPadRight)
+        || GamePadState.IsButtonDown(Buttons.LeftThumbstickRight);
+
     public bool PressUp() =>
         IsKeyPressed(Keys.Up)
         || IsPadButtonPressed(Buttons.DPadUp)
