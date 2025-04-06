@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RetroGame.Scene;
@@ -180,8 +182,73 @@ public class TextBlock : ISceneActor
                 continue;
 
             var pet = PetsciiHelper.GetCharacter(c);
-            var sourceX = (int)CharacterSet * 64 + (int)pet / 16 * 8;
-            var sourceY = (int)pet % 16 * 8;
+            int sourceX, sourceY;
+
+            switch (CharacterSet)
+            {
+                case CharacterSet.Uppercase:
+                case CharacterSet.UppercaseInverted:
+                    switch (pet)
+                    {
+                        case Petscii.Å:
+                        case Petscii.ShiftÅ:
+                            sourceX = 256;
+                            sourceY = 0;
+                            break;
+                        case Petscii.Ä:
+                        case Petscii.ShiftÄ:
+                            sourceX = 256;
+                            sourceY = 8;
+                            break;
+                        case Petscii.Ö:
+                        case Petscii.ShiftÖ:
+                            sourceX = 256;
+                            sourceY = 16;
+                            break;
+                        default:
+                            sourceX = (int)CharacterSet * 64 + (int)pet / 16 * 8;
+                            sourceY = (int)pet % 16 * 8;
+                            break;
+                    }
+                    break;
+                case CharacterSet.Lowercase:
+                case CharacterSet.LowercaseInverted:
+                    switch (pet)
+                    {
+                        case Petscii.Å:
+                            sourceX = 256;
+                            sourceY = 24;
+                            break;
+                        case Petscii.Ä:
+                            sourceX = 256;
+                            sourceY = 32;
+                            break;
+                        case Petscii.Ö:
+                            sourceX = 256;
+                            sourceY = 40;
+                            break;
+                        case Petscii.ShiftÅ:
+                            sourceX = 256;
+                            sourceY = 0;
+                            break;
+                        case Petscii.ShiftÄ:
+                            sourceX = 256;
+                            sourceY = 8;
+                            break;
+                        case Petscii.ShiftÖ:
+                            sourceX = 256;
+                            sourceY = 16;
+                            break;
+                        default:
+                            sourceX = (int)CharacterSet * 64 + (int)pet / 16 * 8;
+                            sourceY = (int)pet % 16 * 8;
+                            break;
+                    }
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
             spriteBatch.Draw(RetroGame.Font64, new Vector2(x + i * 8, y), new Rectangle(sourceX, sourceY, 8, 8), color);
         }
     }

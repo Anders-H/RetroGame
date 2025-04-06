@@ -26,11 +26,10 @@ public class Game1 : RetroGame.RetroGame
 
 public class StartScene : Scene
 {
-    private const string LogoText = "SECRET AGENT MAN";
+    private const string LogoText = "å SECRET AGENT MAN Med svenska tecken å ä ö Å Ä Ö";
     private readonly TextBlock _logoTextBlock;
     private KeyboardStateChecker Keyboard { get; }
-
-    private const string UppercaseText = "mats j. larsson";
+    private const string UppercaseText = "mats j. larsson med svenska tecken å ä ö";
     private readonly TextBlock _uppercaseTextBlock;
 
     public StartScene(RetroGame.RetroGame parent) : base(parent)
@@ -43,7 +42,6 @@ public class StartScene : Scene
 
     public override void Update(GameTime gameTime, ulong ticks)
     {
-
         if (Keyboard.IsKeyPressed(Keys.Escape))
             Exit();
     }

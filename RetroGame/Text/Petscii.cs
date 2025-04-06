@@ -131,7 +131,14 @@ public enum Petscii
     ShiftLessThan,
     ShiftEqualsTo,
     ShiftGreaterThan,
-    ShiftQuestion
+    ShiftQuestion,
+    // --- Special Characters --- //
+    Å,
+    Ä,
+    Ö,
+    ShiftÅ,
+    ShiftÄ,
+    ShiftÖ
 }
 
 public enum CharacterSet
@@ -174,6 +181,9 @@ internal static class PetsciiHelper
             'x' => Petscii.X,
             'y' => Petscii.Y,
             'z' => Petscii.Z,
+            'å' => Petscii.Å,
+            'ä' => Petscii.Ä,
+            'ö' => Petscii.Ö,
             ':' => Petscii.Colon,
             ',' => Petscii.Comma,
             '-' => Petscii.Minus,
@@ -218,6 +228,9 @@ internal static class PetsciiHelper
             'X' => Petscii.ShiftX,
             'Y' => Petscii.ShiftY,
             'Z' => Petscii.ShiftZ,
+            'Å' => Petscii.ShiftÅ,
+            'Ä' => Petscii.ShiftÄ,
+            'Ö' => Petscii.ShiftÖ,
             '*' => Petscii.Asterisk,
             _ => throw new ArgumentOutOfRangeException(c.ToString())
         };

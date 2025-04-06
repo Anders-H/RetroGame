@@ -6,8 +6,8 @@ namespace RetroGame.Scene;
 
 public abstract class Scene
 {
-    private readonly List<IRetroActor> _autoUpdate = new();
-    private readonly List<IRetroDrawable> _autoDraw = new();
+    private readonly List<IRetroActor> _autoUpdate = [];
+    private readonly List<IRetroDrawable> _autoDraw = [];
     internal ulong Ticks { get; set; }
     protected RetroGame Parent { get; }
         

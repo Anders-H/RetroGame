@@ -61,6 +61,7 @@ public class StarsScene : Scene
             
         base.Update(gameTime, ticks);
     }
+
     public override void Draw(GameTime gameTime, ulong ticks, SpriteBatch spriteBatch)
     {
         base.Draw(gameTime, ticks, spriteBatch);

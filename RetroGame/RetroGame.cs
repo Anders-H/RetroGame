@@ -11,9 +11,8 @@ public class RetroGame : Game
     private RenderTarget2D RenderTarget { get; set; }
     private int OffsetX { get; }
     private int OffsetY { get; }
-    private bool _crt;
     internal static Texture2D Font64 { get; set; }
-    internal static Texture2D Crt { get; set; }
+    internal static Texture2D Floppy { get; set; }
     public bool Fullscreen { get; }
     public bool Border { get; set; }
     public int ResolutionWidth { get; }
@@ -25,18 +24,13 @@ public class RetroGame : Game
     public Color BackColor { get; set; }
     public static bool CheatFileAvailable { get; private set; }
 
-    public RetroGame(int resolutionWidth, int resolutionHeight, RetroDisplayMode displayMode) : this(resolutionWidth, resolutionHeight, displayMode, false, false)
+    public RetroGame(int resolutionWidth, int resolutionHeight, RetroDisplayMode displayMode) : this(resolutionWidth, resolutionHeight, displayMode, false)
     {
     }
 
-    public RetroGame(int resolutionWidth, int resolutionHeight, RetroDisplayMode displayMode, bool crt) : this(resolutionWidth, resolutionHeight, displayMode, crt, false)
-    {
-    }
-
-    public RetroGame(int resolutionWidth, int resolutionHeight, RetroDisplayMode displayMode, bool crt, bool border)
+    public RetroGame(int resolutionWidth, int resolutionHeight, RetroDisplayMode displayMode, bool border)
     {
         CheatFileAvailable = false;
-        _crt = crt;
         Border = border;
         BorderColor = ColorPaletteHelper.GetColor(ColorPalette.LightBlue);
         BackColor = ColorPaletteHelper.GetColor(ColorPalette.Blue);
@@ -73,11 +67,8 @@ public class RetroGame : Game
     protected override void LoadContent()
     {
         CheckCheatFile();
-        Font64 = Content.Load<Texture2D>("c64font");
-
-        if (_crt)
-            Crt = Content.Load<Texture2D>("crt");
-
+        Font64 = Content.Load<Texture2D>("c64fontswe");
+        Floppy = Content.Load<Texture2D>("floppy");
         base.LoadContent();
     }
 
@@ -101,10 +92,7 @@ public class RetroGame : Game
     protected sealed override void Draw(GameTime gameTime)
     {
         if (CurrentScene == null)
-        {
-            G.GraphicsDevice.Clear(Color.Black);
             return;
-        }
 
         G.GraphicsDevice.SetRenderTarget(RenderTarget);
         G.GraphicsDevice.Clear(BackColor);
@@ -113,14 +101,9 @@ public class RetroGame : Game
         SpriteBatch.End();
         G.GraphicsDevice.SetRenderTarget(null);
         SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
-
         var dest = new Rectangle(OffsetX, OffsetY, PhysicalWidth, PhysicalHeight);
         var source = new Rectangle(0, 0, ResolutionWidth, ResolutionHeight);
         SpriteBatch.Draw(RenderTarget, dest, source, Color.White);
-
-        if (_crt)
-            SpriteBatch.Draw(Crt, dest, null, Color.White);
-
         SpriteBatch.End();
         base.Draw(gameTime);
     }

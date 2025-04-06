@@ -24,7 +24,6 @@ public class GameScene : Scene
         Game1.TypeWriter.SetText("again apples and pears", "again apes and snakes");
     }
 
-    [SupportedOSPlatform("windows")]
     public override void Update(GameTime gameTime, ulong ticks)
     {
         Bat.Move(Keyboard);

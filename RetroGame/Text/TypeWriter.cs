@@ -43,10 +43,8 @@ public class TypeWriter : ISceneActor
             return;
         }
 
-        if (ticks % 4 != 0 || _rows.Count <= 0)
-        {
+        if (ticks % 3 != 0 || _rows.Count <= 0)
             return;
-        }
 
         _currentCharacter++;
         var row = _visibleRows.LastOrDefault() ?? "";
