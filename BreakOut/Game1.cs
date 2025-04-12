@@ -12,6 +12,7 @@ namespace BreakOut;
 [SupportedOSPlatform("windows")]
 public class Game1 : RetroGame.RetroGame
 {
+    public static RetroTexture Flip { get; set; }
     public static RetroTexture BatTexture { get; set; }
     public static RetroTexture BallTexture { get; set; }
     public static SoundEffect SoundEffect { get; set; }
@@ -52,7 +53,7 @@ public class ContentLoader : ContentLoaderScene
                 Game1.TypeWriter = new TypeWriter(8, 8, 6, ColorPalette.LightGreen);
                 break;
             case 4:
-                Thread.Sleep(2000);
+                Game1.Flip = RetroTexture.LoadContent(Parent.GraphicsDevice, Parent.Content, 100, 100, 1, "flip");
                 break;
             default:
                 LoadingComplete = true;

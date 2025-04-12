@@ -6,6 +6,7 @@ using RetroGame.Input;
 using RetroGame.Scene;
 using RetroGame.Text;
 using System.Runtime.Versioning;
+using RetroGame.RetroTextures;
 
 namespace BreakOut;
 
@@ -32,6 +33,9 @@ public class IntroScene : Scene
         base.Update(gameTime, ticks);
     }
 
-    public override void Draw(GameTime gameTime, ulong ticks, SpriteBatch spriteBatch) =>
+    public override void Draw(GameTime gameTime, ulong ticks, SpriteBatch spriteBatch)
+    {
+        Game1.Flip.Draw(spriteBatch, 0, 20, 20, Flip.FlipUpDown);
         Text.Draw(spriteBatch, ColorPalette.White);
+    }
 }
