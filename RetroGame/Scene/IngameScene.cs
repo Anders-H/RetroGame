@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using RetroGame.Input;
+﻿using RetroGame.Input;
 using RetroGame.Text;
 
 namespace RetroGame.Scene;
@@ -32,12 +31,24 @@ public abstract class IngameScene : Scene
                 if (_score < 0)
                     _score = 0;
 
-                _scoreString = $"score: {_score}";
+                var s = _score.ToString();
+
+                _scoreString = s.Length switch
+                {
+                    1 => $"score:        {s}",
+                    2 => $"score:       {s}",
+                    3 => $"score:      {s}",
+                    4 => $"score:     {s}",
+                    5 => $"score:    {s}",
+                    6 => $"score:   {s}",
+                    7 => $"score:  {s}",
+                    8 => $"score: {s}",
+                    _ => $"score:{s}"
+                };
             }
         }
     }
 
-    protected void DrawScore(SpriteBatch spriteBatch, int x, int y, ColorPalette color) =>
-        Text.DirectDraw(spriteBatch, 480, 0, _scoreString, color);
-
+    public string ScoreString =>
+        _scoreString;
 }
