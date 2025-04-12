@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using System;
 
 namespace RetroGame.RetroTextures;
 
@@ -94,6 +95,30 @@ public class RetroTextureVertical : Texture2D, IRetroTexture
             new Rectangle(0, cellIndex * CellHeight, CellWidth, CellHeight),
             ColorPaletteHelper.GetColor(color)
         );
+
+    public void Draw(SpriteBatch spriteBatch, int cellIndex, int x, int y, Flip flip)
+    {
+        var pos = new Rectangle(x, y, CellWidth, CellHeight);
+        var rect = new Rectangle(0, cellIndex * CellHeight, CellWidth, CellHeight);
+        SpriteEffects effect;
+
+        switch (flip)
+        {
+            case Flip.DoNotFlip:
+                effect = SpriteEffects.None;
+                break;
+            case Flip.FlipLeftRight:
+                effect = SpriteEffects.FlipHorizontally;
+                break;
+            case Flip.FlipUpDown:
+                effect = SpriteEffects.FlipVertically;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(flip), flip, null);
+        }
+
+        spriteBatch.Draw(this, pos, rect, Color.White, 0, new Vector2(0, 0), effect, 0f);
+    }
 
     public void DrawPart(SpriteBatch spriteBatch, int sourceX, int sourceY, int sourceWidth, int sourceHeight, int destinationX, int destinationY)
     {
