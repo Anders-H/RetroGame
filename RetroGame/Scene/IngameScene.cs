@@ -12,8 +12,8 @@ public abstract class IngameScene : Scene
 
     protected IngameScene(RetroGame parent) : base(parent)
     {
-        _score = 0;
-        _scoreString = "score: 0";
+        Score = 1; // To provoke the score string to be created
+        Score = 0;
         Text = new TextBlock(CharacterSet.Uppercase);
         Keyboard = new KeyboardStateChecker();
         AddToAutoUpdate(Keyboard);
