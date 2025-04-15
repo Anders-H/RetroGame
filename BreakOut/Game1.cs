@@ -1,5 +1,4 @@
 ﻿using System.Runtime.Versioning;
-using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using RetroGame;
