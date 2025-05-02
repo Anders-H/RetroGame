@@ -54,7 +54,6 @@ public class TypeWriter : ISceneActor
             PopRow();
             _currentCharacter = 0;
         }
-
     }
 
     private void PopRow()

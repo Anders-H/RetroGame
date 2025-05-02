@@ -35,7 +35,15 @@ public class RetroGame : Game
         BorderColor = ColorPaletteHelper.GetColor(ColorPalette.LightBlue);
         BackColor = ColorPaletteHelper.GetColor(ColorPalette.Blue);
         Fullscreen = displayMode == RetroDisplayMode.Fullscreen;
-        G = new GraphicsDeviceManager(this);
+
+        G = new GraphicsDeviceManager(this)
+        {
+            SynchronizeWithVerticalRetrace = true,
+            GraphicsProfile = GraphicsProfile.HiDef,
+            HardwareModeSwitch = false,
+            PreferMultiSampling = true,
+        };
+        
         Content.RootDirectory = "Content";
         ResolutionWidth = resolutionWidth;
         ResolutionHeight = resolutionHeight;
