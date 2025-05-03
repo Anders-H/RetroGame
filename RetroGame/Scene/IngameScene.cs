@@ -32,6 +32,14 @@ public abstract class IngameScene : Scene
         }
     }
 
+    protected int DirectAddScore(int diff)
+    {
+        _score += diff;
+        _displayScore = _score;
+        _scoreInvalidated = true;
+        return _score;
+    }
+
     public override void Update(GameTime gameTime, ulong ticks)
     {
         if (_scoreInvalidated)
