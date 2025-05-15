@@ -12,7 +12,7 @@ public class HighScoreList
     private readonly bool _scrollIn;
     private readonly int _listX;
     private int _listY;
-    private readonly int _targetY;
+    private int _targetY;
     private readonly bool _shadow;
     private const int MaxItems = 15;
     private readonly List<HighScoreListItem> _items;
@@ -62,10 +62,13 @@ public class HighScoreList
 
     public void ResetVisuals()
     {
-        if (_scrollIn)
-            _listY = _resolutionHeight;
-        else
-            _listY = _targetY;
+        _listY = _scrollIn ? _resolutionHeight : _targetY;
+    }
+
+    public void ResetVisuals(int targetY)
+    {
+        _targetY = targetY;
+        _listY = _scrollIn ? _resolutionHeight : _targetY;
     }
 
     private void Sort()

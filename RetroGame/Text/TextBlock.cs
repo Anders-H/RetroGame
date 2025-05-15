@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -85,6 +84,7 @@ public class TextBlock : ISceneActor
         _pendingAppendingCharactersTickDelay = tickDelay;
         _pendingAppendingCharactersX = 0;
     }
+
     public void Act(ulong ticks)
     {
         if (IsReady)

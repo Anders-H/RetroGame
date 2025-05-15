@@ -15,7 +15,7 @@ public class Game1 : RetroGame.RetroGame
     public static RetroTexture BatTexture { get; set; }
     public static RetroTexture BallTexture { get; set; }
     public static SoundEffect SoundEffect { get; set; }
-    public static TypeWriter TypeWriter { get; set; }
+    public static TextBlockStaticVerticalCenter TextBlock { get; set; }
 
     public Game1() : base(320, 200, RetroDisplayMode.Fullscreen, true)
     {
@@ -49,7 +49,7 @@ public class ContentLoader : ContentLoaderScene
                 Game1.BallTexture = RetroTexture.ScaffoldSimpleTexture(Parent.GraphicsDevice, 4, 4, Color.White);
                 break;
             case 3:
-                Game1.TypeWriter = new TypeWriter(8, 8, 6, ColorPalette.LightGreen);
+                Game1.TextBlock = new TextBlockStaticVerticalCenter(320, 10, "Hello", "Good bye");
                 break;
             case 4:
                 Game1.Flip = RetroTexture.LoadContent(Parent.GraphicsDevice, Parent.Content, 100, 100, 1, "flip");

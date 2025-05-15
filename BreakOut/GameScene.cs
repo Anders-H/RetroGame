@@ -17,11 +17,8 @@ public class GameScene : Scene
 
     public GameScene(RetroGame.RetroGame retroGame) : base(retroGame)
     {
-        AddToAutoUpdate(Keyboard, Game1.TypeWriter);
-        AddToAutoDraw(Bat, Ball, Game1.TypeWriter);
-        Game1.TypeWriter.SetText("apples and pears", "apes and snakes");
-        Game1.TypeWriter.SetText("staffan och bengt", "klas och charles");
-        Game1.TypeWriter.SetText("again apples and pears", "again apes and snakes");
+        AddToAutoUpdate(Keyboard, Game1.TextBlock);
+        AddToAutoDraw(Bat, Ball, Game1.TextBlock);
     }
 
     public override void Update(GameTime gameTime, ulong ticks)
