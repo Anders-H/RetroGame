@@ -143,7 +143,7 @@ public class TextBlock : ISceneActor
                 var sourceX = (int)CharacterSet * 64 + (int)c / 16 * 8;
                 var sourceY = (int)c % 16 * 8;
                 var pos = new Vector2(x * 8 + DrawOffsetX, y * 8 + DrawOffsetY);
-                spriteBatch.Draw(global::RetroGame.RetroGame.Font64, pos, new Rectangle(sourceX, sourceY, 8, 8), color);
+                spriteBatch.Draw(RetroGame.Font64, pos, new Rectangle(sourceX, sourceY, 8, 8), color);
             }
         }
     }
