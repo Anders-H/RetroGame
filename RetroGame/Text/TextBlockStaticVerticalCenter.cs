@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RetroGame.Scene;
 
@@ -8,7 +7,6 @@ namespace RetroGame.Text;
 public class TextBlockStaticVerticalCenter : ISceneActor
 {
     private readonly TextBlock _textBlock;
-    private readonly int _resolutionWidth;
     private readonly int _y;
     private readonly List<string> _text;
     private readonly List<int> _verticalPositions;
@@ -16,7 +14,6 @@ public class TextBlockStaticVerticalCenter : ISceneActor
     public TextBlockStaticVerticalCenter(int resolutionWidth, int y, params string[] text)
     {
         _textBlock = new TextBlock();
-        _resolutionWidth = resolutionWidth;
         _y = y;
         _verticalPositions = [];
         _text = [];
