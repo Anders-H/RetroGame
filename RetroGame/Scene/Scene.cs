@@ -34,4 +34,8 @@ public abstract class Scene
         
     public void AddToAutoDraw(params IRetroDrawable[] actors) =>
         _autoDraw.AddRange(actors);
+
+    public virtual void BeginScene()
+    {
+    }
 }
