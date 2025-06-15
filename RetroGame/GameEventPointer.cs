@@ -18,5 +18,5 @@ public struct GameEventPointer
     }
 
     public bool OccuredTicksAgo(ulong ticks, ulong delay) =>
-        Occured && OccuredAt + ticks > delay;
+        Occured && ticks - OccuredAt > delay;
 }
