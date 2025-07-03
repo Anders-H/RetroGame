@@ -23,9 +23,9 @@ public class Game1 : RetroGame.RetroGame
 
     protected override void LoadContent()
     {
-        TilesTexture = new RetroTexture(GraphicsDevice, 32, 32, 10);
+        TilesTexture = new RetroTexture(GraphicsDevice, 32, 32, 10, 1);
         TilesTexture.SetData(Content.Load<Texture2D>("test_tiles"));
-        ResolutionReference = new RetroTexture(GraphicsDevice, 320, 200, 1);
+        ResolutionReference = new RetroTexture(GraphicsDevice, 320, 200, 1, 1);
         ResolutionReference.SetData(Content.Load<Texture2D>("resolution_reference"));
         BorderColor = ColorPaletteHelper.GetColor(ColorPalette.LightGreen);
         BackColor = ColorPaletteHelper.GetColor(ColorPalette.DarkGrey);

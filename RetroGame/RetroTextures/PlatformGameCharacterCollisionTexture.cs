@@ -9,13 +9,13 @@ public class PlatformGameCharacterCollisionTexture : RetroTexture
     public Rectangle[] BodyZone { get; set; }
     public Rectangle[] FeetZone { get; set; }
         
-    public PlatformGameCharacterCollisionTexture(GraphicsDevice graphicsDevice, Point cellSize, int cellCount) : base(graphicsDevice, cellSize, cellCount)
+    public PlatformGameCharacterCollisionTexture(GraphicsDevice graphicsDevice, Point cellSize, int cellCount) : base(graphicsDevice, cellSize, cellCount, 1)
     {
         BodyZone = new Rectangle[cellCount];
         FeetZone = new Rectangle[cellCount];
     }
 
-    public PlatformGameCharacterCollisionTexture(GraphicsDevice graphicsDevice, int cellWidth, int cellHeight, int cellCount) : base(graphicsDevice, cellWidth, cellHeight, cellCount)
+    public PlatformGameCharacterCollisionTexture(GraphicsDevice graphicsDevice, int cellWidth, int cellHeight, int cellCount) : base(graphicsDevice, cellWidth, cellHeight, cellCount, 1)
     {
         BodyZone = new Rectangle[cellCount];
         FeetZone = new Rectangle[cellCount];

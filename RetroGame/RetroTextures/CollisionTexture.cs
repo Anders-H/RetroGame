@@ -9,27 +9,27 @@ public class CollisionTexture : RetroTexture
 {
     public List<Rectangle>[] CollisionZones { get; }
         
-    public CollisionTexture(GraphicsDevice graphicsDevice, Point cellSize, int cellCount) : this(graphicsDevice, cellSize.X, cellSize.Y, cellCount)
+    public CollisionTexture(GraphicsDevice graphicsDevice, Point cellSize, int cellCountX, int cellCountY) : this(graphicsDevice, cellSize.X, cellSize.Y, cellCountX, cellCountY)
     {
     }
 
-    public CollisionTexture(GraphicsDevice graphicsDevice, int cellWidth, int cellHeight, int cellCount) : base(graphicsDevice, cellWidth, cellHeight, cellCount)
+    public CollisionTexture(GraphicsDevice graphicsDevice, int cellWidth, int cellHeight, int cellCountX, int cellCountY) : base(graphicsDevice, cellWidth, cellHeight, cellCountX, cellCountY)
     {
-        CollisionZones = new List<Rectangle>[cellCount];
+        CollisionZones = new List<Rectangle>[CellCount];
             
-        for(var i = 0; i < cellCount; i++)
-            CollisionZones[i] = new List<Rectangle>();
+        for(var i = 0; i < CellCount; i++)
+            CollisionZones[i] = [];
     }
 
-    public new static CollisionTexture ScaffoldTextureCells(GraphicsDevice graphicsDevice, int cellWidth, int cellHeight, int cellCount, Color color)
+    public new static CollisionTexture ScaffoldTextureCells(GraphicsDevice graphicsDevice, int cellWidth, int cellHeight, int cellCountX, int cellCountY, Color color)
     {
-        var size = cellWidth*cellCount*cellHeight;
+        var size = (cellWidth*cellCountX)*(cellHeight*cellCountY);
         var pixels = new Color[size];
 
         for (var i = 0; i < pixels.Length; i++)
             pixels[i] = color;
 
-        var texture = new CollisionTexture(graphicsDevice, cellWidth, cellHeight, cellCount);
+        var texture = new CollisionTexture(graphicsDevice, cellWidth, cellHeight, cellCountX, cellCountY);
         texture.SetData(pixels);
         return texture;
     }

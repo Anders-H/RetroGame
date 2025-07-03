@@ -5,20 +5,45 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace RetroGame.RetroTextures;
 
-public class RetroTexture : Texture2D, IRetroTexture
+public class RetroTexture : Texture2D
 {
+    private readonly int[] _precalcX;
+    private readonly int[] _precalcY;
     public int CellWidth { get; }
-    public int CellHeight => Height;
+    public int CellHeight { get; }
     public int CellCount { get; }
+    public int CellCountX { get; }
+    public int CellCountY { get; }
 
-    public RetroTexture(GraphicsDevice graphicsDevice, Point cellSize, int cellCount) : this(graphicsDevice, cellSize.X, cellSize.Y, cellCount)
+    public RetroTexture(GraphicsDevice graphicsDevice, Point cellSize, int cellCountX, int cellCountY) : this(graphicsDevice, cellSize.X, cellSize.Y, cellCountX, cellCountY)
     {
     }
         
-    public RetroTexture(GraphicsDevice graphicsDevice, int cellWidth, int cellHeight, int cellCount) : base(graphicsDevice, cellWidth*cellCount, cellHeight)
+    public RetroTexture(GraphicsDevice graphicsDevice, int cellWidth, int cellHeight, int cellCountX, int cellCountY) : base(graphicsDevice, cellWidth*cellCountX, cellHeight*cellCountY)
     {
         CellWidth = cellWidth;
-        CellCount = cellCount;
+        CellHeight = cellHeight;
+        CellCountX = cellCountX;
+        CellCountY = cellCountY;
+        CellCount = cellCountX*cellCountY;
+        _precalcX = new int[CellCount];
+        _precalcY = new int[CellCount];
+
+        var x = 0;
+        var y = 0;
+
+        for (var i = 0; i < CellCount; i++)
+        {
+            _precalcX[i] = x * CellWidth;
+            _precalcY[i] = y * CellHeight;
+            x++;
+
+            if (x >= CellCountX)
+            {
+                x = 0;
+                y++;
+            }
+        }
     }
         
     public static RetroTexture ScaffoldSimpleTexture(GraphicsDevice graphicsDevice, int width, int height, Color color) =>
@@ -32,7 +57,7 @@ public class RetroTexture : Texture2D, IRetroTexture
         for (var i = 0; i < pixels.Length; i++)
             pixels[i] = color;
 
-        var texture = new RetroTexture(graphicsDevice, cellWidth, cellHeight, cellCount);
+        var texture = new RetroTexture(graphicsDevice, cellWidth, cellHeight, cellCount, 1);
         texture.SetData(pixels);
         return texture;
     }
@@ -74,31 +99,34 @@ public class RetroTexture : Texture2D, IRetroTexture
         SetData(data);
     }
 
-    public static RetroTexture LoadContent(GraphicsDevice graphicsDevice, ContentManager content, int cellWidth, int cellHeight, int cellCount, string resourceName)
+    public static RetroTexture LoadContent(GraphicsDevice graphicsDevice, ContentManager content, int cellWidth, int cellHeight, int cellCount, string resourceName) =>
+        LoadContent(graphicsDevice, content, cellWidth, cellHeight, cellCount, 1, resourceName);
+
+    public static RetroTexture LoadContent(GraphicsDevice graphicsDevice, ContentManager content, int cellWidth, int cellHeight, int cellCountX, int cellCountY, string resourceName)
     {
-        var result = new RetroTexture(graphicsDevice, cellWidth, cellHeight, cellCount);
+        var result = new RetroTexture(graphicsDevice, cellWidth, cellHeight, cellCountX, cellCountY);
         result.SetData(content.Load<Texture2D>(resourceName));
         return result;
     }
 
     public void Draw(SpriteBatch spriteBatch, int cellIndex, int x, int y) =>
-        spriteBatch.Draw(this, new Vector2(x, y), new Rectangle(cellIndex*CellWidth, 0, CellWidth, CellHeight), Color.White);
+        spriteBatch.Draw(this, new Vector2(x, y), new Rectangle(_precalcX[cellIndex], _precalcY[cellIndex], CellWidth, CellHeight), Color.White);
         
     public void Draw(SpriteBatch spriteBatch, int cellIndex, int x, int y, Color color) =>
-        spriteBatch.Draw(this, new Vector2(x, y), new Rectangle(cellIndex* CellWidth, 0, CellWidth, CellHeight), color);
+        spriteBatch.Draw(this, new Vector2(x, y), new Rectangle(_precalcX[cellIndex], _precalcY[cellIndex], CellWidth, CellHeight), color);
             
     public void Draw(SpriteBatch spriteBatch, int cellIndex, int x, int y, ColorPalette color) =>
         spriteBatch.Draw(
             this,
             new Vector2(x, y),
-            new Rectangle(cellIndex * CellWidth, 0, CellWidth, CellHeight),
+            new Rectangle(_precalcX[cellIndex], _precalcY[cellIndex], CellWidth, CellHeight),
             ColorPaletteHelper.GetColor(color)
         );
 
     public void Draw(SpriteBatch spriteBatch, int cellIndex, int x, int y, Flip flip)
     {
         var pos = new Rectangle(x, y, CellWidth, CellHeight);
-        var rect = new Rectangle(cellIndex * CellWidth, 0, CellWidth, CellHeight);
+        var rect = new Rectangle(_precalcX[cellIndex], _precalcY[cellIndex], CellWidth, CellHeight);
         SpriteEffects effect;
 
         switch (flip)

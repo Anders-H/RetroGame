@@ -76,7 +76,6 @@ public class RetroGame : Game
     {
         CheckCheatFile();
         Font64 = Content.Load<Texture2D>("c64fontswe");
-        Floppy = Content.Load<Texture2D>("floppy");
         base.LoadContent();
     }
 

@@ -35,6 +35,7 @@ public class Game1 : RetroGame.RetroGame
             10,
             10,
             1,
+            1,
             ColorPaletteHelper.GetColor(ColorPalette.Transparent)
         );
 
