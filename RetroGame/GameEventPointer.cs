@@ -19,4 +19,10 @@ public struct GameEventPointer
 
     public bool OccuredTicksAgo(ulong ticks, ulong delay) =>
         Occured && ticks - OccuredAt > delay;
+
+    public void Reset()
+    {
+        Occured = false;
+        OccuredAt = 0;
+    }
 }
