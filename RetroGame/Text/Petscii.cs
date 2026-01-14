@@ -187,6 +187,7 @@ internal static class PetsciiHelper
             ':' => Petscii.Colon,
             ',' => Petscii.Comma,
             '-' => Petscii.Minus,
+            '+' => Petscii.Plus,
             '.' => Petscii.FullStop,
             '0' => Petscii.Num0,
             '1' => Petscii.Num1,
@@ -232,6 +233,7 @@ internal static class PetsciiHelper
             'Ä' => Petscii.ShiftÄ,
             'Ö' => Petscii.ShiftÖ,
             '*' => Petscii.Asterisk,
+            '\'' => Petscii.Apos,
             _ => throw new ArgumentOutOfRangeException(c.ToString())
         };
 }

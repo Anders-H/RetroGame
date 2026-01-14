@@ -6,15 +6,21 @@ namespace RetroGame.Text;
 
 public class TextBlockStaticVerticalCenter : ISceneActor
 {
+    private readonly int _lineSpacing;
     private readonly TextBlock _textBlock;
     private readonly int _y;
     private readonly List<string> _text;
     private readonly List<int> _verticalPositions;
 
-    public TextBlockStaticVerticalCenter(int resolutionWidth, int y, params string[] text)
+    public TextBlockStaticVerticalCenter(int resolutionWidth, int y, params string[] text) : this(resolutionWidth, y, 8, text)
+    {
+    }
+
+    public TextBlockStaticVerticalCenter(int resolutionWidth, int y, int lineSpacing, params string[] text)
     {
         _textBlock = new TextBlock();
         _y = y;
+        _lineSpacing = lineSpacing;
         _verticalPositions = [];
         _text = [];
         _text.AddRange(text);
@@ -36,7 +42,7 @@ public class TextBlockStaticVerticalCenter : ISceneActor
             var text = _text[i];
             var x = _verticalPositions[i];
             _textBlock.DirectDraw(spriteBatch, _verticalPositions[i], y, text, ColorPalette.White);
-            y += 8;
+            y += _lineSpacing;
         }
     }
 }

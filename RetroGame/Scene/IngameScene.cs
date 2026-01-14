@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Media;
 using RetroGame.Input;
 using RetroGame.Text;
 
@@ -20,6 +21,7 @@ public abstract class IngameScene : Scene
         Text = new TextBlock(CharacterSet.Uppercase);
         Keyboard = new KeyboardStateChecker();
         AddToAutoUpdate(Keyboard);
+        MediaPlayer.Stop();
     }
 
     public int Score
@@ -44,9 +46,17 @@ public abstract class IngameScene : Scene
     {
         if (_scoreInvalidated)
         {
-            if (_score > _displayScore)
+            if (_displayScore < _score  + 500)
+                _displayScore += 5;
+            else if (_displayScore < _score + 400)
+                _displayScore += 4;
+            else if (_displayScore < _score + 300)
+                _displayScore += 3;
+            else if (_displayScore < _score + 200)
+                _displayScore += 2;
+            else if (_displayScore < _score)
                 _displayScore++;
-            else if (_score < _displayScore)
+            else
                 _displayScore = _score;
 
             var s = _displayScore.ToString();

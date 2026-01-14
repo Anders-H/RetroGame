@@ -11,7 +11,7 @@ public abstract class Sprite
     public float Y { get; set; }
     public int Width { get; set; }
     public int Height { get; set; }
-        
+
     public int IntX =>
         (int)Math.Round(X);
         
