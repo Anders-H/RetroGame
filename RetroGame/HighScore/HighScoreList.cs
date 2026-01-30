@@ -191,6 +191,22 @@ public class HighScoreList
             if (_typableCharactersIndex >= TypableCharacters.Length)
                 _typableCharactersIndex = 0;
         }
+        else if (keyboard.IsKeyPressed(Keys.Back) || keyboard.IsKeyPressed(Keys.Delete) || keyboard.PressLeft())
+        {
+            var item = _items[_editingIndex];
+
+            switch (_charactersLeftToEdit)
+            {
+                case 1:
+                    item.Name = $"{item.Name.Substring(0, 1)}  ";
+                    _charactersLeftToEdit = 2;
+                    break;
+                case 2:
+                    item.Name = "   ";
+                    _charactersLeftToEdit = 3;
+                    break;
+            }
+        }
         else if (keyboard.IsFirePressed())
         {
             Typed(TypableCharacters[_typableCharactersIndex].ToString());

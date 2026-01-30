@@ -12,5 +12,6 @@ public class TextAndKeyboardScene : Scene
     {
         TextBlock = new TextBlock(CharacterSet.Uppercase);
         Keyboard = new KeyboardStateChecker();
+        AddToAutoUpdate(Keyboard);
     }
 }
