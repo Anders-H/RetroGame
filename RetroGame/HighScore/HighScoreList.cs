@@ -24,9 +24,11 @@ public class HighScoreList
     private const string TypableCharacters = "abcdefghijklmnopqrstuvwxyz";
     private int _typableCharactersIndex;
     private readonly int _resolutionHeight;
+    public string TypedName { get; private set; }
 
     public HighScoreList(int resolutionWidth, int resolutionHeight, bool scrollIn, bool shadow, int y)
     {
+        TypedName = "";
         _resolutionHeight = resolutionHeight;
         _scrollIn = scrollIn;
         _items = [];
@@ -211,6 +213,9 @@ public class HighScoreList
         {
             Typed(TypableCharacters[_typableCharactersIndex].ToString());
         }
+
+        if (_charactersLeftToEdit <= 0)
+            TypedName = _items[_editingIndex].Name;
     }
 
     private void Typed(string character)

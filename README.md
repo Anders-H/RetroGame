@@ -1,7 +1,7 @@
 # RetroGame
 Support classes for creating retro games using MonoGame.
 
-Use project template: MonoGame Windows Desktop Application (MonoGame Team).
+Use project template: MonoGame Windows Desktop Application (OpenGL).
 
 ## Getting started
 1. Make sure you have MonoGame extension for Visual Studio 2022 installed, version 3.8 or higher.
