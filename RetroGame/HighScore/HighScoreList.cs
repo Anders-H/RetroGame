@@ -56,7 +56,26 @@ public class HighScoreList
     {
         _charactersLeftToEdit = 3;
         AddNew(newHighScore);
-        _editingIndex = _items.IndexOf(_items.First(x => x.Name == "   "));
+        var firstBlankItem = _items.FirstOrDefault(x => x.Name == "   ");
+
+        if (firstBlankItem == null)
+        {
+            var addingCount = 0;
+
+            while (_items.Count < MaxItems)
+            {
+                var scoreToAdd = addingCount <= 0 ? newHighScore : 0;
+                _items.Add(new HighScoreListItem(scoreToAdd, "   "));
+                addingCount++;
+            }
+
+            _editingIndex = MaxItems - 1;
+            _items[_editingIndex].Name = "   ";
+        }
+        else
+        {
+            _editingIndex = _items.IndexOf(firstBlankItem);
+        }
     }
 
     public bool StillEditing =>

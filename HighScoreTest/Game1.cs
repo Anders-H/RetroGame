@@ -44,7 +44,7 @@ public class DisplayHighScoreScene : Scene
         if (Keyboard.IsKeyPressed(Keys.Escape))
             Exit();
         else if (Keyboard.IsFirePressed())
-            Parent.CurrentScene = new EditHighScoreScene(Parent, 565);
+            Parent.CurrentScene = new EditHighScoreScene(Parent, 140);
 
         base.Update(gameTime, ticks);
     }

@@ -6,6 +6,7 @@ using RetroGame.Input;
 using RetroGame.Scene;
 using RetroGame.Sprites;
 using RetroGame.Text;
+using System.Runtime.Versioning;
 
 namespace BatchDemo;
 
@@ -27,7 +28,8 @@ public class StarsScene : Scene
         
     private int Count =>
         _batch1.Count + _batch2.Count + _batch3.Count + _batch4.Count;
-        
+
+    [SupportedOSPlatform("windows")]
     public override void Update(GameTime gameTime, ulong ticks)
     {
         if (Count < 1000 && _adding)

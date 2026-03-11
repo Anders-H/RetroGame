@@ -21,7 +21,7 @@ public class CollisionTexture : RetroTexture
             CollisionZones[i] = [];
     }
 
-    public new static CollisionTexture ScaffoldTextureCells(GraphicsDevice graphicsDevice, int cellWidth, int cellHeight, int cellCountX, int cellCountY, Color color)
+    public static CollisionTexture ScaffoldTextureCells(GraphicsDevice graphicsDevice, int cellWidth, int cellHeight, int cellCountX, int cellCountY, Color color)
     {
         var size = (cellWidth*cellCountX)*(cellHeight*cellCountY);
         var pixels = new Color[size];
