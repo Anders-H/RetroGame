@@ -22,7 +22,6 @@ public class RetroGame : Game
     public Scene.Scene CurrentScene { get; set; }
     public Color BorderColor { get; set; }
     public Color BackColor { get; set; }
-    public static bool CheatFileAvailable { get; private set; }
 
     public RetroGame(int resolutionWidth, int resolutionHeight, RetroDisplayMode displayMode) : this(resolutionWidth, resolutionHeight, displayMode, false)
     {
@@ -30,7 +29,6 @@ public class RetroGame : Game
 
     public RetroGame(int resolutionWidth, int resolutionHeight, RetroDisplayMode displayMode, bool border)
     {
-        CheatFileAvailable = false;
         Border = border;
         BorderColor = ColorPaletteHelper.GetColor(ColorPalette.LightBlue);
         BackColor = ColorPaletteHelper.GetColor(ColorPalette.Blue);
@@ -74,7 +72,6 @@ public class RetroGame : Game
 
     protected override void LoadContent()
     {
-        CheckCheatFile();
         Font64 = Content.Load<Texture2D>("c64fontswe");
         base.LoadContent();
     }
@@ -113,13 +110,5 @@ public class RetroGame : Game
         SpriteBatch.Draw(RenderTarget, dest, source, Color.White);
         SpriteBatch.End();
         base.Draw(gameTime);
-    }
-
-    private static void CheckCheatFile()
-    {
-        var location = System.Reflection.Assembly.GetEntryAssembly()!.Location;
-        var dir = new FileInfo(location).Directory;
-        var cheatFilePath = Path.Combine(dir!.FullName, "cheat.dat");
-        CheatFileAvailable = File.Exists(cheatFilePath);
     }
 }
