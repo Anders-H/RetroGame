@@ -36,7 +36,7 @@ public class DisplayHighScoreScene : Scene
     public DisplayHighScoreScene(RetroGame.RetroGame parent) : base(parent)
     {
         Keyboard = new KeyboardStateChecker();
-        AddToAutoUpdate(Keyboard);
+        AddToAutoUpdate(Keyboard, Game1.HighScoreList);
     }
 
     public override void Update(GameTime gameTime, ulong ticks)
@@ -69,7 +69,7 @@ public class EditHighScoreScene : Scene
             Game1.HighScoreList.BeginEdit(newHighScore);
         }
         
-        AddToAutoUpdate(Keyboard);
+        AddToAutoUpdate(Keyboard, Game1.HighScoreList);
     }
 
     public override void Update(GameTime gameTime, ulong ticks)

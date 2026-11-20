@@ -64,34 +64,54 @@ public class RetroTexture : Texture2D
 
     public void PlotCell(RetroTexture targetTexture, int cellIndex, ColorPalette background, string pixelData)
     {
-        var bitmap = new Bitmap(CellWidth, CellHeight, background);
+        var bitmap = new Bitmap(targetTexture.CellWidth, targetTexture.CellHeight, background);
         bitmap.SetPixels(pixelData);
         PlotCell(targetTexture, cellIndex, bitmap);
     }
         
     public static void PlotCell(RetroTexture targetTexture, int cellIndex, Bitmap bitmap)
     {
-        var targetWidth = targetTexture.Width;
-        var targetStart = bitmap.Width*cellIndex;
-        var index = 0;
-        var targetPixels = new Color[targetTexture.Width*targetTexture.Height];
-        targetTexture.GetData(targetPixels);
+        ArgumentNullException.ThrowIfNull(targetTexture);
+        ArgumentNullException.ThrowIfNull(bitmap);
+        var bounds = targetTexture.GetCellBounds(cellIndex);
+
+        if (bitmap.Width != bounds.Width || bitmap.Height != bounds.Height)
+            throw new ArgumentException("Bitmap dimensions must match the texture cell.", nameof(bitmap));
+
+        var pixels = new Color[bounds.Width * bounds.Height];
+        var hasTransparentPixels = false;
 
         for (var y = 0; y < bitmap.Height; y++)
-        {
-            for (var x = 0; x < targetWidth; x++)
+            for (var x = 0; x < bitmap.Width; x++)
             {
-                if (x >= targetStart && x < targetStart + bitmap.Width)
-                    if (bitmap.GetPixel(x - targetStart, y).A > 0)
-                        targetPixels[index] = bitmap.GetPixel(x - targetStart, y);
-                    
-                index++;
+                var color = bitmap.GetPixel(x, y);
+                pixels[y * bitmap.Width + x] = color;
+                hasTransparentPixels |= color.A == 0;
             }
-        }
 
-        targetTexture.SetData(targetPixels);
+        if (hasTransparentPixels)
+        {
+            targetTexture.GetData(0, bounds, pixels, 0, pixels.Length);
+
+            for (var y = 0; y < bitmap.Height; y++)
+                for (var x = 0; x < bitmap.Width; x++)
+                {
+                    var color = bitmap.GetPixel(x, y);
+
+                    if (color.A > 0)
+                        pixels[y * bitmap.Width + x] = color;
+                }
+        }
+        targetTexture.SetData(0, bounds, pixels, 0, pixels.Length);
     }
-        
+
+    public Rectangle GetCellBounds(int cellIndex)
+    {
+        if (cellIndex < 0 || cellIndex >= CellCount)
+            throw new ArgumentOutOfRangeException(nameof(cellIndex));
+        return new Rectangle(_precalcX[cellIndex], _precalcY[cellIndex], CellWidth, CellHeight);
+    }
+
     public void SetData(Texture2D source)
     {
         var data = new Color[source.Width * source.Height];
@@ -110,23 +130,23 @@ public class RetroTexture : Texture2D
     }
 
     public void Draw(SpriteBatch spriteBatch, int cellIndex, int x, int y) =>
-        spriteBatch.Draw(this, new Vector2(x, y), new Rectangle(_precalcX[cellIndex], _precalcY[cellIndex], CellWidth, CellHeight), Color.White);
+        spriteBatch.Draw(this, new Vector2(x, y), GetCellBounds(cellIndex), Color.White);
         
     public void Draw(SpriteBatch spriteBatch, int cellIndex, int x, int y, Color color) =>
-        spriteBatch.Draw(this, new Vector2(x, y), new Rectangle(_precalcX[cellIndex], _precalcY[cellIndex], CellWidth, CellHeight), color);
+        spriteBatch.Draw(this, new Vector2(x, y), GetCellBounds(cellIndex), color);
             
     public void Draw(SpriteBatch spriteBatch, int cellIndex, int x, int y, ColorPalette color) =>
         spriteBatch.Draw(
             this,
             new Vector2(x, y),
-            new Rectangle(_precalcX[cellIndex], _precalcY[cellIndex], CellWidth, CellHeight),
+            GetCellBounds(cellIndex),
             ColorPaletteHelper.GetColor(color)
         );
 
     public void Draw(SpriteBatch spriteBatch, int cellIndex, int x, int y, Flip flip)
     {
         var pos = new Rectangle(x, y, CellWidth, CellHeight);
-        var rect = new Rectangle(_precalcX[cellIndex], _precalcY[cellIndex], CellWidth, CellHeight);
+        var rect = GetCellBounds(cellIndex);
         SpriteEffects effect;
 
         switch (flip)

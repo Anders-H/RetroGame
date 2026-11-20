@@ -29,3 +29,4 @@ nuget.exe
 *.lock.json
 *.db
 *.nupkg
+RetroGame.Tests/

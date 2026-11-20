@@ -17,12 +17,24 @@ public abstract class Scene
         Ticks = 0;
     }
         
-    public virtual void Update(GameTime gameTime, ulong ticks) =>
-        _autoUpdate.ForEach(x => x.Act(ticks));
+    public virtual void Update(GameTime gameTime, ulong ticks)
+    {
+        foreach (var actor in _autoUpdate)
+            actor.Act(ticks);
+    }
         
-    public virtual void Draw(GameTime gameTime, ulong ticks, SpriteBatch spriteBatch) =>
-        _autoDraw.ForEach(x => x.Draw(spriteBatch, ticks));
+    public virtual void Draw(GameTime gameTime, ulong ticks, SpriteBatch spriteBatch)
+    {
+        foreach (var drawable in _autoDraw)
+            drawable.Draw(spriteBatch, ticks);
+    }
         
+    internal void Advance(GameTime gameTime)
+    {
+        Update(gameTime, Ticks);
+        Ticks++;
+    }
+
     public void Exit() =>
         Parent.Exit();
         

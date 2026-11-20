@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
 using RetroGame.Input;
 using RetroGame.Text;
@@ -46,38 +47,30 @@ public abstract class IngameScene : Scene
     {
         if (_scoreInvalidated)
         {
-            if (_displayScore < _score  + 500)
-                _displayScore += 5;
-            else if (_displayScore < _score + 400)
-                _displayScore += 4;
-            else if (_displayScore < _score + 300)
-                _displayScore += 3;
-            else if (_displayScore < _score + 200)
-                _displayScore += 2;
-            else if (_displayScore < _score)
-                _displayScore++;
-            else
-                _displayScore = _score;
-
-            var s = _displayScore.ToString();
-
-            _scoreString = s.Length switch
-            {
-                1 => $"score:        {s}",
-                2 => $"score:       {s}",
-                3 => $"score:      {s}",
-                4 => $"score:     {s}",
-                5 => $"score:    {s}",
-                6 => $"score:   {s}",
-                7 => $"score:  {s}",
-                8 => $"score: {s}",
-                _ => $"score:{s}"
-            };
+            _displayScore = NextDisplayScore(_displayScore, _score);
+            _scoreString = "score:" + _displayScore.ToString().PadLeft(9);
 
             _scoreInvalidated = _score != _displayScore;
         }
 
         base.Update(gameTime, ticks);
+    }
+
+    internal static int NextDisplayScore(int current, int target)
+    {
+        var difference = (long)target - current;
+        var distance = Math.Abs(difference);
+
+        var step = distance switch
+        {
+            > 500 => 5,
+            > 400 => 4,
+            > 300 => 3,
+            > 200 => 2,
+            _ => 1
+        };
+
+        return (int)(current + Math.Sign(difference) * Math.Min(distance, step));
     }
 
     public string ScoreString =>

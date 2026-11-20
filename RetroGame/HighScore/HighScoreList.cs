@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RetroGame.Input;
 using RetroGame.Text;
+using RetroGame.Scene;
 
 namespace RetroGame.HighScore;
 
-public class HighScoreList
+public class HighScoreList : ISceneActor
 {
     private readonly bool _scrollIn;
     private readonly int _listX;
@@ -21,6 +21,7 @@ public class HighScoreList
     private int _editingIndex;
     private readonly ColorPalette[] _blink;
     private int _blinkIndex;
+    private string[] _strings;
     private const string TypableCharacters = "abcdefghijklmnopqrstuvwxyz";
     private int _typableCharactersIndex;
     private readonly int _resolutionHeight;
@@ -38,7 +39,8 @@ public class HighScoreList
         for (var i = 0; i < MaxItems; i++)
             _items.Add(new HighScoreListItem((i + 1) * 100, "aaa"));
 
-        Sort();
+        _items.Reverse();
+        RefreshStrings();
         _textBlock = new TextBlock(CharacterSet.Uppercase);
         _listX = (resolutionWidth / 2) - 60;
         _targetY = y;
@@ -54,28 +56,11 @@ public class HighScoreList
 
     public void BeginEdit(int newHighScore)
     {
-        _charactersLeftToEdit = 3;
-        AddNew(newHighScore);
-        var firstBlankItem = _items.FirstOrDefault(x => x.Name == "   ");
-
-        if (firstBlankItem == null)
-        {
-            var addingCount = 0;
-
-            while (_items.Count < MaxItems)
-            {
-                var scoreToAdd = addingCount <= 0 ? newHighScore : 0;
-                _items.Add(new HighScoreListItem(scoreToAdd, "   "));
-                addingCount++;
-            }
-
-            _editingIndex = MaxItems - 1;
-            _items[_editingIndex].Name = "   ";
-        }
-        else
-        {
-            _editingIndex = _items.IndexOf(firstBlankItem);
-        }
+        TypedName = "";
+        _typableCharactersIndex = 0;
+        _charactersLeftToEdit = 0;
+        _editingIndex = Insert(newHighScore, "   ");
+        _charactersLeftToEdit = _editingIndex >= 0 ? 3 : 0;
     }
 
     public bool StillEditing =>
@@ -92,127 +77,103 @@ public class HighScoreList
         _listY = _scrollIn ? _resolutionHeight : _targetY;
     }
 
-    private void Sort()
-    {
-        var temp = new List<HighScoreListItem>();
-        temp.AddRange(_items);
-        _items.Clear();
-
-        foreach (var highScoreListItem in temp.OrderByDescending(x => x.Score))
-            _items.Add(highScoreListItem);
-    }
-
     public void AddNew(int newHighScore) =>
         Add(newHighScore, "   ");
 
-    public void Add(int score, string name)
+    public void Add(int score, string name) =>
+        TryAdd(score, name);
+
+    public bool TryAdd(int score, string name) =>
+        Insert(score, name) >= 0;
+
+    private int Insert(int score, string name)
     {
-        _items.Add(new HighScoreListItem(score, name));
-        Sort();
-        
-        while (_items.Count > MaxItems)
-            _items.RemoveAt(_items.Count - 1);
+        if (!Qualify(score))
+            return -1;
 
-        if (_items[^1].Score == score)
-            _items.RemoveAt(_items.Count - 1);
-    }
+        // New entries precede existing ties, matching Qualify's inclusive comparison.
+        var index = _items.FindIndex(item => item.Score <= score);
 
-    public bool Qualify(int score)
-    {
-        return _items[^1].Score <= score;
-    }
+        if (index < 0)
+            index = _items.Count;
 
-    public List<string> GetStrings()
-    {
-        var needsSorting = false;
+        _items.Insert(index, new HighScoreListItem(score, name));
 
-        while (_items.Count > MaxItems)
+        if (_items.Count > MaxItems)
+            _items.RemoveAt(MaxItems);
+
+        // Keep an ongoing edit attached to its entry when another score is added.
+        if (_charactersLeftToEdit > 0 && index <= _editingIndex)
         {
-            _items.RemoveAt(_items.Count - 1);
-            needsSorting = true;
+            _editingIndex++;
+
+            if (_editingIndex >= _items.Count)
+            {
+                _editingIndex = -1;
+                _charactersLeftToEdit = 0;
+            }
         }
 
-        while (_items.Count < MaxItems)
-        {
-            _items.Add(new HighScoreListItem(100, "aaa"));
-            needsSorting = true;
-        }
+        RefreshStrings();
+        return index;
+    }
 
-        if (needsSorting)
-            Sort();
+    public bool Qualify(int score) =>
+        _items.Count < MaxItems || score >= _items[^1].Score;
 
-        return _items.Select(highScoreListItem => highScoreListItem.ToString()).ToList();
+    private void RefreshStrings()
+    {
+        _strings = new string[_items.Count];
+
+        for (var i = 0; i < _items.Count; i++)
+            _strings[i] = _items[i].ToString();
+    }
+
+    public List<string> GetStrings() =>
+        new(_strings);
+
+    public void Act(ulong ticks)
+    {
+        if (_listY > _targetY)
+            _listY--;
+
+        if (StillEditing && ticks % 10 > 5)
+            _blinkIndex = (_blinkIndex + 1) % _blink.Length;
     }
 
     public void Edit(KeyboardStateChecker keyboard)
     {
-        if (keyboard.IsKeyPressed(Keys.A))
-            Typed("a");
-        else if (keyboard.IsKeyPressed(Keys.B))
-            Typed("b");
-        else if (keyboard.IsKeyPressed(Keys.C))
-            Typed("c");
-        else if (keyboard.IsKeyPressed(Keys.D))
-            Typed("d");
-        else if (keyboard.IsKeyPressed(Keys.E))
-            Typed("e");
-        else if (keyboard.IsKeyPressed(Keys.F))
-            Typed("f");
-        else if (keyboard.IsKeyPressed(Keys.G))
-            Typed("g");
-        else if (keyboard.IsKeyPressed(Keys.H))
-            Typed("h");
-        else if (keyboard.IsKeyPressed(Keys.I))
-            Typed("i");
-        else if (keyboard.IsKeyPressed(Keys.J))
-            Typed("j");
-        else if (keyboard.IsKeyPressed(Keys.K))
-            Typed("k");
-        else if (keyboard.IsKeyPressed(Keys.L))
-            Typed("l");
-        else if (keyboard.IsKeyPressed(Keys.M))
-            Typed("m");
-        else if (keyboard.IsKeyPressed(Keys.N))
-            Typed("n");
-        else if (keyboard.IsKeyPressed(Keys.O))
-            Typed("o");
-        else if (keyboard.IsKeyPressed(Keys.P))
-            Typed("p");
-        else if (keyboard.IsKeyPressed(Keys.Q))
-            Typed("q");
-        else if (keyboard.IsKeyPressed(Keys.R))
-            Typed("r");
-        else if (keyboard.IsKeyPressed(Keys.S))
-            Typed("s");
-        else if (keyboard.IsKeyPressed(Keys.T))
-            Typed("t");
-        else if (keyboard.IsKeyPressed(Keys.U))
-            Typed("u");
-        else if (keyboard.IsKeyPressed(Keys.V))
-            Typed("v");
-        else if (keyboard.IsKeyPressed(Keys.W))
-            Typed("w");
-        else if (keyboard.IsKeyPressed(Keys.X))
-            Typed("x");
-        else if (keyboard.IsKeyPressed(Keys.Y))
-            Typed("y");
-        else if (keyboard.IsKeyPressed(Keys.Z))
-            Typed("z");
-        else if (keyboard.PressDown())
+        if (!StillEditing)
+            return;
+
+        var oldName = _items[_editingIndex].Name;
+        var typedLetter = false;
+
+        for (var i = 0; i < TypableCharacters.Length; i++)
+        {
+            if (!keyboard.IsKeyPressed((Keys)((int)Keys.A + i)))
+                continue;
+
+            Typed(TypableCharacters[i].ToString());
+            typedLetter = true;
+            break;
+        }
+
+        if (!typedLetter && keyboard.PressDown())
         {
             _typableCharactersIndex--;
 
             if (_typableCharactersIndex < 0)
                 _typableCharactersIndex = TypableCharacters.Length - 1;
         }
-        else if (keyboard.PressUp())
+        else if (!typedLetter && keyboard.PressUp())
         {
             _typableCharactersIndex++;
 
             if (_typableCharactersIndex >= TypableCharacters.Length)
                 _typableCharactersIndex = 0;
         }
-        else if (keyboard.IsKeyPressed(Keys.Back) || keyboard.IsKeyPressed(Keys.Delete) || keyboard.PressLeft())
+        else if (!typedLetter && (keyboard.IsKeyPressed(Keys.Back) || keyboard.IsKeyPressed(Keys.Delete) || keyboard.PressLeft()))
         {
             var item = _items[_editingIndex];
 
@@ -228,77 +189,40 @@ public class HighScoreList
                     break;
             }
         }
-        else if (keyboard.IsFirePressed())
+        else if (!typedLetter && keyboard.IsFirePressed())
         {
             Typed(TypableCharacters[_typableCharactersIndex].ToString());
         }
 
-        if (_charactersLeftToEdit <= 0)
+        if (_items[_editingIndex].Name != oldName)
+            RefreshStrings();
+        if (!StillEditing)
             TypedName = _items[_editingIndex].Name;
     }
 
     private void Typed(string character)
     {
-        switch (_charactersLeftToEdit)
-        {
-            case 3:
-                SetCharacterAt(0, character);
-                _charactersLeftToEdit--;
-                _typableCharactersIndex = 0;
-                break;
-            case 2:
-                SetCharacterAt(1, character);
-                _charactersLeftToEdit--;
-                _typableCharactersIndex = 0;
-                break;
-            case 1:
-                SetCharacterAt(2, character);
-                _charactersLeftToEdit--;
-                _typableCharactersIndex = 0;
-                break;
-        }
-    }
+        if (!StillEditing)
+            return;
 
-    private void SetCharacterAt(int index, string character)
-    {
+        var index = 3 - _charactersLeftToEdit;
         var item = _items[_editingIndex];
-
-        switch (index)
-        {
-            case 0:
-                item.Name = character + "  ";
-                break;
-            case 1:
-                item.Name = item.Name.Substring(0, 1) + character + " ";
-                break;
-            case 2:
-                item.Name = item.Name.Substring(0, 2) + character;
-                break;
-        }
+        item.Name = item.Name[..index] + character + new string(' ', 2 - index);
+        _charactersLeftToEdit--;
+        _typableCharactersIndex = 0;
     }
 
     public void Draw(SpriteBatch spriteBatch, ulong ticks)
     {
-        if (_listY > _targetY)
-            _listY--;
-
-        var strings = GetStrings();
+        var strings = _strings;
         var y = _listY;
 
         if (StillEditing)
         {
-            for (var i = 0; i < strings.Count; i++)
+            for (var i = 0; i < strings.Length; i++)
             {
                 if (i == _editingIndex)
                 {
-                    if (ticks % 10 > 5)
-                    {
-                        _blinkIndex++;
-
-                        if (_blinkIndex >= _blink.Length)
-                            _blinkIndex = 0;
-                    }
-
                     if (_shadow)
                     {
                         _textBlock.DirectDraw(spriteBatch, _listX + 1, y + 1, strings[i], ColorPalette.Black);

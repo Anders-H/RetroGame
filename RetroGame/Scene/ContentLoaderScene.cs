@@ -7,6 +7,7 @@ public abstract class ContentLoaderScene : Scene
 {
     public int ResourceNumber { get; private set; }
     public bool LoadingComplete { get; set; }
+    public Texture2D LoadingTexture { get; set; }
     
     protected ContentLoaderScene(RetroGame parent) : base(parent)
     {
@@ -27,10 +28,8 @@ public abstract class ContentLoaderScene : Scene
 
     public override void Draw(GameTime gameTime, ulong ticks, SpriteBatch spriteBatch)
     {
-        if (RetroGame.Floppy == null)
-            return;
-
-        spriteBatch.Draw(RetroGame.Floppy, new Vector2(20, 20), Color.White);
+        if (LoadingTexture != null)
+            spriteBatch.Draw(LoadingTexture, new Vector2(20, 20), Color.White);
         base.Draw(gameTime, ticks, spriteBatch);
     }
 }

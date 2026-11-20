@@ -1,6 +1,7 @@
 ﻿using System.Runtime.Versioning;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Graphics;
 using RetroGame;
 using RetroGame.RetroTextures;
 using RetroGame.Scene;
@@ -33,6 +34,7 @@ public class ContentLoader : ContentLoaderScene
 {
     public ContentLoader(RetroGame.RetroGame parent) : base(parent)
     {
+        LoadingTexture = parent.Content.Load<Texture2D>("floppy");
     }
 
     public override void LoadOne()

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -42,30 +41,25 @@ public class CollisionTexture : RetroTexture
 
     public bool Intersects(int cellIndex, Point myLocation, Rectangle rectangle, Point rectangleLocation)
     {
-        var myRectangles = new Rectangle[CollisionZones[cellIndex].Count];
+        rectangle.Offset(rectangleLocation);
 
-        for (var i = 0; i < CollisionZones[cellIndex].Count; i++)
+        foreach (var zone in CollisionZones[cellIndex])
         {
-            var r = CollisionZones[cellIndex][i];
+            var translated = zone;
+            translated.Offset(myLocation);
 
-            myRectangles[i] = new Rectangle(
-                r.X + myLocation.X,
-                r.Y + myLocation.Y,
-                r.Width,
-                r.Height
-            );
+            if (translated.Intersects(rectangle))
+                return true;
         }
-
-        var otherRectangle = new Rectangle(
-            rectangle.X + rectangleLocation.X,
-            rectangle.Y + rectangleLocation.Y,
-            rectangle.Width,
-            rectangle.Height
-        );
-            
-        return myRectangles.Any(z => z.Intersects(otherRectangle));
+        return false;
     }
 
-    public bool Intersects(int cellIndex, Point myLocation, IEnumerable<Rectangle> rectangles, Point rectangleLocation) =>
-        rectangles.Any(otherRectangle => Intersects(cellIndex, myLocation, otherRectangle, rectangleLocation));
+    public bool Intersects(int cellIndex, Point myLocation, IEnumerable<Rectangle> rectangles, Point rectangleLocation)
+    {
+        foreach (var rectangle in rectangles)
+            if (Intersects(cellIndex, myLocation, rectangle, rectangleLocation))
+                return true;
+
+        return false;
+    }
 }

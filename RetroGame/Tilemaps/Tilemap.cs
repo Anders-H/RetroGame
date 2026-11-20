@@ -29,6 +29,9 @@ public class Tilemap : ISceneActor
         if (gridSize.X <= 0 || gridSize.Y <= 0)
             throw new ArgumentOutOfRangeException(nameof(gridSize));
 
+        if (tileSize.X <= 0 || tileSize.Y <= 0)
+            throw new ArgumentOutOfRangeException(nameof(tileSize));
+
         CurrentTexture = texture;
         GridSize = gridSize;
         TileSize = tileSize;
@@ -45,38 +48,24 @@ public class Tilemap : ISceneActor
         if (Delay > 0 && ticks%(ulong)Delay != 0)
             return;
 
-        PixelOffsetX += SpeedX;
-
-        if (Math.Abs(PixelOffsetX) >= TileSize.X)
-        {
-            PixelOffsetX = 0;
-            TileOffsetX += 1;
-
-            if (Math.Abs(TileOffsetX) >= GridSize.X)
-            {
-                if (TileOffsetX >= 0)
-                    TileOffsetX -= GridSize.X;
-                else
-                    TileOffsetX += GridSize.X;
-            }
-        }
-
-        PixelOffsetY += SpeedY;
-
-        if (Math.Abs(PixelOffsetY) < TileSize.Y)
-            return;
-
-        PixelOffsetY = 0;
-        TileOffsetY += 1;
-
-        if (Math.Abs(TileOffsetY) < GridSize.Y)
-            return;
-
-        if (TileOffsetY >= 0)
-            TileOffsetY -= GridSize.Y;
-        else
-            TileOffsetY += GridSize.Y;
+        (PixelOffsetX, TileOffsetX) = ScrollAxis(PixelOffsetX, TileOffsetX, SpeedX, TileSize.X, GridSize.X, Repeat);
+        (PixelOffsetY, TileOffsetY) = ScrollAxis(PixelOffsetY, TileOffsetY, SpeedY, TileSize.Y, GridSize.Y, Repeat);
     }
+
+    internal static (int Pixel, int Tile) ScrollAxis(int pixel, int tile, int speed, int tileSize, int gridSize, bool repeat)
+    {
+        // Keep offsets in (-tileSize, 0] to fill the leading edge in both directions.
+        var offset = (long)pixel + speed;
+        var crossed = offset >= 0 ? (offset + tileSize - 1) / tileSize : offset / tileSize;
+        var tileOffset = (long)tile - crossed;
+
+        return ((int)(offset - crossed * tileSize), repeat
+            ? PositiveModulo(tileOffset, gridSize)
+            : checked((int)tileOffset));
+    }
+
+    private static int PositiveModulo(long value, int divisor) =>
+        (int)((value % divisor + divisor) % divisor);
 
     public void Draw(SpriteBatch spriteBatch, ulong ticks)
     {
@@ -92,11 +81,8 @@ public class Tilemap : ISceneActor
 
                 if (Repeat)
                 {
-                    if (tileX >= GridSize.X)
-                        tileX -= GridSize.X;
-
-                    if (tileY >= GridSize.Y)
-                        tileY -= GridSize.Y;
+                    tileX = PositiveModulo(tileX, GridSize.X);
+                    tileY = PositiveModulo(tileY, GridSize.Y);
                 }
 
                 var tile = GetValue(tileX, tileY);
@@ -105,7 +91,7 @@ public class Tilemap : ISceneActor
                     continue;
 
                 var targetPos = new Vector2(x + TileSize.X * col, y + TileSize.Y * row);
-                var sourcePos = new Rectangle(tile.Value * TileSize.X, 0, TileSize.X, TileSize.Y);
+                var sourcePos = CurrentTexture.GetCellBounds(tile.Value);
                 spriteBatch.Draw(CurrentTexture, targetPos, sourcePos, Color.White);
             }
         }

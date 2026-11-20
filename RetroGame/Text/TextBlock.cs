@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RetroGame.Scene;
@@ -129,43 +128,48 @@ public class TextBlock : ISceneActor
     public void Draw(SpriteBatch spriteBatch, ColorPalette color) =>
         Draw(spriteBatch, ColorPaletteHelper.GetColor(color));
 
-    public void Draw(SpriteBatch spriteBatch, Color color)
+    public void Draw(SpriteBatch spriteBatch, Color color) =>
+        DrawCharacters(spriteBatch, color);
+
+    public void Draw(SpriteBatch spriteBatch, ulong ticks) =>
+        DrawCharacters(spriteBatch, null);
+
+    private void DrawCharacters(SpriteBatch spriteBatch, Color? color)
     {
-        for (var y = 0; y < Characters.GetLength(1); y++)
-        {
-            for (var x = 0; x < Characters.GetLength(0); x++)
+        for (var y = 0; y < Rows; y++)
+            for (var x = 0; x < Columns; x++)
             {
-                var c = Characters[x, y];
-
-                if (c == null)
+                var character = Characters[x, y];
+                if (character == null)
                     continue;
+                var position = new Vector2(x * 8 + DrawOffsetX, y * 8 + DrawOffsetY);
 
-                var sourceX = (int)CharacterSet * 64 + (int)c / 16 * 8;
-                var sourceY = (int)c % 16 * 8;
-                var pos = new Vector2(x * 8 + DrawOffsetX, y * 8 + DrawOffsetY);
-                spriteBatch.Draw(RetroGame.Font64, pos, new Rectangle(sourceX, sourceY, 8, 8), color);
+                spriteBatch.Draw(RetroGame.Font64, position, GetCharacterBounds(character.Value),
+                    color ?? ColorPaletteHelper.GetColor(ColorMap[x, y]));
             }
-        }
     }
 
-    public void Draw(SpriteBatch spriteBatch, ulong ticks)
+    internal Rectangle GetCharacterBounds(Petscii character)
     {
-        for (var y = 0; y < Characters.GetLength(1); y++)
+        var specialIndex = character switch
         {
-            for (var x = 0; x < Characters.GetLength(0); x++)
-            {
-                var c = Characters[x, y];
+            Petscii.Å or Petscii.ShiftÅ => 0,
+            Petscii.Ä or Petscii.ShiftÄ => 1,
+            Petscii.Ö or Petscii.ShiftÖ => 2,
+            _ => -1
+        };
 
-                if (c == null)
-                    continue;
-
-                var sourceX = (int)CharacterSet * 64 + (int)c / 16 * 8;
-                var sourceY = (int)c % 16 * 8;
-                var pos = new Vector2(x * 8 + DrawOffsetX, y * 8 + DrawOffsetY);
-                spriteBatch.Draw(RetroGame.Font64, pos, new Rectangle(sourceX, sourceY, 8, 8), ColorPaletteHelper.GetColor(ColorMap[x, y]));
-            }
+        if (specialIndex >= 0)
+        {
+            var lowercase = (CharacterSet is CharacterSet.Lowercase or CharacterSet.LowercaseInverted)
+                && (character is Petscii.Å or Petscii.Ä or Petscii.Ö);
+            return new Rectangle(256, (specialIndex + (lowercase ? 3 : 0)) * 8, 8, 8);
         }
+
+        return new Rectangle((int)CharacterSet * 64 + (int)character / 16 * 8,
+            (int)character % 16 * 8, 8, 8);
     }
+
     public void DirectDraw(SpriteBatch spriteBatch, int x, int y, string text, ColorPalette color) =>
         DirectDraw(spriteBatch, x, y, text, ColorPaletteHelper.GetColor(color));
 
@@ -182,74 +186,7 @@ public class TextBlock : ISceneActor
                 continue;
 
             var pet = PetsciiHelper.GetCharacter(c);
-            int sourceX, sourceY;
-
-            switch (CharacterSet)
-            {
-                case CharacterSet.Uppercase:
-                case CharacterSet.UppercaseInverted:
-                    switch (pet)
-                    {
-                        case Petscii.Å:
-                        case Petscii.ShiftÅ:
-                            sourceX = 256;
-                            sourceY = 0;
-                            break;
-                        case Petscii.Ä:
-                        case Petscii.ShiftÄ:
-                            sourceX = 256;
-                            sourceY = 8;
-                            break;
-                        case Petscii.Ö:
-                        case Petscii.ShiftÖ:
-                            sourceX = 256;
-                            sourceY = 16;
-                            break;
-                        default:
-                            sourceX = (int)CharacterSet * 64 + (int)pet / 16 * 8;
-                            sourceY = (int)pet % 16 * 8;
-                            break;
-                    }
-                    break;
-                case CharacterSet.Lowercase:
-                case CharacterSet.LowercaseInverted:
-                    switch (pet)
-                    {
-                        case Petscii.Å:
-                            sourceX = 256;
-                            sourceY = 24;
-                            break;
-                        case Petscii.Ä:
-                            sourceX = 256;
-                            sourceY = 32;
-                            break;
-                        case Petscii.Ö:
-                            sourceX = 256;
-                            sourceY = 40;
-                            break;
-                        case Petscii.ShiftÅ:
-                            sourceX = 256;
-                            sourceY = 0;
-                            break;
-                        case Petscii.ShiftÄ:
-                            sourceX = 256;
-                            sourceY = 8;
-                            break;
-                        case Petscii.ShiftÖ:
-                            sourceX = 256;
-                            sourceY = 16;
-                            break;
-                        default:
-                            sourceX = (int)CharacterSet * 64 + (int)pet / 16 * 8;
-                            sourceY = (int)pet % 16 * 8;
-                            break;
-                    }
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            spriteBatch.Draw(RetroGame.Font64, new Vector2(x + i * 8, y), new Rectangle(sourceX, sourceY, 8, 8), color);
+            spriteBatch.Draw(RetroGame.Font64, new Vector2(x + i * 8, y), GetCharacterBounds(pet), color);
         }
     }
 }

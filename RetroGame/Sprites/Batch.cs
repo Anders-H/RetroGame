@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework.Graphics;
 using RetroGame.Scene;
 
@@ -26,23 +25,18 @@ public class Batch : ISceneActor
         
     public void Act(ulong ticks)
     {
-        IBatchSprite deadSprite = null;
-            
-        foreach (var batchSprite in Sprites)
-        {
-            if (batchSprite.IsAlive)
-                batchSprite.Act(ticks);
-            else
-                deadSprite ??= batchSprite;
-        }
-            
-        if (deadSprite != null)
-            Sprites.Remove(deadSprite);
+        foreach (var sprite in Sprites)
+            if (sprite.IsAlive)
+                sprite.Act(ticks);
+
+        // RemoveAll preserves the relative order of surviving sprites.
+        Sprites.RemoveAll(static sprite => !sprite.IsAlive);
     }
-        
+
     public void Draw(SpriteBatch spriteBatch, ulong ticks)
     {
-        foreach (var batchSprite in Sprites.Where(x => x.IsAlive))
-            batchSprite.Draw(spriteBatch, ticks);
+        foreach (var sprite in Sprites)
+            if (sprite.IsAlive)
+                sprite.Draw(spriteBatch, ticks);
     }
 }
