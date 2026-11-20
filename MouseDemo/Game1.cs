@@ -27,7 +27,6 @@ public class Game1 : RetroGame.RetroGame
         PointerTexture = RetroTexture.ScaffoldSimpleTexture(GraphicsDevice, 5, 5, Color.White);
         MouseStampTexture = RetroTexture.ScaffoldSimpleTexture(GraphicsDevice, 25, 25, Color.White);
         CurrentScene = new MyScene(this);
-        base.LoadContent();
     }
 }
 

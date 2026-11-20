@@ -20,7 +20,6 @@ public class Game1 : RetroGame.RetroGame
     {
         BackColor = Color.Black;
         CurrentScene = new StartScene(this);
-        base.LoadContent();
     }
 }
 

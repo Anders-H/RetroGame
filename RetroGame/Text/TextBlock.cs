@@ -136,6 +136,7 @@ public class TextBlock : ISceneActor
 
     private void DrawCharacters(SpriteBatch spriteBatch, Color? color)
     {
+        var font = EmbeddedFont.GetTexture(spriteBatch.GraphicsDevice);
         for (var y = 0; y < Rows; y++)
             for (var x = 0; x < Columns; x++)
             {
@@ -144,7 +145,7 @@ public class TextBlock : ISceneActor
                     continue;
                 var position = new Vector2(x * 8 + DrawOffsetX, y * 8 + DrawOffsetY);
 
-                spriteBatch.Draw(RetroGame.Font64, position, GetCharacterBounds(character.Value),
+                spriteBatch.Draw(font, position, GetCharacterBounds(character.Value),
                     color ?? ColorPaletteHelper.GetColor(ColorMap[x, y]));
             }
     }
@@ -178,6 +179,7 @@ public class TextBlock : ISceneActor
         if (string.IsNullOrWhiteSpace(text))
             return;
 
+        var font = EmbeddedFont.GetTexture(spriteBatch.GraphicsDevice);
         for (var i = 0; i < text.Length; i++)
         {
             var c = text[i];
@@ -186,7 +188,7 @@ public class TextBlock : ISceneActor
                 continue;
 
             var pet = PetsciiHelper.GetCharacter(c);
-            spriteBatch.Draw(RetroGame.Font64, new Vector2(x + i * 8, y), GetCharacterBounds(pet), color);
+            spriteBatch.Draw(font, new Vector2(x + i * 8, y), GetCharacterBounds(pet), color);
         }
     }
 }

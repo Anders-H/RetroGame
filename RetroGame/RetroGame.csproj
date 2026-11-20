@@ -4,6 +4,9 @@
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	</PropertyGroup>
 	<ItemGroup>
+		<EmbeddedResource Include="Content\c64fontswe.png" LogicalName="RetroGame.Font.png" />
+	</ItemGroup>
+	<ItemGroup>
 		<PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.4.1">
 			<PrivateAssets>All</PrivateAssets>
 		</PackageReference>

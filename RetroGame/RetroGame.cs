@@ -9,7 +9,6 @@ public class RetroGame : Game
     private GraphicsDeviceManager G { get; }
     private SpriteBatch SpriteBatch { get; set; }
     private RenderTarget2D RenderTarget { get; set; }
-    internal static Texture2D Font64 { get; set; }
     public bool Fullscreen { get; }
     public bool Border { get; set; }
     public int ResolutionWidth { get; }
@@ -62,12 +61,6 @@ public class RetroGame : Game
         G.PreferredBackBufferHeight = Fullscreen ? GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height : ResolutionHeight;
         G.IsFullScreen = Fullscreen;
         G.ApplyChanges();
-    }
-
-    protected override void LoadContent()
-    {
-        Font64 = Content.Load<Texture2D>("c64font");
-        base.LoadContent();
     }
 
     protected override void Initialize()

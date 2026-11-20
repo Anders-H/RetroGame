@@ -62,7 +62,6 @@ public class Game1 : RetroGame.RetroGame
         Sprite3 = new CollisionSpriteWithMovement(Texture, 0);
 
         CurrentScene = new CollisionScene(this);
-        base.LoadContent();
     }
 }
 

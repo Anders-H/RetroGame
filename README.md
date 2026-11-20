@@ -22,6 +22,8 @@ The `Draw` method must call its base method for auto drawing to occur: `base.Dra
 
 ## Rendering and loading
 
+The built-in C64 font, including Swedish characters, is embedded in RetroGame.dll. Text rendering loads it automatically on first use; client projects need no font files, content pipeline entries, or font initialization. One texture is reused per graphics device and disposed with that device.
+
 The logical resolution uses point sampling and scales to fit the back buffer while preserving its aspect ratio. Fullscreen uses the current desktop resolution. Set `Border = true` to reserve a margin of about 5% on each side; `BorderColor` controls the surrounding color.
 
 A `ContentLoaderScene` can display an optional `LoadingTexture`. Load and assign it in the scene constructor, for example `LoadingTexture = parent.Content.Load<Texture2D>("floppy");`. The scene does not load or dispose that texture itself.

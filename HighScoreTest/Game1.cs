@@ -24,7 +24,6 @@ public class Game1 : RetroGame.RetroGame
 
     protected override void LoadContent()
     {
-        base.LoadContent();
         CurrentScene = new DisplayHighScoreScene(this);
     }
 }

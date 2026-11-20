@@ -23,7 +23,6 @@ public class Game1 : RetroGame.RetroGame
         CurrentScene = new SoundScene(this);
         SoundEffect.Initialize("sfx_gun1", "sfx_gun4", "sfx_gun7", "sfx_gun10");
         Song = Content.Load<Song>("08-Floating");
-        base.LoadContent();
     }
 }
 

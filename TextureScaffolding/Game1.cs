@@ -60,7 +60,6 @@ public class Game1 : RetroGame.RetroGame
         RetroTexture.PlotCell(Texture, 3, cell);
 
         CurrentScene = new AnimationTextureScene(this);
-        base.LoadContent();
     }
 }
 

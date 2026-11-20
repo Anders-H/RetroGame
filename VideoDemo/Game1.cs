@@ -26,7 +26,6 @@ public class Game1 : RetroGame.RetroGame
     {
         Video = Content.Load<Video>("havet-logo");
         CurrentScene = new VideoScene(this);
-        base.LoadContent();
     }
 }
 

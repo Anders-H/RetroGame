@@ -19,6 +19,5 @@ public class Game1 : RetroGame.RetroGame
         Star = RetroTexture.ScaffoldSimpleTexture(GraphicsDevice, 1, 1, Color.White);
         CurrentScene = new IntroScene(this);
         BackColor = Color.Black;
-        base.LoadContent();
     }
 }

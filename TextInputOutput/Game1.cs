@@ -18,7 +18,6 @@ public class Game1 : RetroGame.RetroGame
     protected override void LoadContent()
     {
         CurrentScene = new TextScene(this);
-        base.LoadContent();
     }
 }
 
