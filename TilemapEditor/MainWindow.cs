@@ -1,4 +1,6 @@
-﻿namespace TilemapEditor;
+﻿using System.ComponentModel;
+
+namespace TilemapEditor;
 
 [System.Runtime.Versioning.SupportedOSPlatform("windows")]
 public partial class MainWindow : Form
@@ -8,7 +10,11 @@ public partial class MainWindow : Form
     private int _viewOffsetX;
     private int _viewOffsetY;
     private int CurrentTexture { get; set; }
+
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public EditableTilemap? Tilemap { get; set; }
+
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public Texture? Texture { get; set; }
 
     public MainWindow()
@@ -16,6 +22,7 @@ public partial class MainWindow : Form
         InitializeComponent();
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string Filename
     {
         get
@@ -30,6 +37,7 @@ public partial class MainWindow : Form
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public bool Changed
     {
         get => _changed;
